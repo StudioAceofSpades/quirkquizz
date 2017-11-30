@@ -148,6 +148,16 @@ p + ul {
     -ms-user-select: none;
     user-select: none;
 }
+.eq-height {
+    display: flex;
+    width: 100%;
+}
+.eq-height > * {
+    flex: 1;
+}
+.eq-height > * .thing-inside {
+     height: 100%;
+}
 
 /* =============================================================================
    Header
