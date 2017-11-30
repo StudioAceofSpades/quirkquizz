@@ -17,40 +17,6 @@ html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address
 
 
 /* =============================================================================
-   WordPress Compatibility Classes
-   ========================================================================== */
-.alignleft {
-	float:left;
-	margin-right:1em;
-	margin-bottom:1em;}
-.alignright {
-	float:right;
-	margin-left:1em;
-	margin-bottom:1em;}
-.aligncenter {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;}
-.wp-caption {
-	border: 1px solid #ddd;
-	text-align: center;
-	background-color: #f3f3f3;
-	padding-top: 4px;
-	margin: 10px;
-	-moz-border-radius: 3px;
-	-khtml-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;}
-.wp-caption img {
-	margin: 0;
-	padding: 0;
-	border: 0 none;}
-.wp-caption p.wp-caption-text {
-	font-size: 11px;
-	line-height: 17px;
-	padding: 0 4px 5px;
-	margin: 0;}
-/* =============================================================================
    HTML5 display definitions
    ========================================================================== */
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
@@ -64,17 +30,21 @@ audio:not([controls]) { display: none; }
    ========================================================================== */
 body {
 	color: #222;
-	font-family: 'Source Sans Pro', helvetica, arial, sans-serif;
-	font-size: 14px;}
+	font-family: 'Roboto', helvetica, arial, sans-serif;
+	font-size: 14px;
+}
 body,
 html {
     height: 100%;
 }
-a, a:visited {
+a,
+a:visited {
 	color: #222;
-	text-decoration: none;}
+	text-decoration: none;
+}
 a:hover {
-	color: #09f;}
+	color: #09f;
+}
 .cf:before,
 .cf:after {
     content: " ";
@@ -83,31 +53,40 @@ a:hover {
     clear: both;}
 .cf {
     *zoom: 1;}
-h1,h2,h3,h4 {
-	font-family: 'Source Sans Pro', helvetica, arial, sans-serif;
-	font-weight: normal;}
-h5,h6 {
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-weight: normal;}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Roboto', helvetica, arial, sans-serif;
+	font-weight: normal;
+}
 h1 {
 	font-size: 36px;
-	line-height: 36px;}
+	line-height: 36px;
+}
 h2 {
 	font-size: 28px;
-	line-height: 28px;}
+	line-height: 28px;
+}
 h3 {
 	font-size: 21px;
-	line-height: 21px;}
+	line-height: 21px;
+}
 h4 {
 	font-size: 16px;
-	line-height: 16px;}	
+	line-height: 16px;
+}
 p {
 	font-size: 18px;
 	line-height: 24px;
-	padding-bottom: 20px;}
+	padding-bottom: 20px;
+}
 p + ol,
 p + ul {
-	padding-bottom: 0;}
+	padding-bottom: 0;
+}
 .h100 {
     height: 100%;
 }
@@ -124,4 +103,32 @@ p + ul {
 }
 .vctd {
     display: table-cell;
+}
+.row-height {
+	display: table;
+  	table-layout: fixed;
+  	height: 100%;
+  	width: 100%;
+}
+.col-height {
+  	display: table-cell;
+  	float: none;
+  	height: 100%;
+}
+.col-top {
+  	vertical-align: top;
+}
+.col-middle {
+  	vertical-align: middle;
+}
+.col-bottom {
+  vertical-align: bottom;
+}
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
