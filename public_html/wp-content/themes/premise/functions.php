@@ -1,20 +1,4 @@
 <?php
-
-// This file is part of the Carrington JAM Theme for WordPress
-// http://carringtontheme.com
-//
-// Copyright (c) 2008-2010 Crowd Favorite, Ltd. All rights reserved.
-// http://crowdfavorite.com
-//
-// Released under the GPL license
-// http://www.opensource.org/licenses/gpl-license.php
-//
-// **********************************************************************
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-// **********************************************************************
-
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 
 load_theme_textdomain('carrington-jam');
@@ -70,7 +54,6 @@ function remove_embedded_style() {
     remove_action('wp_head', array($wp_widget_factory->widgets['WP_Widget_Recent_Comments'], 'recent_comments_style'));
 } add_action('wp_enqueue_scripts', 'remove_embedded_style');
 
-
 // Remove the REST API endpoint.
 remove_action( 'rest_api_init', 'wp_oembed_register_route' );
  
@@ -88,5 +71,14 @@ remove_action( 'wp_head', 'wp_oembed_add_host_js' );
  
 // Remove all embeds rewrite rules.
 add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
+
+// Prevent BWP from minifying for admin users
+add_filter("bwp_minify_is_loadable", "no_logged_in_minify");
+function no_logged_in_minify($loadable) {
+    if(is_user_logged_in() && !is_admin()) {
+        $loadable = false;
+    }   
+    return $loadable;
+}
 
 ?>
