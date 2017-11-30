@@ -22,39 +22,13 @@ E-Mail: jon@studioaceofspade.com
 
 <body id="top-of-page">
 
-<header class="header">
+<header class="header cf">
     <h1 class="brand">
         <a href="<?php bloginfo('url'); ?>">
             <img src="<?php bloginfo('template_directory'); ?>/img/demo.png">
         </a>
     </h1>
-    <nav class="navigation">
-        <ul>
-            <li class="simple">
-                <a href="#">Simple Link</a>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-target">Dropdown Link</a>
-                <div class="dropdown-wrapper">
-                    <ul>
-                        <li>
-                            <a href="#">Link One</a>
-                        </li>
-                        <li>
-                            <a href="#">Link One</a>
-                        </li>
-                        <li>
-                            <a href="#">Link One</a>
-                        </li>
-                        <li>
-                            <a href="#">Link One</a>
-                        </li>
-                        <li>
-                            <a href="#">Link One</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </nav>
+
+	<?php include(locate_template('parts/navigation.php')); ?>
+
 </header>

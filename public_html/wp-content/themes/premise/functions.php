@@ -82,23 +82,55 @@ function no_logged_in_minify($loadable) {
 }
 
 if(function_exists('acf_add_options_page')) {
+
     acf_add_options_page(array(
         'page_title'    => 'Global Theme Settings',
-        'menu_title'    => 'Global',
-        'parent_slug'   => 'global-theme-settings'
+        'menu_title'    => 'Site Settings',
     ));
 
-    acf_add_options_page(array(
+    acf_add_options_sub_page(array(
         'page_title'    => 'Theme Header Settings',
         'menu_title'    => 'Header & Navigation',
-        'parent_slug'   => 'theme-header-settings'
+        'parent_slug'   => 'acf-options-site-settings'
     ));
 
-    acf_add_options_page(array(
+    acf_add_options_sub_page(array(
         'page_title'    => 'Theme Footer Settings',
         'menu_title'    => 'Footer',
-        'parent_slug'   => 'theme-footer-settings'
+        'parent_slug'   => 'acf-options-site-settings'
     ));
+}
+
+function saos_configure_link($link) {
+	 
+	if(!isset($link)) {
+		return false;
+	}
+ 
+	if(!isset($link['url']) || $link['url'] == '') {
+		return false;
+	}
+ 
+	if($link['url'] == '#' && $link['title'] == '') {
+		return false;
+	}
+	if($link['title'] == '' && $link['url'] == '') {
+		return false;
+	}
+
+	if($link['title'] == '') {
+		$post_id = url_to_postid($link['url']);
+		$link['title'] = get_the_title($post_id);
+	}
+
+    return $link;
+}
+
+function saos_output_link($link, $classes) {
+	$link = saos_configure_link($link);
+	if($link) {
+		echo '<a class="'.$classes.'" href="'.$link['url'].'" target="'.$link['target'].'">'.$link['title'].'</a>';
+	}
 }
 
 ?>

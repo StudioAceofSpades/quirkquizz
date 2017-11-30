@@ -3,7 +3,7 @@
 Theme Name: Premise
 Theme URI: http://studioaceofspade.com/wordpress-framework
 Description: A framework, hence the name Premise, created by Studio Ace of Spade. It is used for developing sites on WordPress. Barebones, and ready for generic pages such as About, Contact, Services, etc. Comes fully loaded with an HTML5 theme, Twitter Bootstrap, CSS Reset, Cycle.js, and base CSS styles.
-Version: 2.0.0
+Version: 3.0.1
 Author: Studio Ace of Spade
 Author URI: http://studioaceofspade.com
 Tags: customizable, template, framework, cms, example, premise
@@ -45,14 +45,30 @@ a:visited {
 a:hover {
 	color: #09f;
 }
+a,
+a:link,
+a:hover,
+input[type="submit"],
+input[type="submit"]:hover,
+.transition,
+.transition:hover {
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
 .cf:before,
 .cf:after {
     content: " ";
-    display: table;}
+    display: table;
+}
 .cf:after {
-    clear: both;}
+    clear: both;
+}
 .cf {
-    *zoom: 1;}
+    *zoom: 1;
+}
 h1,
 h2,
 h3,
@@ -131,4 +147,50 @@ p + ul {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+/* =============================================================================
+   Header
+   ========================================================================== */
+.header {
+	position: relative;
+	z-index: 100;
+}
+.brand {
+    width: 200px;
+    float: left;
+}
+
+/* =============================================================================
+   Navigation
+   ========================================================================== */
+.navigation {
+    display: inline-block;
+    font-size: 0;
+    float: right;
+}
+.navigation li {
+    display: inline-block;
+}
+.navigation a {
+    font-size: 16px;
+    line-height: 30px;
+    display: block;
+    padding: 0 10px;
+}
+.navigation .dropdown {
+	position: relative;
+}
+.navigation .dropdown-wrapper {
+    display: none;
+	position: absolute;
+	top: 30px;
+	right: 0;
+}
+.navigation .dropdown-wrapper li {
+    display: block;
+    border-bottom: 1px solid rgba(0,0,0,.6);
+}
+.navigation .dropdown-wrapper li:last-child {
+    border-bottom: 0;
 }
