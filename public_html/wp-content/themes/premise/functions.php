@@ -81,4 +81,24 @@ function no_logged_in_minify($loadable) {
     return $loadable;
 }
 
+if(function_exists('acf_add_options_page')) {
+    acf_add_options_page(array(
+        'page_title'    => 'Global Theme Settings',
+        'menu_title'    => 'Global',
+        'parent_slug'   => 'global-theme-settings'
+    ));
+
+    acf_add_options_page(array(
+        'page_title'    => 'Theme Header Settings',
+        'menu_title'    => 'Header & Navigation',
+        'parent_slug'   => 'theme-header-settings'
+    ));
+
+    acf_add_options_page(array(
+        'page_title'    => 'Theme Footer Settings',
+        'menu_title'    => 'Footer',
+        'parent_slug'   => 'theme-footer-settings'
+    ));
+}
+
 ?>
