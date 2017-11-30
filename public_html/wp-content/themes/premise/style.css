@@ -1,0 +1,127 @@
+/*
+
+Theme Name: Premise
+Theme URI: http://studioaceofspade.com/wordpress-framework
+Description: A framework, hence the name Premise, created by Studio Ace of Spade. It is used for developing sites on WordPress. Barebones, and ready for generic pages such as About, Contact, Services, etc. Comes fully loaded with an HTML5 theme, Twitter Bootstrap, CSS Reset, Cycle.js, and base CSS styles.
+Version: 2.0.0
+Author: Studio Ace of Spade
+Author URI: http://studioaceofspade.com
+Tags: customizable, template, framework, cms, example, premise
+
+*/
+
+/* =============================================================================
+   Base Resets
+   ========================================================================== */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}nav ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}input,select{vertical-align:middle}
+
+
+/* =============================================================================
+   WordPress Compatibility Classes
+   ========================================================================== */
+.alignleft {
+	float:left;
+	margin-right:1em;
+	margin-bottom:1em;}
+.alignright {
+	float:right;
+	margin-left:1em;
+	margin-bottom:1em;}
+.aligncenter {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;}
+.wp-caption {
+	border: 1px solid #ddd;
+	text-align: center;
+	background-color: #f3f3f3;
+	padding-top: 4px;
+	margin: 10px;
+	-moz-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;}
+.wp-caption img {
+	margin: 0;
+	padding: 0;
+	border: 0 none;}
+.wp-caption p.wp-caption-text {
+	font-size: 11px;
+	line-height: 17px;
+	padding: 0 4px 5px;
+	margin: 0;}
+/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+audio:not([controls]) { display: none; }
+[hidden] { display: none; }
+
+
+/* ==|== primary styles =====================================================
+   Author: Jon Savage of Studio Ace of Spade
+   ========================================================================== */
+body {
+	color: #222;
+	font-family: 'Source Sans Pro', helvetica, arial, sans-serif;
+	font-size: 14px;}
+body,
+html {
+    height: 100%;
+}
+a, a:visited {
+	color: #222;
+	text-decoration: none;}
+a:hover {
+	color: #09f;}
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;}
+.cf:after {
+    clear: both;}
+.cf {
+    *zoom: 1;}
+h1,h2,h3,h4 {
+	font-family: 'Source Sans Pro', helvetica, arial, sans-serif;
+	font-weight: normal;}
+h5,h6 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: normal;}
+h1 {
+	font-size: 36px;
+	line-height: 36px;}
+h2 {
+	font-size: 28px;
+	line-height: 28px;}
+h3 {
+	font-size: 21px;
+	line-height: 21px;}
+h4 {
+	font-size: 16px;
+	line-height: 16px;}	
+p {
+	font-size: 18px;
+	line-height: 24px;
+	padding-bottom: 20px;}
+p + ol,
+p + ul {
+	padding-bottom: 0;}
+.h100 {
+    height: 100%;
+}
+.vct,
+.vctr,
+.vctd {
+    display: table;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+.vctr {
+    display: table-row;
+}
+.vctd {
+    display: table-cell;
+}
