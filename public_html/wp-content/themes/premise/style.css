@@ -97,7 +97,7 @@ h4 {
 p {
 	font-size: 18px;
 	line-height: 24px;
-	padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 p + ol,
 p + ul {
