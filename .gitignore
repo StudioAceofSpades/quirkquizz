@@ -1,4 +1,7 @@
+node_modules
 *.log
+*.log.txt
+wp-db-local.php
 wp-content/advanced-cache.php
 wp-content/backup-db/
 wp-content/backups/

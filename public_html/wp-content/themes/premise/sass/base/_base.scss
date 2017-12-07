@@ -1,0 +1,94 @@
+/** Base Typography **/
+body {
+    color: $body-color;
+    font-family: $body-font;
+    font-size: $body-font-size;
+    line-height: $body-line-height;
+}
+
+a,
+a:visited {
+    color: $body-color;
+    text-decoration: none;
+
+    &:hover {
+        color: $blue;
+    }
+}
+
+a,
+a:link,
+a:hover,
+input[type="submit"],
+input[type="submit"]:hover,
+.transition,
+.transition:hover {
+    transition: all 0.3 ease;
+}
+
+.cf {
+    *zoom: 1;
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+.no-select {
+    user-select: none;
+}
+
+%table {
+    display: table;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+}
+.vct {
+    @extend %table;
+}
+.vctr {
+    @extend %table;
+    display: table-row;
+}
+.vctd {
+    @extend %table;
+    display: table-cell;
+}
+
+
+.row-height {
+	display: table;
+  	table-layout: fixed;
+  	height: 100%;
+  	width: 100%;
+}
+.col-height {
+  	display: table-cell;
+  	float: none;
+  	height: 100%;
+}
+.col-top {
+  	vertical-align: top;
+}
+.col-middle {
+  	vertical-align: middle;
+}
+.col-bottom {
+  vertical-align: bottom;
+}
+
+.eq-height {
+    display: flex;
+    width: 100%;
+}
+.eq-height > * {
+    flex: 1;
+}
+.eq-height > * .thing-inside {
+     height: 100%;
+}

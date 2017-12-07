@@ -16,6 +16,12 @@ if(file_exists(dirname(__FILE__) . '/wp-db-local.php')) {
 
     /** MySQL hostname */
     define('DB_HOST', $_SERVER['DB_HOST']);
+    
+    if(isset($_SERVER["ENVIRONMENT"])) {
+        define('ENVIRONMENT', $_SERVER["ENVIRONMENT"]);
+    } else {
+        define('ENVIRONMENT', "production");
+    }
 }
 
 if(isset($_SERVER['SITEURL'])) {

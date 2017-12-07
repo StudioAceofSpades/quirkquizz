@@ -1,0 +1,63 @@
+* {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display:block 
+}
+
+nav ul {
+    list-style:none
+}
+
+blockquote,
+q {
+    quotes:none;
+
+    &:before,
+    &:after {
+        content: none;
+    }
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0
+}
+
+
+input,
+select {
+    vertical-align:middle
+}
+
+
+audio,
+canvas,
+video { 
+    display: inline-block; 
+    *display: inline; 
+    *zoom: 1; 
+}
+audio:not([controls]) { 
+    display: none; 
+}
+[hidden] { 
+    display: none; 
+}

@@ -20,7 +20,12 @@ function saos_load_scripts() {
     
     wp_enqueue_style('grid', get_stylesheet_directory_uri().'/css/bootstrap.css', array(), false, 'all');
     wp_enqueue_style('fonts', '//fonts.googleapis.com/css?family=Roboto:300,400,700', array(), false, 'all');
-    wp_enqueue_style('main', get_stylesheet_directory_uri().'/style.css', array(), false, 'all');
+
+    if(ENVIRONMENT == "development") {
+        wp_enqueue_style('main', get_stylesheet_directory_uri().'/devcss/style.css', array(), false, 'all');
+    } else {
+        wp_enqueue_style('main', get_stylesheet_directory_uri().'/style.css', array(), false, 'all');
+    }
     
     if ( is_singular('post') ) { 
       wp_enqueue_script( 'comment-reply' ); 
@@ -68,12 +73,10 @@ remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
  
 // Remove oEmbed-specific JavaScript from the front-end and back-end.
 remove_action( 'wp_head', 'wp_oembed_add_host_js' );
- 
-// Remove all embeds rewrite rules.
-add_filter( 'rewrite_rules_array', 'disable_embeds_rewrites' );
 
 // Prevent BWP from minifying for admin users
 add_filter("bwp_minify_is_loadable", "no_logged_in_minify");
+
 function no_logged_in_minify($loadable) {
     if(is_user_logged_in() && !is_admin()) {
         $loadable = false;
