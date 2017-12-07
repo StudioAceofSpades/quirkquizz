@@ -7,7 +7,7 @@ var concat       = require('gulp-concat');
 
 var resource_dir = "./public_html/wp-content/themes/premise/";
 var logfile      = "./public_html/sass.log.txt";
-var source_dir   = resource_dir + "sourcemaps/";
+var source_dir   = "sourcemaps/";
 var input        = resource_dir + "sass/**/*.scss";
 var prodOutput   = resource_dir;
 var devOutput    = resource_dir + "devcss/";

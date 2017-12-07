@@ -5,29 +5,33 @@
     display: inline-block;
     font-size: 0;
     float: right;
-}
-.navigation li {
-    display: inline-block;
-}
-.navigation a {
-    font-size: 16px;
-    line-height: 30px;
-    display: block;
-    padding: 0 10px;
-}
-.navigation .dropdown {
-	position: relative;
-}
-.navigation .dropdown-wrapper {
-    display: none;
-	position: absolute;
-	top: 30px;
-	right: 0;
-}
-.navigation .dropdown-wrapper li {
-    display: block;
-    border-bottom: 1px solid rgba(0,0,0,.6);
-}
-.navigation .dropdown-wrapper li:last-child {
-    border-bottom: 0;
+
+    li {
+        display: inline-block;
+    }
+    a {
+        font-size: 16px;
+        line-height: 30px;
+        display: block;
+        padding: 0 10px;
+    }
+    .dropdown {
+        position: relative;
+    }
+    .dropdown-wrapper {
+        display: none;
+        position: absolute;
+        top: 30px;
+        right: 0;
+
+        li {
+            display: block;
+            border-bottom: 1px solid rgba(0,0,0,.6);
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+
 }
