@@ -3,6 +3,7 @@ node_modules
 *.log
 *.log.txt
 
+new_db.sql
 wp-db-local.php
 wp-content/advanced-cache.php
 wp-content/backup-db/
