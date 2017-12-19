@@ -22,6 +22,16 @@ if(file_exists(dirname(__FILE__) . '/wp-db-local.php')) {
     } else {
         define('ENVIRONMENT', "production");
     }
+    if(isset($_SERVER["AWS_ACCESS"])) {
+        define( 'DBI_AWS_ACCESS_KEY_ID', $_SERVER["AWS_ACCESS"] );
+    }
+    if(isset($_SERVER["AWS_SECRET"])) {
+        define( 'DBI_AWS_SECRET_ACCESS_KEY', $_SERVER["AWS_SECRET"] );
+    }
+
+    if(isset($_SERVER["AWS_BUCKET"])) {
+        define( 'AS3CF_BUCKET', $_SERVER["AWS_BUCKET"] );
+    }
 }
 
 if(isset($_SERVER['SITEURL'])) {
@@ -53,8 +63,6 @@ $table_prefix = 'wp_';
 define('WPLANG', '');
 
 define( 'WP_DEBUG', false );
-define( 'DBI_AWS_ACCESS_KEY_ID', '' );
-define( 'DBI_AWS_SECRET_ACCESS_KEY', '' );
 define('DISABLE_WP_CRON', true);
 
 /* That's all, stop editing! Happy blogging. */
