@@ -2,6 +2,7 @@
 	$(document).ready(function() {
         headerNavigation();
         smoothScroll();
+        bindPopouts();
 	});	
 
     function headerNavigation() {
@@ -40,6 +41,44 @@
 			  		}
 				}
 		});
+    }
+    function bindPopouts() {
+        $(".popout-trigger").click(function(e) {
+            e.preventDefault();
+            //close all other popouts
+            $(".popout").removeClass("active");
+
+            var target = $(this).data("target");
+            var popout = $("#" + target);
+
+            popout.addClass("active");
+        });
+
+        $(".popout-close").click(function(e) {
+            e.preventDefault();
+
+            var popout = $(this).parents(".popout");
+            popout.removeClass("active");
+        });
+
+        $('.popout').each(function() {
+            if($(this).hasClass('mobile-only')) {
+                $(this).addClass('started-mobile-only');
+            }
+        });
+        $(window).resize(function() {
+            if(window.innerWidth <= 767) {
+                $('.popout').removeClass('mobile-only');
+            } else {
+                $('.popout').each(function() {
+                    if($(this).hasClass('started-mobile-only')) {
+                        $(this).addClass('mobile-only');
+                    }
+                });
+            }
+        });
+        $(window).trigger('resize');
+
     }
 
 })( jQuery )

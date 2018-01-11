@@ -4,9 +4,9 @@ if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
 get_header(); ?>
 
-<section id="contact">
+<div id="contact">
 	<div class="content">
 		<?php cfct_loop(); ?>
     </div>
-</section>
+</div>
 <?php get_footer(); ?>
