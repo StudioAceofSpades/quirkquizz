@@ -13,7 +13,11 @@ var prodOutput   = resource_dir;
 var devOutput    = resource_dir + "devcss/";
 
 function log(err) {
-    fs.writeFile(logfile, err);
+    fs.writeFile(logfile, err, function() {
+        //do nothing
+        
+        
+    });
 }
 
 //Dev pipeline
@@ -26,7 +30,12 @@ var devOptions = {
 gulp.task('dev', function() {
     return gulp.src(input) //input dir
         .pipe(sourcemaps.init()) //initialize sourcemaps
-        .pipe(sass(devOptions).on('error', log)) //run sass
+        .pipe(sass(devOptions).on('error', function(err) {
+            log(err);
+
+            //Keep running, even through errors
+            this.emit("end");
+        )}) //run sass
         .pipe(autoprefixer()) //generate vendor prefixes
         .pipe(concat('style.css'))
         .pipe(sourcemaps.write(source_dir)) //generate the sourcemaps inline
