@@ -35,7 +35,7 @@ gulp.task('dev', function() {
 
             //Keep running, even through errors
             this.emit("end");
-        )}) //run sass
+        })) //run sass
         .pipe(autoprefixer()) //generate vendor prefixes
         .pipe(concat('style.css'))
         .pipe(sourcemaps.write(source_dir)) //generate the sourcemaps inline
