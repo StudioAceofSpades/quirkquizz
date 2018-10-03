@@ -4,6 +4,7 @@ var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var concat       = require('gulp-concat');
+var replace      = require('gulp-replace');
 
 var resource_dir = "./public_html/wp-content/themes/premise/";
 var logfile      = "./public_html/sass.log.txt";
@@ -51,6 +52,7 @@ gulp.task('prod', function() {
         .pipe(sass(prodOptions)) //Generate the sass
         .pipe(autoprefixer()) //prefix it
         .pipe(concat('style.css'))
+        .pipe(replace(/\.\.\//g, './')) //Fix directory structure
         .pipe(gulp.dest(prodOutput)); //output CSS
 });
 
