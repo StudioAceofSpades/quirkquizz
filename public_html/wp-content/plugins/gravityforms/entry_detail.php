@@ -234,6 +234,16 @@ class GFEntryDetail {
 		$form     = self::get_current_form();
 		$form_id  = absint( $form['id'] );
 
+		/**
+		 * Fires before the entry detail page is shown or any processing is handled.
+		 *
+		 * @param array $form The form object for the entry.
+		 * @param array $lead The entry object.
+		 *
+		 * @since 2.3.3.9
+		 */
+		gf_do_action( array( 'gform_pre_entry_detail', $form['id'] ), $form, $lead );
+
 		$total_count = self::get_total_count();
 		$position    = rgget( 'pos' ) ? rgget( 'pos' ) : 0;
 		$prev_pos    = ! rgblank( $position ) && $position > 0 ? $position - 1 : false;
@@ -250,7 +260,7 @@ class GFEntryDetail {
 			}
 		}
 
-		RGFormsModel::update_lead_property( $lead['id'], 'is_read', 1 );
+		GFFormsModel::update_entry_property( $lead['id'], 'is_read', 1 );
 
 		switch ( RGForms::post( 'action' ) ) {
 			case 'update' :
@@ -342,22 +352,26 @@ class GFEntryDetail {
 
 			case 'trash' :
 				check_admin_referer( 'gforms_save_entry', 'gforms_save_entry' );
-				RGFormsModel::update_lead_property( $lead['id'], 'status', 'trash' );
-				$lead = RGFormsModel::get_lead( $lead['id'] );
-				self::set_current_entry( $lead );
+				GFFormsModel::update_entry_property( $lead['id'], 'status', 'trash' );
+				$admin_url = admin_url( 'admin.php?page=gf_entries&view=entries&id=' . absint( $form['id'] ) . '&trashed_entry=' . absint( $lead['id'] ) );
+				?>
+				<script type="text/javascript">
+					document.location.href = <?php echo json_encode( $admin_url ); ?>;
+				</script>
+				<?php
 				break;
 
 			case 'restore' :
 			case 'unspam' :
 				check_admin_referer( 'gforms_save_entry', 'gforms_save_entry' );
-				RGFormsModel::update_lead_property( $lead['id'], 'status', 'active' );
+				GFFormsModel::update_entry_property( $lead['id'], 'status', 'active' );
 				$lead = RGFormsModel::get_lead( $lead['id'] );
 				self::set_current_entry( $lead );
 				break;
 
 			case 'spam' :
 				check_admin_referer( 'gforms_save_entry', 'gforms_save_entry' );
-				RGFormsModel::update_lead_property( $lead['id'], 'status', 'spam' );
+				GFFormsModel::update_entry_property( $lead['id'], 'status', 'spam' );
 				$lead = RGFormsModel::get_lead( $lead['id'] );
 				self::set_current_entry( $lead );
 				break;
@@ -367,15 +381,15 @@ class GFEntryDetail {
 				if ( ! GFCommon::current_user_can_any( 'gravityforms_delete_entries' ) ) {
 					die( esc_html__( "You don't have adequate permission to delete entries.", 'gravityforms' ) );
 				}
-				RGFormsModel::delete_lead( $lead['id'] );
+				GFFormsModel::delete_entry( $lead['id'] );
+				$admin_url = admin_url( 'admin.php?page=gf_entries&view=entries&id=' . absint( $form['id'] ) . '&deleted=' . absint( $lead['id'] ) );
 				?>
 				<script type="text/javascript">
-					document.location.href = '<?php echo 'admin.php?page=gf_entries&view=entries&id=' . absint( $form['id'] )?>';
+					document.location.href = <?php echo json_encode( $admin_url ); ?>;
 				</script>
 				<?php
-
 				break;
-		}
+		} // End switch().
 
 		$mode = empty( $_POST['screen_mode'] ) ? 'view' : $_POST['screen_mode'];
 
@@ -1001,7 +1015,7 @@ class GFEntryDetail {
 
 			$products = array();
 			if ( $has_product_fields ) {
-				$products = GFCommon::get_product_fields( $form, $lead );
+				$products = GFCommon::get_product_fields( $form, $lead, false, true );
 				if ( ! empty( $products['products'] ) ) {
 				    ob_start();
 					?>
@@ -1047,7 +1061,9 @@ class GFEntryDetail {
 														<?php
 													}
 												}
-												$subtotal = floatval( $product['quantity'] ) * $price;
+												$quantity = GFCommon::to_number( $product['quantity'], $lead['currency'] );
+
+												$subtotal = $quantity * $price;
 												$total += $subtotal;
 												?>
 											</ul>
@@ -1093,7 +1109,7 @@ class GFEntryDetail {
 					 * Filter the markup of the order summary which appears on the Entry Detail, the {all_fields} merge tag and the {pricing_fields} merge tag.
                      *
                      * @since 2.1.2.5
-                     * @see   https://www.gravityhelp.com/documentation/article/gform_order_summary/
+                     * @see   https://docs.gravityforms.com/gform_order_summary/
 					 *
 					 * @var string $markup          The order summary markup.
 					 * @var array  $form            Current form object.
