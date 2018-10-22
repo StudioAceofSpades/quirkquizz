@@ -81,4 +81,30 @@
 
     }
 
+	function createElements(elem) {
+		if(typeof elem === "string") {
+			var node = document.createTextNode(elem);
+		} else {
+			if(typeof elem.name !== "string" || typeof elem.attr !== "object") {
+				console.error("Invalid node properties");
+				return;
+			}
+
+			var node = document.createElement(elem.name);
+			for(key in elem.attr) {
+				let value = elem.attr[key];
+				node.setAttribute(key, value);
+			}
+
+			if(typeof elem.children !== "undefined" && Array.isArray(elem.children)) {
+				for(let i = 0; i < elem.children.length; i++) {
+					node.appendChild(createElements(elem.children[i]));
+				}
+			} else {
+				console.warn("Children must be type array");
+			}
+		}
+		return node;
+	}
+
 })( jQuery )
