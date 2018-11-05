@@ -1,0 +1,11 @@
+.buttons {
+    margin-top: 30px;
+}
+.button {
+    position: relative;
+    display: inline-block;
+
+    + .button {
+        margin-left: 15px;
+    }
+}
