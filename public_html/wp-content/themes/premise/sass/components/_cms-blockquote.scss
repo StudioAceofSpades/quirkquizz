@@ -2,7 +2,7 @@
     margin: 0 0 60px;
 
     .quote {
-        background: $red;
+        background: $brand-secondary;
         padding: 40px;
         color: $white;
         font-family: $display-font;
@@ -15,7 +15,7 @@
         }
 
         span {
-            background: $purple;
+            background: $brand-primary;
             position: absolute;
             bottom: -20px;
             right: -20px;
