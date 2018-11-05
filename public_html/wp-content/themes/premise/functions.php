@@ -86,6 +86,16 @@ function no_logged_in_minify($loadable) {
     return $loadable;
 }
 
+function clever_debug($object = null) {
+	if($object === null) {
+		$object = debug_backtrace();
+	}
+    echo "<script>";
+    echo "window.debug_message = window.debug_message || [];";
+    echo "window.debug_message.push(" . json_encode($object) . ")";
+    echo "</script>";
+}
+
 if(function_exists('acf_add_options_page')) {
 
     acf_add_options_page(array(
