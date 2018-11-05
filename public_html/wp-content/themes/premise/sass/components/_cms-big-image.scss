@@ -1,0 +1,19 @@
+.part-big-image {
+    margin: 0 0 40px;
+
+    img {
+        max-width: 100%;
+    }
+
+    h3 {
+        font-size: 21px;
+        line-height: 21px;
+        color: $red;
+        margin: 0 0 5px;
+        padding: 0 0 5px;
+        border-bottom: 1px dotted $purple;
+    }
+    p {
+        font-weight: 300;
+    }
+}

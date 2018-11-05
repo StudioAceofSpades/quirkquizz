@@ -1,61 +1,41 @@
 <?php
-$size   = get_field('hero_size');
-$bg     = get_field('default_hero_background','options');
-$button = 'button main';
+$hero_image     = get_field('hero_background_image');
+$override_title = get_field('hero_override_title');
 
-if(get_field('background_image')) {
-    $bg = get_field('background_image');
-}
-
-if($size == 'small') {
-    $bg_image   = $bg['sizes']['hero-small'];
+if($override_title) {
+    $title      = get_field('hero_title');
+    $subtitle   = get_field('hero_subtitle');
 } else {
-    $bg_image = $bg['sizes']['hero-large'];
+    $title = get_the_title();
 }
-
-if(get_field('button_color') == 'light') {
-    $button    .= ' yellow';
-}
-
 ?>
-
 <div 
-    class="<?php echo $size; ?> subhero text-<?php the_field('text_color'); ?> button-<?php the_field('button_color'); ?>"
-    style="background-image: url('<?php echo $bg_image; ?>');">
-    <div class="container h100">
-        <div class="row h100">
-            <div class="col-sm-8 col-sm-offset-2 h100">
-                <div class="vct">
-                    <div class="vctr">
-                        <div class="vctd">
-                            
-                            <?php if(get_field('page_header')) : ?>
-                            <h1><?php the_field('page_header'); ?></h1>
-                            <?php else: ?>
-                            <h1><?php the_title(); ?></h1>
-                            <?php endif; ?>
+    <?php if($hero_image): ?>
+    style="background-image: url('<?php echo $hero_image['url']; ?>');"
+    <?php endif; ?>
+    class="hero small">
+    <div class="vct">
+        <div class="vctr">
+            <div class="vctd">
+                <div class="hero-content">
+                    <h1><?php echo $title; ?></h1>
 
-                            <?php if(get_field('page_subheader') &&  $size != 'small'): ?>
-                            <h3><?php the_field('page_subheader'); ?></h3>
-                            <?php endif; ?>
+                    <?php if($override_title): ?>
+                        <?php if($subtitle): ?>
+                        <h2><?php echo $subtitle; ?></h2>
+                        <?php endif; ?>
 
-                            <?php if(have_rows('buttons') && $size != 'small'): ?>
-                            <div class="row">
-                                <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
-                                    <div class="button-group">
-                                        <?php 
-                                        while(have_rows('buttons')) : 
-                                            the_row(); 
-                                            saos_output_link(get_sub_field('link'), $button);
-                                        endwhile; 
-                                        ?>
-                                    </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-
+                        <?php if(have_rows('hero_buttons_buttons')): ?>
+                        <div class="buttons">
+                            <?php 
+                            while(have_rows('hero_buttons_buttons')): 
+                                the_row();
+                                saos_output_link(get_sub_field('link'), 'arrow', 'button hollow '.get_sub_field('color'));
+                            endwhile; 
+                            ?>
                         </div>
-                    </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
