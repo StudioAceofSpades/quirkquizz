@@ -16,6 +16,7 @@ wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
 public_html/wp-content/themes/premise/devcss/sourcemaps/
 devcss/
+cache/
 
 /.htaccess
 /license.txt
