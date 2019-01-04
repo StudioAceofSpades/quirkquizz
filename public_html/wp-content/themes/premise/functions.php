@@ -5,8 +5,6 @@ load_theme_textdomain('carrington-jam');
 
 define('CFCT_DEBUG', false);
 define('CFCT_PATH', trailingslashit(TEMPLATEPATH));
-define('GC_LICENSE_KEY', '75a87f6960b8a5f8afebe1430a3ccd38');
-define( 'WPMDB_LICENCE', '684fe762-b2f4-4ed4-92d8-c0c66e56dfd4' );
 
 include_once(CFCT_PATH.'carrington-core/carrington.php');
 include_once(CFCT_PATH.'functions/sidebars.php');
