@@ -15,8 +15,9 @@ var devOutput    = resource_dir + "devcss/";
 
 function log(err) {
     fs.writeFile(logfile, err, function() {
-        //do nothing
-        
+        if(process.argv.indexOf("--silent") == -1) {
+            console.log(err);
+        }
         
     });
 }
