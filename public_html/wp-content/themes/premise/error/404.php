@@ -4,9 +4,9 @@ if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
 get_header(); ?>
 
-<section id="error">
-	<div class="content">
-		<?php cfct_form('search'); ?>
-	</section>
-</div>
+<section id="error" class="page feed">
+    <section class="hero">
+        <?php include(get_stylesheet_directory() . "/parts/hero.php"); ?>
+    </section>
+</section>
 <?php get_footer(); ?>

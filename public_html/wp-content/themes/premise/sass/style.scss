@@ -1,3 +1,16 @@
+/** Bootstrap **/
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/reboot";
+@import "bootstrap/images";
+@import "bootstrap/code";
+@import "bootstrap/grid";
+@import "bootstrap/utilities/display";
+@import "bootstrap/utilities/flex";
+@import "bootstrap/utilities/embed";
+
+
 /** Variables **/
 @import 'variables';
 
@@ -8,7 +21,6 @@
 
 /** Layouts **/
 @import 'layouts/header';
-@import 'layouts/navigation';
 
 /** Components **/
 @import 'components/buttons';

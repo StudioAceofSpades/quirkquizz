@@ -3,21 +3,22 @@ package-lock.json
 
 *.log
 *.log.txt
+*.sql
 
-new_db.sql
 wp-db-local.php
-wp-content/advanced-cache.php
-wp-content/backup-db/
-wp-content/backups/
-wp-content/blogs.dir/
-wp-content/cache/
-wp-content/upgrade/
-wp-content/uploads/
-wp-content/wp-cache-config.php
-wp-content/plugins/hello.php
-public_html/wp-content/themes/premise/devcss/sourcemaps/
+advanced-cache.php
+backup-db/
+backups/
+blogs.dir/
+cache/
+upgrade/
+uploads/
+wp-cache-config.php
+hello.php
+sourcemaps/
 devcss/
 cache/
+wflogs/
 
 /.htaccess
 /license.txt
