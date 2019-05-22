@@ -1,3 +1,6 @@
+/** Variables **/
+@import 'variables';
+
 /** Bootstrap **/
 @import "bootstrap/functions";
 @import "bootstrap/variables";
@@ -10,11 +13,17 @@
 @import "bootstrap/utilities/flex";
 @import "bootstrap/utilities/embed";
 
+/** Font Awesome **/
+@import 'font-awesome/variables';
+@import 'font-awesome/mixins';
+@import 'font-awesome/core';
+@import 'font-awesome/regular';
+@import 'font-awesome/light';
 
-/** Variables **/
-@import 'variables';
 
 /** Base Styles **/
+@import 'base/icon-list';
+@import 'base/icon-override';
 @import 'base/resets';
 @import 'base/base';
 @import 'base/typography';

@@ -13,6 +13,36 @@ var input        = resource_dir + "sass/**/*.scss";
 var prodOutput   = resource_dir;
 var devOutput    = resource_dir + "devcss/";
 
+// fetch command line arguments
+const arg = (function(argList) {
+
+  let arg = {}, a, opt, thisOpt, curOpt;
+  for (a = 0; a < argList.length; a++) {
+
+    thisOpt = argList[a].trim();
+    opt = thisOpt.replace(/^\-+/, '');
+
+    if (opt === thisOpt) {
+
+      // argument value
+      if (curOpt) arg[curOpt] = opt;
+      curOpt = null;
+
+    }
+    else {
+
+      // argument name
+      curOpt = opt;
+      arg[curOpt] = true;
+
+    }
+
+  }
+
+  return arg;
+
+})(process.argv);
+
 function log(err) {
     fs.writeFile(logfile, err, function() {
         if(process.argv.indexOf("--silent") == -1) {
@@ -62,6 +92,35 @@ gulp.task('watch', function() {
         .on('change', function(event) {
             log('File ' + event.path + ' was ' + event.type + ', running tasks...');
         });
+});
+
+gulp.task('icon-add', function(a) {
+    if(arg.icon) {
+        var sass_file = resource_dir + "sass/base/_icon-list.scss";
+        var sass_entry = "'" + arg.icon + "' : $fa-var-" + arg.icon + ",";
+        fs.readFile(sass_file, {encoding: 'utf-8'}, function(err, data) {
+            if(err) {
+                log(err);
+                return;
+            } 
+            var r = new RegExp("['\"]" + arg.icon + "['\"]");
+            if(data.search(r) == -1) {
+                data = data.replace(");", "    " + sass_entry + "\n);");
+                fs.writeFile(sass_file, data, function(err) {
+                    if(err) {
+                        log(err);
+                    } else {
+                        log("Added icon.");
+                    }
+                });
+
+            } else {
+                log("Icon already present");
+            }
+        });
+    } else {
+        log("No icon given");
+    }
 });
 
 gulp.task('default', ['dev', 'watch']);
