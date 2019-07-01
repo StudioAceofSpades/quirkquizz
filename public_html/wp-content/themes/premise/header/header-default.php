@@ -12,7 +12,7 @@ E-Mail: jon@studioaceofspade.com
 <head>
 
     <meta http-equiv="content-type" content="<?php bloginfo('html_type') ?>; charset=<?php bloginfo('charset') ?>" />
-    <title><?php wp_title( '-', true, 'right' ); echo esc_html( get_bloginfo('name'), 1 ); ?></title>
+    <title><?php wp_title( '-', true, 'right' ); ?></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
