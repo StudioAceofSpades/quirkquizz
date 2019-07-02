@@ -1,0 +1,24 @@
+@font-face {
+	font-family: "fa-regular-400";
+	src: url("fa-regular-400.eot?36a0ec0139aa12c03a0f193e0e3cf81d?#iefix") format("embedded-opentype"),
+url("fa-regular-400.woff2?36a0ec0139aa12c03a0f193e0e3cf81d") format("woff2"),
+url("fa-regular-400.woff?36a0ec0139aa12c03a0f193e0e3cf81d") format("woff");
+}
+
+.icon {
+	line-height: 1;
+}
+
+.icon:before {
+	font-family: fa-regular-400 !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+}
+
+.icon-chevron-right:before {
+	content: "\f101";
+}
+.icon-chevron-left:before {
+	content: "\f102";
+}

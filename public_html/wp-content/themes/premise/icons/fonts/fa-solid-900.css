@@ -1,0 +1,24 @@
+@font-face {
+	font-family: "fa-solid-900";
+	src: url("fa-solid-900.eot?afc723020ac879482b985829d10c4437?#iefix") format("embedded-opentype"),
+url("fa-solid-900.woff2?afc723020ac879482b985829d10c4437") format("woff2"),
+url("fa-solid-900.woff?afc723020ac879482b985829d10c4437") format("woff");
+}
+
+.icon {
+	line-height: 1;
+}
+
+.icon:before {
+	font-family: fa-solid-900 !important;
+	font-style: normal;
+	font-weight: normal !important;
+	vertical-align: top;
+}
+
+.icon-chevron-right:before {
+	content: "\f101";
+}
+.icon-chevron-left:before {
+	content: "\f102";
+}

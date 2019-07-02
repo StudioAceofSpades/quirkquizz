@@ -1,17 +1,29 @@
-var fs           = require('fs');
-var gulp         = require('gulp');
-var sass         = require('gulp-sass');
-var sourcemaps   = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
-var concat       = require('gulp-concat');
-var replace      = require('gulp-replace');
 
-var resource_dir = "./public_html/wp-content/themes/premise/";
-var logfile      = "./public_html/sass.log.txt";
-var source_dir   = "sourcemaps/";
-var input        = resource_dir + "sass/**/*.scss";
-var prodOutput   = resource_dir;
-var devOutput    = resource_dir + "devcss/";
+const  webfontsGenerator  =  require('webfonts-generator');
+const  fs                 =  require('fs');
+const  gulp               =  require('gulp');
+const  sass               =  require('gulp-sass');
+const  sourcemaps         =  require('gulp-sourcemaps');
+const  autoprefixer       =  require('gulp-autoprefixer');
+const  concat             =  require('gulp-concat');
+const  replace            =  require('gulp-replace');
+
+const  resource_dir       =  "./public_html/wp-content/themes/premise/";
+const  logfile            =  "./public_html/sass.log.txt";
+const  source_dir         =  "sourcemaps/";
+const  input              =  resource_dir +  "sass/**/*.scss";
+const  prodOutput         =  resource_dir;
+const  devOutput          =  resource_dir +  "devcss/";
+const  iconDir            =  resource_dir +  "icons/";
+const  iconOutput         =  iconDir +  "fonts/";
+const  iconInput          =  iconDir +  "svgs/";
+const  iconConf           =  iconDir +  "icon-styles.json";
+const  activeIcons        =  iconDir +  "active.json";
+const  iconSass           =  resource_dir + "sass/base/_icon-list.scss";
+
+function toHex(number) {
+    return (number).toString(16);
+}
 
 // fetch command line arguments
 const arg = (function(argList) {
@@ -96,28 +108,98 @@ gulp.task('watch', function() {
 
 gulp.task('icon-add', function(a) {
     if(arg.icon) {
-        var sass_file = resource_dir + "sass/base/_icon-list.scss";
-        var sass_entry = "'" + arg.icon + "' : $fa-var-" + arg.icon + ",";
-        fs.readFile(sass_file, {encoding: 'utf-8'}, function(err, data) {
+        //Load our configurations
+        var confRaw = fs.readFileSync(iconConf);
+        var iconsRaw = fs.readFileSync(activeIcons);
+        var icon = arg.icon;
+
+        //Get our conf, contains directories and names
+        if(!confRaw) {
+            log("Could not read configuration file at " + iconConf);
+            return;
+        }
+        var conf = JSON.parse(confRaw);
+
+        //Find any icons that are already active
+        if(!iconsRaw.length) {
+            var currentIcons = {};
+        } else {
+            var currentIcons = JSON.parse(iconsRaw);
+        }
+
+        var to = arg.to || conf.default; 
+
+        //Figure out the names of the fonts being generated
+        var types = conf.aliases[to];
+        var codepoints = {};
+        var currentCodePoint = 0xf101;
+
+        for(var i = 0; i < types.length; i++) {
+            //Make sure that this already exists in our icons
+            var type = types[i];
+            var thisConf = conf.definitions[type];
+
+            if(!currentIcons[type]) {
+                currentIcons[type] = [];
+            }
+            
+            //Make sure the icon doesn't already exist
+            if(currentIcons[type].indexOf(icon) !== -1) {
+                log("Icon already exists for " + type); 
+            } else {
+                currentIcons[type].push(icon);
+            }
+
+            //Get the file names
+            var startPoint = currentCodePoint;
+            var files = [];
+            for(var j = 0; j < currentIcons[type].length; j++) {
+                var activeIcon = currentIcons[type][j];
+                var filePath = iconInput + thisConf.directory + "/" + activeIcon + ".svg"
+                if(fs.existsSync(filePath)) {
+                    files.push(filePath);
+
+                    if(!codepoints[activeIcon]) {
+                        codepoints[activeIcon] = currentCodePoint;
+                        currentCodePoint += 1;
+                    }
+                }
+            }
+
+            //Generate the font
+            webfontsGenerator({
+                files : files,
+                css : false,
+                fontName : thisConf.prefix + "-" + thisConf.directory + "-" + thisConf.weight,
+                dest: iconOutput,
+                codepoints : codepoints,
+                startCodePoint : startPoint
+            }, function(error, results) {
+                if(error) {
+                    log(error);
+                }
+            });
+        }
+
+        //Generate the SASS file
+        var fileData = "";
+        for(icon in codepoints) {
+            fileData += "'" + icon + "' : \\" + toHex(codepoints[icon]) + ",\n"; 
+        }
+        fileData = "$available-icons: (\n" + fileData + ");";
+        fs.writeFile(iconSass, fileData, function(err) {
             if(err) {
                 log(err);
-                return;
-            } 
-            var r = new RegExp("['\"]" + arg.icon + "['\"]");
-            if(data.search(r) == -1) {
-                data = data.replace(");", "    " + sass_entry + "\n);");
-                fs.writeFile(sass_file, data, function(err) {
-                    if(err) {
-                        log(err);
-                    } else {
-                        log("Added icon.");
-                    }
-                });
-
-            } else {
-                log("Icon already present");
             }
         });
+
+        //Re create the JSON file
+        fs.writeFile(activeIcons, JSON.stringify(currentIcons), function(err) {
+            if(err) {
+                log(err);
+            }
+        });
+        
     } else {
         log("No icon given");
     }

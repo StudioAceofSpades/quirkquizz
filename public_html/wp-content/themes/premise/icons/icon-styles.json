@@ -1,0 +1,29 @@
+{
+    "default" : "standard",
+    "aliases" : {
+        "standard" : ["light", "regular", "solid"],
+        "brands" : ["brands"]
+    },
+    "definitions" :  {
+        "light" : {
+            "directory" : "light",
+            "weight" : 300,
+            "prefix" : "fa"
+        },
+        "regular" : {
+            "directory" : "regular",
+            "weight" : 400,
+            "prefix" : "fa"
+        },
+        "solid" : {
+            "directory" : "solid",
+            "weight" : 900,
+            "prefix" : "fa"
+        },
+        "brands" : {
+            "directory" : "brands",
+            "weight" : 400,
+            "prefix" : "fa"
+        }
+    }
+}
