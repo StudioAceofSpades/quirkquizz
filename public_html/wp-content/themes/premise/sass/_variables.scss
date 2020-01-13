@@ -2,24 +2,32 @@ $fa-font-path: "../icons/fonts";
 
 /** Fonts **/
 $body-font      : 'Roboto', helvetica, arial, sans-serif;
-$display-font   : 'Roboto', helvetica, arial, sans-serif;
+$display-font   : 'Quicksand', helvetica, arial, sans-serif;
 
 /** Colors **/
 $white          : #fff;
-$dark-gray      : #222;
-$light-gray     : #ccc;
-$blue           : #09f;
-$brand-primary  : $dark-gray;
-$brand-secondary: $dark-gray;
-$brand-tertiary : $dark-gray;
-$body-color     : $dark-gray;
+$black          : #121212;
+$purple         : #8276FD;
+$mid-purple     : #675DCC;
+$dark-purple    : #0A3262;
+$off-white      : #EFEDFF;
+$teal           : #05BAE7;
+
+$blue           : $purple;
+
+$dark-gray      : #565656;
+$light-gray     : #d6d6d6;
+$brand-primary  : $purple;
+$brand-secondary: $teal;
+$brand-tertiary : $mid-purple;
+$body-color     : $black;
 
 /** Font Sizing **/
-$body-font-size     : 15px;
+$body-font-size     : 18px;
 $body-line-height   : 1.55em;
 $body-font-weight   : normal;
-$body-padding       : 2.25em;
+$body-padding       : 1.55em;
 $body-margin        : $body-padding;
-$display-font-size  : 40px;
+$display-font-size  : 48px;
 $display-font-weight: normal;
-$display-line-height: 1.2em;
+$display-line-height: 1.1em;
