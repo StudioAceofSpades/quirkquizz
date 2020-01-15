@@ -1,12 +1,12 @@
 #quiz {
-    h3 {
+    h2 {
         display: none;
     }
 }
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(md) {
     #quiz {
         aside {
-            h3 {
+            h2 {
                 display: block;
             }
             margin-top: $space-8;
