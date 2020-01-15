@@ -1,49 +1,181 @@
-/* =============================================================================
-   Header
-   ========================================================================== */
 .header {
 	position: relative;
 	z-index: 100;
-}
-.brand {
-    width: 200px;
-    float: left;
-}
+    height: 80px;
+    background: $white;
 
-/* =============================================================================
-   Navigation
-   ========================================================================== */
-.navigation {
-    display: inline-block;
-    font-size: 0;
-    float: right;
+    .container,
+    .row {
+        height: 100%;
+    }
 
-    li {
-        display: inline-block;
+    > * {
+        position: relative;
+        z-index: 15;
+    }
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        bottom: 0;
+        width: 300px;
+        right: calc(33% - 165px);
+        background-image: url('../img/header-diamonds.png');
+        background-repeat: no-repeat;
+        background-position: bottom right;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: 5;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: $purple;
+        width: 33%;
+    }
+
+    
+    h1 {
+        margin: 0;
     }
     a {
-        font-size: 16px;
-        line-height: 30px;
         display: block;
-        padding: 0 10px;
+        line-height: 1;
     }
-    .dropdown {
-        position: relative;
-    }
-    .dropdown-wrapper {
-        display: none;
-        position: absolute;
-        top: 30px;
-        right: 0;
 
+    .social {
+        ul {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
         li {
-            display: block;
-            border-bottom: 1px solid rgba(0,0,0,.6);
+            padding-right: $space-4;
 
             &:last-child {
-                border-bottom: 0;
+                padding-right: 0;
+            }
+        }
+        a {
+            position: relative;
+            background: $purple;
+            color: $white;
+            font-size: $space-4;
+            height: $space-8;
+            width: $space-8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden;
+
+            svg {
+            }
+
+            &:hover {
+                background: $dark-purple;
             }
         }
     }
+    .site-nav {
+        position: relative;
 
+        > a {
+            position: relative;
+            z-index: 10;
+            float: right;
+            color: $white;
+            font-size: 28px;
+            
+            &:hover {
+                color: $dark-purple;
+            }
+            &.active {
+                color: $purple;
+            }
+        }
+        nav {
+            display: none;
+            position: absolute;
+            z-index: 5;
+            top: -$space-2;
+            right: -$space-2;
+            width: 280px;
+            background: $white;
+            border-radius: $radius;
+            padding: $space-8 0 $space-4 $space-4;
+            box-shadow: $shadow;
+
+            ul {
+                margin: 0;
+                text-align: right;
+                padding: $space-2 0 0;
+            }
+
+            a {
+                padding: $space-2;
+                border-bottom: 1px solid $off-white;
+                font-size: 18px;
+                font-family: $display-font;
+                font-weight: 700;
+                color: $mid-purple;
+
+                &:hover {
+                    color: $dark-purple;
+                    text-decoration: none;
+                    padding-right: $space-4;
+                }
+            }
+
+            li.social-link {
+                display: inline-block;
+
+                a {
+                    border: 0;
+                    color: $dark-purple;
+                    font-size: 18px;
+
+                    &:hover {
+                        color: $purple;
+                        padding-right: $space-2;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .header {
+        &::before {
+            right: calc(40.8% - 165px);
+        }
+        &::after {
+            width: 40.8%;
+        }
+    }
+}
+@include media-breakpoint-down(xs) {
+    .header {
+        height: 54px;
+
+        &::before {
+            right: 40px;
+            width: 56px;
+            background-image: url('../img/mobile-header-diamonds.png');
+        }
+        &::after {
+            width: 54px;
+        }
+        
+        .brand {
+            width: 194px;
+        }
+    }
 }

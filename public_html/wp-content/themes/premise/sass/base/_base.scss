@@ -25,6 +25,9 @@ input[type="submit"]:hover,
 .transition:hover {
     transition: all 0.3s ease;
 }
+img {
+    max-width: 100%;
+}
 
 .cf {
     *zoom: 1;

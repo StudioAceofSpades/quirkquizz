@@ -22,6 +22,18 @@ $brand-secondary: $teal;
 $brand-tertiary : $mid-purple;
 $body-color     : $black;
 
+$space      : 5px;
+$space-1    : $space;       // 5px
+$space-2    : $space * 2;   // 10px
+$space-3    : $space * 3;   // 15px
+$space-4    : $space * 4;   // 20px
+$space-5    : $space * 5;   // 25px
+$space-6    : $space * 6;   // 30px
+$space-7    : $space * 7;   // 35px
+$space-8    : $space * 8;   // 40px
+$radius     : 8px;
+$shadow     : 0 4px 8px rgba(0,0,0,.25);
+
 /** Font Sizing **/
 $body-font-size     : 18px;
 $body-line-height   : 1.55em;
