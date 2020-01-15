@@ -13,4 +13,21 @@ p {
     font-size: $body-font-size;
     margin-bottom: $body-margin;
 }
+h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+}
+h2 {
+    font-size: 48px;
+    color: $black;
 
+    &.section-header {
+        margin-bottom: $space-8;
+        text-align: center;
+    }
+}
+h3 {
+    font-size: 24px;
+    font-weight: 700;
+}

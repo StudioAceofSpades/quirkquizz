@@ -1,0 +1,60 @@
+.card {
+    position: relative;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    overflow: hidden;
+    padding-bottom: $space-4;
+    cursor: pointer;
+    margin-bottom: $space-6;
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: 5;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: $dark-blue;
+        opacity: 0;
+        transition: $transition;
+    }
+    &:hover {
+        &::after {
+            opacity: .5;
+        }
+        .button {
+            opacity: 1;
+        }
+    }
+
+    h3 {
+        font-size: 18px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 4;
+        background: $white;
+        text-align: center;
+        margin: 0;
+        padding: $space-4 $space-2;
+    }
+
+    img {
+        display: block;
+    }
+
+    .button {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        left: 50%;
+        margin-left: -110px;
+        margin-top: -$space-5;
+        width: 210px;
+        text-align: center;
+        opacity: 0;
+    }
+}

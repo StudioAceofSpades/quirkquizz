@@ -12,5 +12,33 @@ input.button {
 
     &:hover {
         background: $yellow;
+        text-decoration: none;
+        color: $white;
+    }
+
+    &.large {
+        line-height: 35px;
+        font-size: 36px;
+        padding-top: $space-3;
+        padding-bottom: $space-3;
+    }
+    &.ib {
+        display: inline-block;
+    }
+    &.purple {
+        background: $purple;
+
+        &:hover {
+            background: $yellow;
+        }
+    }
+}
+.buttons {
+    &.center {
+        text-align: center;
+        
+        .button + .button {
+            margin-left: $space-2;
+        }
     }
 }

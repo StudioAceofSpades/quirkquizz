@@ -13,6 +13,7 @@ $dark-purple    : #0A3262;
 $off-white      : #EFEDFF;
 $teal           : #05BAE7;
 $yellow         : #FCC61A;
+$dark-blue      : #0A3262;
 
 $blue           : $purple;
 
@@ -34,6 +35,7 @@ $space-7    : $space * 7;   // 35px
 $space-8    : $space * 8;   // 40px
 $radius     : 8px;
 $shadow     : 0 4px 8px rgba(0,0,0,.25);
+$transition : all .3s ease;
 
 /** Font Sizing **/
 $body-font-size     : 18px;

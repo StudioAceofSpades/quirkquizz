@@ -123,3 +123,8 @@ img {
   ::-moz-placeholder          {@content}
   :-ms-input-placeholder      {@content}  
 }
+
+.content {
+    padding: $space-8 0;
+    background: $off-white;
+}

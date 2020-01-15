@@ -1,0 +1,33 @@
+#home {
+    .hero {
+        background: $mid-purple;
+        padding: $space-8 0;
+        color: $white;
+        
+        h1 {
+            text-align: center;
+            margin-bottom: $space-8;
+        }
+        h3 {
+            margin-bottom: $space-4;
+        }
+        p {
+            margin-bottom: $space-6;
+        }
+
+        .featured-image {
+            display: block;
+            border-radius: $radius;
+            box-shadow: $shadow;
+        }
+    }
+}
+@include media-breakpoint-down(sm) {
+    #home {
+        .hero {
+            .featured-image {
+                margin-bottom: $space-4;
+            }
+        }
+    }
+}
