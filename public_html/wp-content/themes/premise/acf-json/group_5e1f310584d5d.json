@@ -1,0 +1,60 @@
+{
+    "key": "group_5e1f310584d5d",
+    "title": "Header Options",
+    "fields": [
+        {
+            "key": "field_5e1f312272b18",
+            "label": "Navigation",
+            "name": "navigation",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_5e1f312872b19",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Add Navigation Item",
+            "sub_fields": [
+                {
+                    "key": "field_5e1f312872b19",
+                    "label": "Link",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-header-navigation"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1579102526
+}
