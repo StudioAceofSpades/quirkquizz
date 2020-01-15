@@ -14,34 +14,21 @@
 @import "bootstrap/utilities/embed";
 @import "bootstrap/utilities/text";
 
-/** Font Awesome **/
-@import 'font-awesome/variables';
-@import 'font-awesome/mixins';
-@import 'font-awesome/core';
-@import 'font-awesome/regular';
-@import 'font-awesome/light';
-
-
 /** Base Styles **/
-@import 'base/icon-list';
-@import 'base/icon-override';
 @import 'base/resets';
 @import 'base/base';
 @import 'base/typography';
 
 /** Layouts **/
 @import 'layouts/header';
+@import 'layouts/footer';
 
 /** Components **/
 @import 'components/buttons';
-@import 'components/cms-header';
-@import 'components/cms-text-area';
-@import 'components/cms-single-image-block';
-@import 'components/cms-dual-image-block';
-@import 'components/cms-blockquote';
-@import 'components/cms-video';
-@import 'components/cms-call-to-action';
-@import 'components/cms-big-image';
+@import 'components/cards';
 
 /** pages **/
-@import 'pages/contact';
+@import 'pages/default';
+@import 'pages/home';
+@import 'pages/results';
+@import 'pages/quiz';

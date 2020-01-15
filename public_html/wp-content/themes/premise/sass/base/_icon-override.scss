@@ -1,3 +1,0 @@
-@each $icon, $var in $available-icons {
-    .#{$fa-css-prefix}-#{$icon}:before { content: fa-content($var); }
-}
