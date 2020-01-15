@@ -1,0 +1,15 @@
+#quiz {
+    h3 {
+        display: none;
+    }
+}
+@include media-breakpoint-down(lg) {
+    #quiz {
+        aside {
+            h3 {
+                display: block;
+            }
+            margin-top: $space-8;
+        }
+    }
+}

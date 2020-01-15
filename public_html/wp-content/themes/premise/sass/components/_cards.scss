@@ -4,57 +4,115 @@
     box-shadow: $shadow;
     overflow: hidden;
     padding-bottom: $space-4;
-    cursor: pointer;
     margin-bottom: $space-6;
+    background: $white;
 
-    &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        z-index: 5;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: $dark-blue;
-        opacity: 0;
-        transition: $transition;
-    }
-    &:hover {
+    &.panel {
+        cursor: pointer;
+
         &::after {
-            opacity: .5;
+            content: '';
+            display: block;
+            position: absolute;
+            z-index: 5;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: $dark-blue;
+            opacity: 0;
+            transition: $transition;
         }
+
+        h3 {
+            font-size: 18px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 4;
+            background: $white;
+            text-align: center;
+            margin: 0;
+            padding: $space-4 $space-2;
+        }
+
         .button {
-            opacity: 1;
+            position: absolute;
+            z-index: 10;
+            top: 50%;
+            left: 50%;
+            margin-left: -110px;
+            margin-top: -$space-5;
+            width: 210px;
+            text-align: center;
+            opacity: 0;
+        }
+
+        &:hover {
+            &::after {
+                opacity: .5;
+            }
+            .button {
+                opacity: 1;
+            }
         }
     }
 
-    h3 {
-        font-size: 18px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 4;
-        background: $white;
-        text-align: center;
-        margin: 0;
-        padding: $space-4 $space-2;
-    }
 
     img {
         display: block;
     }
 
-    .button {
-        position: absolute;
-        z-index: 10;
-        top: 50%;
-        left: 50%;
-        margin-left: -110px;
-        margin-top: -$space-5;
-        width: 210px;
-        text-align: center;
-        opacity: 0;
+    &.question {
+        padding: $space-6;
+
+        h1,
+        h2 {
+            font-weight: 400;
+            margin-bottom: $space-4;
+            font-size: 48px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: $space-6;
+        }
+        h3 {
+            text-align: center;
+        }
+        img {
+            border-radius: $radius;
+        }
+        h3 + img {
+            margin-top: $space-4;
+            margin-bottom: $space-6;
+        }
+        .quiz-meta {
+            h3 {
+                margin: $space-6 0 0;
+                text-align: center;
+                font-weight: 400;
+
+                span {
+                    font-weight: 700;
+                }
+            }
+            .quiz-description {
+                margin: $space-6 0 0;
+            }
+        }
+        .answers {
+            .button + .button {
+                margin-top: $space-2;
+            }
+            .button {
+                line-height: 1;
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                padding: $space-8 $space-4;
+            }
+        }
     }
+
 }

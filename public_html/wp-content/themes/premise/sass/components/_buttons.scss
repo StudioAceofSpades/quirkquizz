@@ -25,11 +25,24 @@ input.button {
     &.ib {
         display: inline-block;
     }
+    &.b {
+        display: block;
+    }
     &.purple {
         background: $purple;
 
         &:hover {
             background: $yellow;
+        }
+    }
+    &.offwhite {
+        background: $off-white;
+        color: $black;
+
+        &:hover,
+        &.selected {
+            background: $purple;
+            color: $white;
         }
     }
 }
