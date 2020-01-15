@@ -33,6 +33,9 @@ function saos_load_scripts() {
 
 // Add support for featured images
 add_theme_support( 'post-thumbnails' );
+add_image_size('quiz_image', 670, 450, true);
+add_image_size('quiz_question', 660, 300, true);
+add_image_size('quiz_thumb', 510, 333, true);
 
 function disable_emojis() {
 	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
