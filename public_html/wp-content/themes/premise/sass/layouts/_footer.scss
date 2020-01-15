@@ -1,0 +1,152 @@
+.footer {
+    background: $mid-purple;
+    color: $white;
+    padding: $space-8 0 0 0;
+
+    h3 {
+        font-weight: 700;
+        font-size: 24px;
+        margin-bottom: $space-2;
+    }
+    h4 {
+        text-transform: uppercase;
+        font-family: $body-font;
+        font-size: 14px;
+        margin-bottom: $space-2;
+    }
+
+    .form {
+        font-size: 0;
+
+        @include placeholder {
+            color: rgba(255,255,255,.5);
+        }
+
+        input {
+            display: inline-block;
+            &[type="email"] {
+                border: 0;
+                color: $white;
+                border-bottom: 2px solid $white;
+                padding: $space-2;
+                font-size: 18px;
+                line-height: 28px;
+                width: 60%;
+                margin-right: 5%;
+
+            }
+            &[type="submit"] {
+                width: 35%;
+            }
+        }
+    }
+
+    a {
+        color: $white;
+
+        &:hover {
+            color: $off-white;
+            text-decoration: none;
+        }
+    }
+
+    .footer-logo {
+        margin: 0 0 $space-6;
+
+        img {
+            display: block;
+        }
+    }
+
+    .social {
+        ul {
+            margin: 0;
+            font-size: 0;
+            line-height: 1;
+        }
+        li {
+            margin: 0 $space-2 0 0;
+            display: inline-block;
+        }
+
+        a {
+            display: flex;
+            background: $white;
+            color: $mid-purple;
+            align-items: center;
+            justify-content: center;
+            width: $space-5;
+            height: $space-5;
+            font-size: 12px;
+            border-radius: 50%;
+
+            &:hover {
+                background: $off-white;
+            }
+        }
+    }
+
+    .subfooter {
+        margin: $space-8 0 0 0;
+        padding: $space-2;
+        background: $purple;
+
+        .site-nav {
+            display: inline-block;
+            float: left;
+        }
+        ul {
+            margin: 0;
+            font-size: 0;
+            line-height: 1;
+        }
+        li {
+            display: inline-block;
+            margin: 0 $space-2 0 0;
+        }
+
+        a {
+            text-transform: uppercase;
+            font-size: 14px;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .copyright {
+            display: inline-block;
+            float: right;
+
+            p {
+                font-size: 14px;
+                line-height: 1;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+}
+@include media-breakpoint-down(lg) {
+    .footer {
+    }
+}
+@include media-breakpoint-down(md) {
+    .footer {
+        .footer-newsletter {
+            margin-top: $space-6;
+        }
+        .subfooter {
+            .site-nav,
+            .copyright {
+                float: none;
+                text-align: center;
+                display: block;
+            }
+            .site-nav {
+                margin-bottom: $space-2;
+                a {
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+}
