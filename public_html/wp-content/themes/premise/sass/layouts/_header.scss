@@ -161,6 +161,14 @@
         }
     }
 }
+
+@include media-breakpoint-down(lg) {
+    .header{
+        .diamonds {
+            display: none;
+        }
+    }
+}
 @include media-breakpoint-down(xs) {
     .header {
         height: 54px;

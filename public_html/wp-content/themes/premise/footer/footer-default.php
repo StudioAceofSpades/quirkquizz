@@ -1,6 +1,7 @@
 <?php if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); } if (CFCT_DEBUG) { cfct_banner(__FILE__); } ?>
 
     <footer class="footer">
+        <img class="diamonds top-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-footer-top-left.png" />
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
@@ -73,7 +74,7 @@
                 <?php endif; ?>
 
                 <div class="copyright">
-                    <p>&copy; <?php echo date('Y'); ?> QuirkQuiz</p>
+                    <p>&copy; <?php echo date('Y'); ?> QUIRKQUIZ</p>
                 </div>
             </div>
         </div>

@@ -23,7 +23,9 @@ E-Mail: jon@studioaceofspade.com
 <body id="top-of-page">
 
 <header class="header cf">
-    
+    <?php if(is_front_page()): ?>
+        <img class="diamonds bottom-left" src="<?php echo bloginfo('template_directory'); ?>/img/diamonds/diamonds-header-top-left.png"/>
+    <?php endif; ?>
     <div class="container">
         <div class="row align-items-center">
 
