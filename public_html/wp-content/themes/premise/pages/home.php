@@ -37,7 +37,7 @@ get_header(); ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 col-lg-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
@@ -46,7 +46,8 @@ get_header(); ?>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
@@ -55,7 +56,7 @@ get_header(); ?>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
@@ -64,7 +65,7 @@ get_header(); ?>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
@@ -73,7 +74,7 @@ get_header(); ?>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
@@ -82,7 +83,7 @@ get_header(); ?>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
@@ -99,7 +100,8 @@ get_header(); ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
+
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
@@ -108,25 +110,7 @@ get_header(); ?>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-sm-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
@@ -135,48 +119,66 @@ get_header(); ?>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
                             alt="">
-                        <h3>This is a quiz</h3>
+                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
                             alt="">
-                        <h3>This is a quiz</h3>
+                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
                             alt="">
-                        <h3>This is a quiz</h3>
+                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
                             alt="">
-                        <h3>This is a quiz</h3>
+                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-lg-6 col-xl-4">
                     <div class="card panel">
                         <img 
                             src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
                             alt="">
-                        <h3>This is a quiz</h3>
+                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
+                        <a class="button large" href="#">Start Quiz</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4">
+                    <div class="card panel">
+                        <img 
+                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
+                            alt="">
+                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
+                        <a class="button large" href="#">Start Quiz</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4">
+                    <div class="card panel">
+                        <img 
+                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
+                            alt="">
+                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
                         <a class="button large" href="#">Start Quiz</a>
                     </div>
                 </div>
