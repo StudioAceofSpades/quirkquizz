@@ -96,4 +96,14 @@ get_header(); ?>
     </div>
 </div>
 
+<?php if(have_rows('quiz_pages','options')): ?>
+<div class="quiz-page-meta">
+    <?php 
+    $counter = 1;
+    while(have_rows('quiz_pages','options')) : the_row(); ?>
+    <div class="page" data-page-id="<?php echo $counter; ?>" data-question-count="<?php echo get_sub_field('numbers_of_questions'); ?>"></div>
+    <?php $counter++; endwhile; ?>
+</div>
+<?php endif; ?>
+
 <?php get_footer(); ?>

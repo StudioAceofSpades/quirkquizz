@@ -285,6 +285,29 @@ function load_more_ajax() {
 add_action( 'wp_ajax_load_more_ajax', 'load_more_ajax' );
 add_action( 'wp_ajax_nopriv_load_more_ajax', 'load_more_ajax' );
 
+function quiz_result() {
+	wp_enqueue_script(
+		'quiz-result',
+		get_template_directory_uri() . '/js/quiz-result.js',
+		array('jquery')
+	);
+	wp_localize_script(
+		'quiz-result',
+		'quiz_result_obj',
+		array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )
+	);
+} 
+add_action('wp_enqueue_scripts','quiz_result');
+
+function quiz_result_ajax() {
+    global $post;
+
+	if ( isset($_REQUEST) ) {
+    }
+    die();
+}
+add_action( 'wp_ajax_quiz_result_ajax', 'quiz_result_ajax' );
+add_action( 'wp_ajax_nopriv_quiz_result_ajax', 'quiz_result_ajax' );
 
 
 ?>
