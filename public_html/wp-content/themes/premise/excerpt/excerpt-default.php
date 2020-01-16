@@ -1,17 +1,11 @@
-<?php
-if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
-if (CFCT_DEBUG) { cfct_banner(__FILE__); } ?>
+<?php if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); } if (CFCT_DEBUG) { cfct_banner(__FILE__); } ?>
 
-<article class="excerpt">
-
-	<h2 class="post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-
-    <div class="post-meta">
-    	<p>By <?php the_author(); ?> | Posted on <?php the_date(); ?> | <?php comments_number(); ?></p>
-    </div>
-
-    <div class="post-content">
-		<?php the_excerpt(); ?>
-    </div>
-    
+<article class="card panel">
+    <?php if($image = get_field('quiz_image')): ?>
+    <img 
+        src="<?php echo $image['sizes']['quiz_image']; ?>"
+        alt="<?php echo $image['alt']; ?>">
+    <?php endif; ?>
+    <h3><?php the_title(); ?></h3>
+    <a class="button large" href="<?php the_permalink(); ?>">Start Quiz</a>
 </article>
