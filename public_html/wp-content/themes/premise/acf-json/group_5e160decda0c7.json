@@ -80,6 +80,25 @@
             "return_format": "array"
         },
         {
+            "key": "field_5e20ca0a7f57d",
+            "label": "Quiz Short Description",
+            "name": "quiz_short_description",
+            "type": "textarea",
+            "instructions": "This is the short description that will appear on the homepage. Shoot for 2-3 sentences at most.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 4,
+            "new_lines": ""
+        },
+        {
             "key": "field_5e160e698f874",
             "label": "Quiz Description",
             "name": "quiz_description",
@@ -88,7 +107,7 @@
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
-                "width": "",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -428,5 +447,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1579206086
+    "modified": 1579207238
 }

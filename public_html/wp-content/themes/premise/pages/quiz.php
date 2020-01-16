@@ -2,9 +2,11 @@
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
+global $post;
+
 get_header(); ?>
 
-<div id="quiz">
+<div id="quiz" data-quiz-id="<?php echo $post->ID; ?>">
 	<div class="content reduce-padding">
         <div class="container">
             <div class="row">

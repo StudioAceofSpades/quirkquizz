@@ -21,6 +21,9 @@
             box-shadow: $shadow;
         }
     }
+    .no-more-posts {
+        text-align: center;
+    }
 }
 @include media-breakpoint-down(sm) {
     #home {

@@ -2,6 +2,8 @@
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
+$latest = false;
+
 get_header(); ?>
 
 <div id="home">
@@ -13,19 +15,45 @@ get_header(); ?>
                 </div>
             </div>
             <div class="row">
+                
+                <?php
+                $args = array(
+                    'posts_per_page'    => 1,
+                    'orderby'           => 'post_date',
+                    'order'             => 'DESC',
+                    'post_status'       => 'publish',
+                    'post_type'         => 'quiz'
+                );
+                $posts = get_posts($args);
+
+                if(!empty($posts)):
+                    foreach($posts as $post) : setup_postdata($post); $latest = $post->ID; ?>
+                
+                <?php if($image = get_field('quiz_image')): ?>
                 <div class="col-md-5 align-self-center">
                     <img 
                         class="featured-image" 
-                        src="<?php bloginfo('template_directory'); ?>/img/demo/1.jpg" 
-                        alt="">
+                        src="<?php echo $image['sizes']['quiz_image']; ?>" 
+                        alt="<?php echo $image['alt']; ?>">
                 </div>
                 <div class="col-md-7 align-self-center">
+                <?php else: ?>
+                <div class="col">
+                <?php endif; ?>
                     <div class="featured-quiz-content">
-                        <h3>This is a quiz title</h3>
-                        <p>This is the quiz description text. It is here to explain what the quiz is about and convince you to take it. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-                        <a class="button large ib" href="#">Start Quiz</a>
+                        <h3><?php the_title(); ?></h3>
+
+                        <?php if($description = get_field('quiz_short_description')): ?>
+                            <p><?php echo $description; ?></p>
+                        <?php endif; ?>
+
+                        <a class="button large ib" href="<?php the_permalink(); ?>">Start Quiz</a>
                     </div>
                 </div>
+                <?php 
+                    endforeach;
+                endif; 
+                wp_reset_postdata(); ?>
             </div>
         </div>
     </div>
@@ -37,61 +65,28 @@ get_header(); ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
 
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
+                <?php 
+                $args = array(
+                    'posts_per_page'    => 6,
+                    'post_type'         => 'quiz',
+                    'meta_key'          => 'views',
+                    'orderby'           => 'views',
+                    'order'             => 'DESC',
+                    'post__not_in'      => array($latest),
+                );
+                $posts = get_posts($args);
+                if(!empty($posts)):
+                    foreach($posts as $post) : setup_postdata($post);
+                    ?>
+                    <div class="col-lg-6 col-xl-4">
+                        <?php cfct_excerpt(); ?>
                     </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
+                    <?php
+                    endforeach;
+                endif;
+                wp_reset_postdata();
+                ?>
 
             </div>
             <div class="row">
@@ -99,99 +94,34 @@ get_header(); ?>
                     <h2 class="section-header">Latest Quizzes</h2>
                 </div>
             </div>
-            <div class="row">
+            <div class="row arena">
 
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
+                <?php 
+                $args = array(
+                    'posts_per_page'    => 9,
+                    'post_type'         => 'quiz',
+                );
+                $posts = get_posts($args);
+                if(!empty($posts)):
+                    foreach($posts as $post) : setup_postdata($post);
+                    ?>
+                    <div class="col-lg-6 col-xl-4">
+                        <?php cfct_excerpt(); ?>
                     </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-4">
-                    <div class="card panel">
-                        <img 
-                            src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                            alt="">
-                        <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                        <a class="button large" href="#">Start Quiz</a>
-                    </div>
-                </div>
+                    <?php
+                    endforeach;
+                endif;
+                wp_reset_postdata();
+                ?>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col-12">
                     <div class="buttons center">
                         <a class="button load-trigger large ib purple" href="#">Load More</a>
                     </div>
                 </div>
             </div>
         </div>
-		<?php cfct_loop(); ?>
     </div>
 </div>
 

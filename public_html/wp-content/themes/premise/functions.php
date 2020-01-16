@@ -211,4 +211,80 @@ function create_quiz_cpt() {
 }
 add_action( 'init', 'create_quiz_cpt', 0 );
 
+function track_views() {
+	wp_enqueue_script(
+		'track-views',
+		get_template_directory_uri() . '/js/track-views.js',
+		array('jquery')
+	);
+	wp_localize_script(
+		'track-views',
+		'track_views_obj',
+		array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )
+	);
+} 
+add_action('wp_enqueue_scripts','track_views');
+
+function track_views_ajax() {
+	if ( isset($_REQUEST) ) {
+        $id = $_REQUEST['quiz'];
+        $views = get_post_meta($id, 'views', true);
+
+        if($views) {
+            $views++;
+        } else {
+            $views = 1;
+        }
+        update_post_meta($_REQUEST['quiz'], 'views', $views);
+    }
+    die();
+}
+add_action( 'wp_ajax_track_views_ajax', 'track_views_ajax' );
+add_action( 'wp_ajax_nopriv_track_views_ajax', 'track_views_ajax' );
+
+function load_more() {
+	wp_enqueue_script(
+		'load-more',
+		get_template_directory_uri() . '/js/load-more.js',
+		array('jquery')
+	);
+	wp_localize_script(
+		'load-more',
+		'load_more_obj',
+		array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )
+	);
+} 
+add_action('wp_enqueue_scripts','load_more');
+
+function load_more_ajax() {
+    global $post;
+
+	if ( isset($_REQUEST) ) {
+        $args = array(
+            'posts_per_page'    => 9,
+            'post_type'         => 'quiz',
+            'offset'            => $_REQUEST['cards'],
+        );
+        $posts = get_posts($args);
+        if(!empty($posts)):
+            foreach($posts as $post) : setup_postdata($post);
+            ?>
+            <div class="col-lg-6 col-xl-4">
+                <?php cfct_excerpt(); ?>
+            </div>
+            <?php
+            endforeach;
+
+        else : 
+            echo 'false';
+        endif;
+        wp_reset_postdata();
+    }
+    die();
+}
+add_action( 'wp_ajax_load_more_ajax', 'load_more_ajax' );
+add_action( 'wp_ajax_nopriv_load_more_ajax', 'load_more_ajax' );
+
+
+
 ?>
