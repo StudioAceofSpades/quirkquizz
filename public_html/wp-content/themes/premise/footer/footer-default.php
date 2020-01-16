@@ -1,10 +1,11 @@
 <?php if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); } if (CFCT_DEBUG) { cfct_banner(__FILE__); } ?>
 
     <footer class="footer">
-        <img class="diamonds top-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-footer-top-left.png" />
+        <img class="diamonds desktop top-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-footer-top-left.png" />
+        <img class="diamonds mobile top-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-mobile-footer-top-left.png" />
         <div class="container">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-lg-5 col-md-12">
                     <div class="footer-about">
                         <div class="footer-logo">
                             <img src="<?php bloginfo('template_url'); ?>/img/quirk-quiz-small-light-logo.png" alt="Quirk Quiz">
@@ -35,7 +36,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="col-md-7 align-self-center">
+                <div class="col-lg-7 col-md-12 align-self-center">
                     <div class="footer-newsletter">
                         <?php if($header = get_field('newsletter_header','options')): ?>
                         <h3><?php echo $header; ?></h3>
@@ -73,10 +74,13 @@
                 </div>
                 <?php endif; ?>
 
-                <div class="copyright">
+                <div class="copyright desktop">
                     <p>&copy; <?php echo date('Y'); ?> QUIRKQUIZ</p>
                 </div>
             </div>
+        </div>
+        <div class="copyright mobile">
+            <p>&copy; <?php echo date('Y'); ?> QUIRKQUIZ</p>
         </div>
     </footer>
 	

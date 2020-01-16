@@ -109,16 +109,32 @@
             line-height: 1;
             font-weight: 700;
         }
+    }
+    .copyright{
+        display: inline-block;
 
-        .copyright {
-            display: inline-block;
+        p {
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+        }
+
+        &.desktop{
             float: right;
+            p {
+                line-height: 1;
+            }
+        }
+        &.mobile {
+            display: none;
+            text-align: center;
+            width: 100%;
+            background-color: $off-white;
 
             p {
-                font-size: 14px;
-                line-height: 1;
-                margin: 0;
-                padding: 0;
+                color: $dark-blue;
+                margin-top: $space-3;
+                margin-bottom: $space-3;
             }
         }
     }
@@ -131,20 +147,48 @@
     .footer {
         .footer-newsletter {
             margin-top: $space-6;
+            text-align: center;
+
+            .form {
+                input[type="email"] {
+                    width: 100%;
+                    margin-right: 0px;
+                }
+                input[type="submit"] {
+                    width: 100%;
+                    margin-top: $space-2;
+                }
+            }
         }
+        .footer-about{
+            text-align: center; 
+
+            .footer-logo {
+                display: flex;
+                justify-content: center;
+            }
+        }
+        
         .subfooter {
-            .site-nav,
-            .copyright {
+            .copyright.desktop {
+                display: none;
+            }
+            .site-nav {
                 float: none;
                 text-align: center;
                 display: block;
-            }
-            .site-nav {
                 margin-bottom: $space-2;
                 a {
                     line-height: 1.5;
                 }
+                li {
+                    width: 100%;
+                    margin-right: 0px;
+                }
             }
+        }
+        .copyright.mobile {
+            display: inline-block;
         }
     }
 }
