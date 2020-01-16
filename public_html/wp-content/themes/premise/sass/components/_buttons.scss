@@ -1,7 +1,7 @@
 a.button,
 input.button {
     border-radius: $radius;
-    padding: $space-2 $space-3;
+    padding: $space-2 $space-6;
     color: $white;
     background: $teal;
     font-family: $display-font;
@@ -26,6 +26,7 @@ input.button {
         display: inline-block;
     }
     &.b {
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.25);
         display: block;
     }
     &.purple {

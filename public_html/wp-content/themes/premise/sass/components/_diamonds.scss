@@ -1,0 +1,20 @@
+.diamonds {
+    position: absolute;
+
+    &.top-left {
+        left: 0px;
+        top: 0px;
+    }
+    &.top-right {
+        right: 0px;
+        top: 0px;
+    }
+    &.bottom-right {
+        right: 0px;
+        bottom: 0px;
+    }
+    &.bottom-left {
+        left: 0px;
+        bottom: 0px;
+    }
+}
