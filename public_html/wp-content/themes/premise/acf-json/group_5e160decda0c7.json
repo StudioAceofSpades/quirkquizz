@@ -177,13 +177,45 @@
                     "mime_types": ""
                 },
                 {
+                    "key": "field_5e20c50d31847",
+                    "label": "Question Type",
+                    "name": "answer_type",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "text": "Text",
+                        "image": "Image"
+                    },
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "default_value": "",
+                    "layout": "horizontal",
+                    "return_format": "value",
+                    "save_other_choice": 0
+                },
+                {
                     "key": "field_5e160e908f878",
                     "label": "Answers",
                     "name": "answers",
                     "type": "repeater",
                     "instructions": "",
                     "required": 0,
-                    "conditional_logic": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5e20c50d31847",
+                                "operator": "==",
+                                "value": "text"
+                            }
+                        ]
+                    ],
                     "wrapper": {
                         "width": "",
                         "class": "",
@@ -213,6 +245,59 @@
                             "prepend": "",
                             "append": "",
                             "maxlength": ""
+                        }
+                    ]
+                },
+                {
+                    "key": "field_5e20c52d31848",
+                    "label": "Image Answers",
+                    "name": "Image Answers",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5e20c50d31847",
+                                "operator": "==",
+                                "value": "image"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "collapsed": "",
+                    "min": 0,
+                    "max": 0,
+                    "layout": "block",
+                    "button_label": "Add Answer",
+                    "sub_fields": [
+                        {
+                            "key": "field_5e20c52d31849",
+                            "label": "Answer",
+                            "name": "answer",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": ""
                         }
                     ]
                 }
@@ -343,5 +428,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1578504182
+    "modified": 1579206086
 }
