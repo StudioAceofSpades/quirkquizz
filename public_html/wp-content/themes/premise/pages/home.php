@@ -7,7 +7,8 @@ get_header(); ?>
 
 <div id="home">
     <div class="hero">
-        <img class="diamonds top-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-hero-top-left.png" />
+        <img class="diamonds desktop top-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-hero-top-left.png" />
+        <img class="diamonds mobile top-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-mobile-hero-top-left.png" />
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -56,10 +57,10 @@ get_header(); ?>
                 wp_reset_postdata(); ?>
             </div>
         </div>
-        <img class="diamonds bottom-right" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-hero-bottom-right.png" />
+        <img class="diamonds desktop bottom-right" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-hero-bottom-right.png" />
     </div>
 	<div class="content">
-        <img class="diamonds top-right" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-body-top-right.png" />
+        <img class="diamonds desktop top-right" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-body-top-right.png" />
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -124,7 +125,8 @@ get_header(); ?>
                 </div>
             </div>
         </div>
-        <img class="diamonds bottom-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-body-bottom-left.png" />
+        <img class="diamonds desktop bottom-left" src="<?php bloginfo('template_directory'); ?>/img/diamonds/diamonds-body-bottom-left.png" />
+		<?php cfct_loop(); ?>
     </div>
 </div>
 
