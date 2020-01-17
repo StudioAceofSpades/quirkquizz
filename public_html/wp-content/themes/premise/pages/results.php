@@ -2,6 +2,8 @@
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
+global $post;
+
 $quiz_id    = $_GET['quiz_id'];
 $result_id  = $_GET['result'];
 $error      = false;
@@ -78,30 +80,7 @@ get_header(); ?>
                 </div>
             <?php endif; ?>
                 <div class="col-lg-4">
-                    <aside class="sidebar">
-                        <h2 class="section-header">More Quizzes</h2>
-                        <div class="card panel">
-                            <img 
-                                src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                                alt="">
-                            <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                            <a class="button large" href="#">Start Quiz</a>
-                        </div>
-                        <div class="card panel">
-                            <img 
-                                src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                                alt="">
-                            <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                            <a class="button large" href="#">Start Quiz</a>
-                        </div>
-                        <div class="card panel">
-                            <img 
-                                src="<?php bloginfo('template_directory'); ?>/img/demo/2.jpg"
-                                alt="">
-                            <h3>This is a really long quiz that we're going to have to figure out quiz</h3>
-                            <a class="button large" href="#">Start Quiz</a>
-                        </div>
-                    </aside>
+                    <?php include(get_template_directory() . '/parts/aside.php'); ?>
                 </div>
             </div>
         </div>
