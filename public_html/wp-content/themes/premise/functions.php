@@ -286,29 +286,44 @@ function load_more_ajax() {
 add_action( 'wp_ajax_load_more_ajax', 'load_more_ajax' );
 add_action( 'wp_ajax_nopriv_load_more_ajax', 'load_more_ajax' );
 
-function quiz_result() {
+function random_quiz_url() {
 	wp_enqueue_script(
-		'quiz-result',
-		get_template_directory_uri() . '/js/quiz-result.js',
+		'random-quiz-url',
+		get_template_directory_uri() . '/js/random-quiz-url.js',
 		array('jquery')
 	);
 	wp_localize_script(
-		'quiz-result',
-		'quiz_result_obj',
+		'random-quiz-url',
+		'random_quiz_url_obj',
 		array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) )
 	);
 } 
-add_action('wp_enqueue_scripts','quiz_result');
+add_action('wp_enqueue_scripts','random_quiz_url');
 
-function quiz_result_ajax() {
+function random_quiz_url_ajax() {
     global $post;
 
 	if ( isset($_REQUEST) ) {
+        $args = array(
+            'posts_per_page'    => 1,
+            'orderby'           => 'rand',
+            'post_status'       => 'publish',
+            'post_type'         => 'quiz'
+        );
+        $posts = get_posts($args);
+
+        if(!empty($posts)):
+            foreach($posts as $post) : setup_postdata($post);
+                echo get_permalink();
+            endforeach;
+        else: 
+            echo 'Uhoh! Something went wrong fetching a random quiz!';
+        endif;
     }
     die();
 }
-add_action( 'wp_ajax_quiz_result_ajax', 'quiz_result_ajax' );
-add_action( 'wp_ajax_nopriv_quiz_result_ajax', 'quiz_result_ajax' );
+add_action( 'wp_ajax_random_quiz_url_ajax', 'random_quiz_url_ajax' );
+add_action( 'wp_ajax_nopriv_random_quiz_url_ajax', 'random_quiz_url_ajax' );
 
 
 ?>

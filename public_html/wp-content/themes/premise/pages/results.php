@@ -66,8 +66,8 @@ get_header(); ?>
                                 <?php endif; ?>
 
                                 <div class="buttons center">
-                                    <a href="#start-quiz" class="button large ib purple">Share Results</a>
-                                    <a href="#start-quiz" class="button large ib purple">Random Quiz</a>
+                                    <a href="#" class="share-target button large ib purple">Share Results</a>
+                                    <a href="#" class="random-url button large ib purple">Random Quiz</a>
                                 </div>
 
                                 <?php
