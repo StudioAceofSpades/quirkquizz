@@ -1,5 +1,6 @@
 a.button,
-input.button {
+input.button,
+div.button {
     border-radius: $radius;
     padding: $space-2 $space-6;
     color: $white;
@@ -8,12 +9,14 @@ input.button {
     font-size: 24px;
     line-height: 30px;
     font-weight: 700;
+    transition: 0.3s ease-in-out all;
     cursor: pointer;
 
     &:hover {
         background: $yellow;
         text-decoration: none;
         color: $white;
+        transform: translateY(-$space-1);
     }
 
     &.large {
@@ -24,10 +27,19 @@ input.button {
     }
     &.ib {
         display: inline-block;
-    }
-    &.b {
         box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    &.image {
+        width: 47%;
+        height: 250px;
+        margin-left: $space-1;
+        margin-right: $space-1;
+    }
+
+    &.b {
         display: block;
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.25);
     }
     &.purple {
         background: $purple;
