@@ -16,6 +16,9 @@ E-Mail: jon@studioaceofspade.com
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+    <?php include(get_template_directory() . '/parts/head-meta.php'); ?>
+
     <?php wp_head(); ?>
     
 </head>
