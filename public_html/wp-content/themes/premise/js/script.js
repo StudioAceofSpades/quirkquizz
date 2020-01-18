@@ -2,6 +2,7 @@
 	$(document).ready(function() {
         headerNavigation();
         cardLinks();
+        shareResults();
 	});	
 
     function headerNavigation() {
@@ -21,6 +22,14 @@
             if($link.length > 0 ) {
                 window.location.href = $link.attr('href');
             }
+        });
+    }
+
+    function shareResults() {
+        $('.share-target').click(function(e) {
+            e.preventDefault();
+
+            $('.share').slideToggle('fast');
         });
     }
 
