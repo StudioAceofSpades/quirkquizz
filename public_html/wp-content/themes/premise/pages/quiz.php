@@ -36,9 +36,14 @@ foreach($pagemeta as $page=>$num_questions){
 
 $question_limit = $pagemeta[$current_page]+$question_offset;
 
+$is_last_page = false;
+if($current_page == count(get_field('quiz_pages','options'))) {
+    $is_last_page = true;
+}
+
 get_header(); ?>
 
-<div id="quiz" data-quiz-id="<?php echo $post->ID; ?>">
+<div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
 	<div class="content reduce-padding">
         <div class="container">
             <div class="row">
@@ -113,7 +118,11 @@ get_header(); ?>
                     <?php endif; ?>
 
                     <div class="buttons center">
-                        <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );;?>" class="button large ib purple">Next Page</a>
+                        <?php if(!$is_last_page) : ?>
+                        <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" class="button large ib purple">Next Page</a>
+                        <?php else: ?>
+                        <a href="<?php bloginfo('url'); ?>/your-results/?" class="button large ib purple get-results">Get Results!</a>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-lg-4">
