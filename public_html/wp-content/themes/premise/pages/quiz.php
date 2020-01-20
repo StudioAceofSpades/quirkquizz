@@ -83,7 +83,7 @@ get_header(); ?>
                     <?php if(have_rows('questions')): ?>
                         <?php $current_question = 1; ?>
                         <?php while(have_rows('questions')): the_row(); ?>
-                            <?php if(($question_offset < $current_question) && ($current_question <= $question_limit)): ?>
+                            <?php if(($question_offset < $current_question) && (($current_question <= $question_limit) || $is_last_page)): ?>
                                 <div class="card question">
                                     <h2>Question <?php echo $current_question; ?></h2>
                                     <h3><?php the_sub_field('question') ?></h3>
