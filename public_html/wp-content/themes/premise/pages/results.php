@@ -66,7 +66,7 @@ get_header(); ?>
                                 <?php endif; ?>
 
                                 <div class="share">
-                                    <?php $url = urlencode(get_permalink($quiz_id)); ?>
+                                    <?php $url = urlencode("http://".$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>
                                     <nav class="social">
                                         <ul>
                                             <li>
