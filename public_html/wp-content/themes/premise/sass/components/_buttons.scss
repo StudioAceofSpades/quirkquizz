@@ -73,9 +73,19 @@ div.button {
 .buttons {
     &.center {
         text-align: center;
-        
+
         .button + .button {
             margin-left: $space-2;
+        }
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .buttons{
+        &.center {
+            .button{
+                max-width: 48%;
+            }
         }
     }
 }
