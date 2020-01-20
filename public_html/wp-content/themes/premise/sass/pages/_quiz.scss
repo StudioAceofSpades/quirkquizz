@@ -1,5 +1,8 @@
 #quiz {
-
+    .question h3 {
+        margin-top: $space-4;
+        margin-bottom: $space-4;
+    }
 }
 @include media-breakpoint-down(md) {
     #quiz {

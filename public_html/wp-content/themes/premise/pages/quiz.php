@@ -86,8 +86,8 @@ get_header(); ?>
                             <?php if(($question_offset < $current_question) && (($current_question <= $question_limit) || $is_last_page)): ?>
                                 <div class="card question">
                                     <h2>Question <?php echo $current_question; ?></h2>
-                                    <h3><?php the_sub_field('question') ?></h3>
                                     <img src="<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>" alt="">
+                                    <h3><?php the_sub_field('question') ?></h3>
                                     <?php if($question_description = get_sub_field('question_description')): ?>
                                         <?php echo $question_description; ?>
                                     <?php endif; ?>
