@@ -43,7 +43,7 @@ if($current_page == count(get_field('quiz_pages','options'))) {
 
 get_header(); ?>
 
-<div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
+<div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
 	<div class="content reduce-padding">
         <div class="container">
             <div class="row">
@@ -96,14 +96,14 @@ get_header(); ?>
                                         <?php if(get_sub_field('answer_type') == 'text'): ?>
                                             <?php if(have_rows('answers')): $current_answer = 1; ?>
                                                 <?php while(have_rows('answers')): the_row(); ?>
-                                                    <a href="#" class="button b offwhite <?php if($current_answer == 1){ echo 'selected'; } ?>"><?php the_sub_field('answer'); ?></a>
+                                                    <a data-answer-id="<?php echo get_sub_field_object('answer')['name']; ?>" href="#" class="button b offwhite <?php if($current_answer == 1){ echo 'selected'; } ?>"><?php the_sub_field('answer'); ?></a>
                                                     <?php $current_answer++; ?>
                                                 <?php endwhile; ?>
                                             <?php endif; ?>
                                         <?php elseif(get_sub_field('answer_type') == 'image'): ?>
                                             <?php if(have_rows('image_answers')): $current_answer = 1; ?>
                                                 <?php while(have_rows('image_answers')): the_row(); ?>
-                                                    <div class="button ib image offwhite <?php if($current_answer == 1){echo 'selected'; } ?>">
+                                                    <div data-answer-id="<?php print_r(get_sub_field_object('answer')['name']); ?>" class="button ib image offwhite <?php if($current_answer == 1){echo 'selected'; } ?>">
                                                         <div class="image-container" style="background-image: url(<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>);">
                                                         </div>
                                                     </div>
