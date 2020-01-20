@@ -115,6 +115,10 @@ get_header(); ?>
                                 </div>
                             <?php endif; $current_question++; ?>
                         <?php endwhile; ?>
+                        <?php
+                            //If we ran out of questions before the end of the page we know its the last page. 
+                            if($current_question-1 <= $question_limit) $is_last_page = true;
+                        ?>
                     <?php endif; ?>
 
                     <div class="buttons center">
