@@ -1,4 +1,4 @@
-+-<?php
+<?php
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
@@ -65,10 +65,34 @@ get_header(); ?>
                                 </div>
                                 <?php endif; ?>
 
+                                <div class="share">
+                                    <?php $url = urlencode(get_permalink($quiz_id)); ?>
+                                    <nav class="social">
+                                        <ul>
+                                            <li>
+                                                <a href="https://www.facebook.com/sharer.php?u=<?php echo $url; ?>" target="_blank">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="https://twitter.com/intent/tweet?url=<?php echo $url; ?>" target="_blank">
+                                                    <i class="fab fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="http://pinterest.com/pin/create/button/?url=<?php echo $url; ?>" target="_blank">
+                                                    <i class="fab fa-pinterest-p"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+
                                 <div class="buttons center">
                                     <a href="#" class="share-target button large ib purple">Share Results</a>
                                     <a href="#" class="random-url button large ib purple">Random Quiz</a>
                                 </div>
+
 
                                 <?php
                                 endif;

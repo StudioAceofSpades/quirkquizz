@@ -2,4 +2,53 @@
     h3.result-header {
         margin: $space-2 0 $space-8;
     }
+    .social {
+        ul {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+        li {
+            padding-right: $space-4;
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+        a {
+            position: relative;
+            background: $purple;
+            color: $white;
+            font-size: $space-4;
+            height: $space-8;
+            width: $space-8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden;
+
+            svg {
+            }
+
+            &:hover {
+                background: $dark-purple;
+            }
+        }
+    }
+    .share {
+        padding: $space-1 0 $space-3;
+        display: none;
+    }
+}
+@include media-breakpoint-down(sm) {
+    #results {
+        .buttons {
+            .button {
+                margin: 0 0 $space-2;
+                display: block;
+                width: 100%;
+            }
+        }
+    }
 }
