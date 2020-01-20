@@ -99,7 +99,7 @@ get_header(); ?>
                                             <?php if(have_rows('image_answers')): $current_answer = 1; ?>
                                                 <?php while(have_rows('image_answers')): the_row(); ?>
                                                     <div class="button ib image offwhite <?php if($current_answer == 1){echo 'selected'; } ?>">
-                                                        <div class="image-container" style="background-image: <?php echo get_sub_field('answer')['sizes']['image_answer']; ?>;">
+                                                        <div class="image-container" style="background-image: url(<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>);">
                                                         </div>
                                                     </div>
                                                     <?php $current_answer++; ?>

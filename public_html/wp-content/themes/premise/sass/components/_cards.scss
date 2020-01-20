@@ -104,7 +104,7 @@
             .button + .button {
                 margin-top: $space-2;
             }
-            .button {
+            .button:not(.image) {
                 line-height: 1;
                 font-size: 18px;
                 font-weight: 700;

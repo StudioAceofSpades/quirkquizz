@@ -32,9 +32,19 @@ div.button {
 
     &.image {
         width: 47%;
-        height: 250px;
+        height: 180px;
         margin-left: $space-1;
         margin-right: $space-1;
+        padding: $space-2 $space-2;
+
+        & .image-container {
+            display: block;
+            height: 100%;
+            border-radius: 8px;
+            background-size: 100%;
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
     }
 
     &.b {
