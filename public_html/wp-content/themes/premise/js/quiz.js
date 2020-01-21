@@ -4,6 +4,7 @@
 
         reloadQuizAnswers();
         bindQuizButtons();
+        validateQuiz();
     });	
     
     function reloadQuizAnswers() {
@@ -35,13 +36,45 @@
             $(this).click(function(e) {
                 e.preventDefault();
                 selectButton($(this)); 
+                validateQuiz();
             });
         })
     }
 
+    //Really simple hacky quiz validation, assuming we are going to swap this out with something else entirely at some point
+    function validateQuiz() {
+        var unansweredQ = false;
+        var selectedAnswer = false;
+        $('.question').each(function() {
+            //This is to make sure we dont try to validate any questions without answers/intro cards.
+            if($(this).find('.answers').length > 0){
+                selectedAnswer = false;
+                $(this).find('.answers').find('.button').each(function() {
+                    if($(this).hasClass('selected')){
+                        selectedAnswer = true;
+                    }
+                })
+                if(selectedAnswer != true){
+                    unansweredQ = true;
+                }
+            }
+        });
+        if(unansweredQ == true){
+            disableButton();
+        }else{
+            enableButton();
+        }
+    }
+
+    function disableButton(){
+        $("#advance-button").addClass("disabled");
+    }
+
+    function enableButton(){
+        $("#advance-button").removeClass("disabled");
+    }
+
     function selectButton(target){
-        console.log("selecting")
-        console.log(target)
         var selected = target;
         var siblings = target.siblings();
         if(!selected.hasClass('selected')){

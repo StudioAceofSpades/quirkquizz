@@ -123,9 +123,9 @@ get_header(); ?>
 
                     <div class="buttons center">
                         <?php if(!$is_last_page) : ?>
-                        <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" class="button large ib purple">Next Page</a>
+                        <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib disabled purple">Next Page</a>
                         <?php else: ?>
-                        <a href="<?php bloginfo('url'); ?>/your-results/?" class="button large ib purple get-results">Get Results!</a>
+                        <a href="<?php bloginfo('url'); ?>/your-results/?" id="advance-button" class="button large ib purple get-results">Get Results!</a>
                         <?php endif; ?>
                     </div>
                 </div>
