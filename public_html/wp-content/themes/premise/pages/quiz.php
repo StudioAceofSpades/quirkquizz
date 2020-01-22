@@ -84,7 +84,7 @@ get_header(); ?>
                         <?php $current_question = 1; ?>
                         <?php while(have_rows('questions')): the_row(); ?>
                             <?php if(($question_offset < $current_question) && (($current_question <= $question_limit) || $is_last_page)): ?>
-                                <div class="card question" <?php if($current_question == 1) echo "id='start-quiz'"; ?>">
+                                <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>">
                                     <h2>Question <?php echo $current_question; ?></h2>
                                     <img src="<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>" alt="">
                                     <h3><?php the_sub_field('question') ?></h3>
@@ -102,9 +102,12 @@ get_header(); ?>
                                             <?php endif; ?>
                                         <?php elseif(get_sub_field('answer_type') == 'image'): ?>
                                             <?php if(have_rows('image_answers')): $current_answer = 1; ?>
-                                                <?php while(have_rows('image_answers')): the_row(); ?>
+                                                <?php while(have_rows('image_answers')): the_row(); ?>                                                
                                                     <div data-answer-id="<?php print_r(get_sub_field_object('answer')['name']); ?>" class="button ib image offwhite">
                                                         <div class="image-container" style="background-image: url(<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>);">
+                                                            <?php if($title = get_sub_field('title')): ?>
+                                                            <span class="title"><?php echo $title; ?></span>
+                                                            <?php endif; ?>
                                                         </div>
                                                     </div>
                                                     <?php $current_answer++; ?>
