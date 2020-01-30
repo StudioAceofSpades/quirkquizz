@@ -182,6 +182,10 @@
     .header {
         height: 54px;
 
+        .header-logo {
+            margin-bottom: $space;
+        }
+
         &::before {
             right: 40px;
             width: 56px;
