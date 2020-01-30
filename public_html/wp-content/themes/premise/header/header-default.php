@@ -35,7 +35,7 @@ E-Mail: jon@studioaceofspade.com
             <div class="col">
                 <h1 class="brand">
                     <a href="<?php bloginfo('url'); ?>">
-                        <img src="<?php bloginfo('template_directory'); ?>/img/quirk-quiz-logo.png">
+                        <img class="header-logo" src="<?php bloginfo('template_directory'); ?>/img/quirk-quiz-logo.png">
                     </a>
                 </h1>
             </div>

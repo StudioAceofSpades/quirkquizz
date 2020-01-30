@@ -37,18 +37,7 @@
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-12 align-self-center">
-                    <div class="footer-newsletter">
-                        <?php if($header = get_field('newsletter_header','options')): ?>
-                        <h3><?php echo $header; ?></h3>
-                        <?php endif; ?>
-                        <?php if($subheader = get_field('newsletter_subheader','options')): ?>
-                        <h4><?php echo $subheader; ?></h4>
-                        <?php endif; ?>
-                        <div class="newsletter form">
-                            <input type="email" placeholder="you@youremail.com">
-                            <input class="button" type="submit" value="Sign Up">
-                        </div>
-                    </div>
+                    <?php include(get_stylesheet_directory() . '/parts/hardcoded-form.php'); ?>
                 </div>
             </div>
         </div>
