@@ -3,6 +3,24 @@
         margin-top: $space-4;
         margin-bottom: $space-4;
     }
+    .image-container {
+        position: relative;
+        
+        span {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			text-align: center;
+			color: white;
+			background: rgba(0,0,0,.7);
+			padding: 5px;
+			font-size: 14px;
+			font-family: 'Roboto', sans-serif;
+			font-weight: 400;
+			border-radius: 0 0 8px 8px;
+        }
+    }
 }
 @include media-breakpoint-down(md) {
     #quiz {
@@ -13,4 +31,14 @@
             margin-top: $space-8;
         }
     }
+}
+@include media-breakpoint-down(xs) {
+	#quiz {
+        .image-container {
+            span {
+                font-size: 11px;
+                line-height: 1.1;
+            }
+        }
+	}
 }
