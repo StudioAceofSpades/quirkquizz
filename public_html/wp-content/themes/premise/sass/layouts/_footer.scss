@@ -18,13 +18,13 @@
 
     .form {
         font-size: 0;
-        display: flex;
 
         @include placeholder {
             color: rgba(255,255,255,.5);
         }
 
         input {
+            vertical-align: bottom; 
             display: inline-block;
             &[type="email"], &[type="text"] {
                 border: 0;
@@ -139,10 +139,6 @@
                 margin-bottom: $space-3;
             }
         }
-    }
-}
-@include media-breakpoint-down(lg) {
-    .footer {
     }
 }
 @include media-breakpoint-down(md) {
