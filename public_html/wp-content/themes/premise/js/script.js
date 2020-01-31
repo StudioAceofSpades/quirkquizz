@@ -4,6 +4,7 @@
         cardLinks();
         shareResults();
         getResults();
+        saveQueryInputs(window.location.search);
 	});	
 
     function getResults() {
@@ -16,6 +17,19 @@
             url += 'quiz_id=' + $quiz.data('quiz-id') + '&';
             url += 'result=' + result;
             window.location.href = url;
+        });
+    }
+
+    //Takes a querystring as an input and saves all parameters as inputs in the contact form.
+    function saveQueryInputs(input) {
+        var inputs = input.replace("?", "").split('&');
+        Object.keys(inputs).forEach(function(index){
+            var currentInput = decodeURIComponent(inputs[index]).split('=');
+            var inputName = currentInput[0];
+            var inputVal = currentInput[1];
+            if($('form#_form_7_').length){
+                $('form#_form_7_').prepend("<input type='hidden' name='"+inputName+"' value='"+inputVal+"' type='"+inputName+"'>");
+            }
         });
     }
 
