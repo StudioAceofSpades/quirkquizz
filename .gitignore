@@ -12,7 +12,6 @@ backups/
 blogs.dir/
 cache/
 upgrade/
-uploads/
 wp-cache-config.php
 hello.php
 sourcemaps/
