@@ -19,6 +19,7 @@ sourcemaps/
 devcss/
 cache/
 wflogs/
+uploads/wp-migrate-db/
 
 /.htaccess
 /license.txt
