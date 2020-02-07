@@ -129,3 +129,37 @@ img {
     padding: $space-8 0;
     background: $off-white;
 }
+.subpage {
+    padding: $space-8 0;
+    max-width: 900px;
+    margin: 0 auto;
+
+    h1 {
+        color: $purple;
+        margin: 0 0 20px;
+    }
+    h2 {
+        color: $purple;
+        font-size: 36px;
+        margin: 0 0 10px;
+    }
+    h3 {
+        font-weight: 400;
+        color: $teal;
+    }
+    h4 {
+        color: $mid-purple;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-top: 15px;
+    }
+    ul,ol {
+        margin: 0 0 20px 30px;
+        padding: 0 0 0 15px;
+        li {
+            margin: 0 0 5px;
+        }
+    }
+}
+

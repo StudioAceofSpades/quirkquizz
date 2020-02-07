@@ -39,29 +39,9 @@ E-Mail: jon@studioaceofspade.com
                     </a>
                 </h1>
             </div>
+
+            <div class="col"></div>
              
-            <div class="col">
-                <?php if(have_rows('social_media_accounts','options')) : ?>
-                <nav class="social d-none d-lg-block">
-                    <ul>
-                    <?php 
-                    while(have_rows('social_media_accounts','options')) : the_row();
-                        if(($icon = get_sub_field('icon')) && ($link = get_sub_field('link'))):
-                    ?>
-                        <li>
-                            <a href="<?php echo $link; ?>" target="_blank">
-                                <i class="fab fa-<?php echo $icon; ?>"></i>
-                            </a>
-                        </li>
-                    <?php 
-                        endif;
-                    endwhile; 
-                    ?>
-                    </ul>
-                </nav>
-                <?php endif; ?>
-            </div>
-        
             <div class="col">
                 <?php if(have_rows('navigation','options')) : ?>
                 <div class="site-nav">
@@ -79,18 +59,6 @@ E-Mail: jon@studioaceofspade.com
                             endif;
                         endwhile;
                         ?>
-                        <?php 
-                        while(have_rows('social_media_accounts','options')) : the_row();
-                            if(($icon = get_sub_field('icon')) && ($link = get_sub_field('link'))):
-                        ?>
-                            <li class="social-link">
-                                <a href="<?php echo $link; ?>" target="_blank"><i class="fab fa-<?php echo $icon; ?>"></i></a>
-                            </li>
-                        <?php 
-                            endif;
-                        endwhile; 
-                        ?>
-                        </ul>
                     </nav>
                 </div>
                 <?php endif; ?>

@@ -13,27 +13,6 @@
                         <?php if($about = get_field('about_quirkquiz','options')): ?>
                             <?php echo $about; ?>
                         <?php endif; ?>
-
-
-                        <?php if(have_rows('social_media_accounts','options')) : ?>
-                        <nav class="social">
-                            <ul>
-                            <?php 
-                            while(have_rows('social_media_accounts','options')) : the_row();
-                                if(($icon = get_sub_field('icon')) && ($link = get_sub_field('link'))):
-                            ?>
-                                <li>
-                                    <a href="<?php echo $link; ?>" target="_blank">
-                                        <i class="fab fa-<?php echo $icon; ?>"></i>
-                                    </a>
-                                </li>
-                            <?php 
-                                endif;
-                            endwhile; 
-                            ?>
-                            </ul>
-                        </nav>
-                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-lg-7 col-md-12 align-self-center">
