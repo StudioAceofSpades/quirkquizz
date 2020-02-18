@@ -91,7 +91,19 @@ get_header(); ?>
                                     <?php if($question_description = get_sub_field('question_description')): ?>
                                         <?php echo $question_description; ?>
                                     <?php endif; ?>
-
+                                    <div class="ad-slot above-answers-ad">
+                                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                        <!-- above_answers -->
+                                        <ins class="adsbygoogle"
+                                            style="display:block"
+                                            data-ad-client="ca-pub-4411421854869090"
+                                            data-ad-slot="9359346398"
+                                            data-ad-format="auto"
+                                            data-full-width-responsive="true"></ins>
+                                        <script>
+                                            (adsbygoogle = window.adsbygoogle || []).push({});
+                                        </script>
+                                    </div>
                                     <div class="answers">
                                         <?php if(get_sub_field('answer_type') == 'text'): ?>
                                             <?php if(have_rows('answers')): $current_answer = 1; ?>
@@ -116,6 +128,19 @@ get_header(); ?>
                                         <?php endif; ?>
                                     </div>
                                 </div>
+                                <div class="ad-slot after-questions">
+                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                    <!-- after_questions -->
+                                    <ins class="adsbygoogle"
+                                        style="display:block"
+                                        data-ad-client="ca-pub-4411421854869090"
+                                        data-ad-slot="9848083946"
+                                        data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins>
+                                    <script>
+                                        (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                </div>
                             <?php endif; $current_question++; ?>
                         <?php endwhile; ?>
                         <?php
@@ -130,6 +155,19 @@ get_header(); ?>
                         <?php else: ?>
                         <a href="<?php bloginfo('url'); ?>/your-results/?" id="advance-button" class="button large ib purple get-results">Get Results!</a>
                         <?php endif; ?>
+                    </div>
+                    <div class="ad-slot after-next-button">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- after_next_button -->
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-4411421854869090"
+                            data-ad-slot="3282675590"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
                 </div>
                 <div class="col-lg-4">

@@ -101,6 +101,19 @@ get_header(); ?>
                         ?>
 
                     </div>
+                    <div class="ad-slot after-results">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- after_results -->
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-4411421854869090"
+                            data-ad-slot="7409622862"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
                 </div>
             <?php endif; ?>
                 <div class="col-lg-4">
