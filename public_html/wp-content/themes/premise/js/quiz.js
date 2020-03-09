@@ -14,11 +14,9 @@
             $('.answers').find('.button').each(function() {
                 $(this).removeClass('selected');
             });
-            console.log(selectedAnswers)
             selectedAnswers.forEach(function(answer) {
                 var target = ".button[data-answer-id='"+answer+"']";
                 selectButton($(target));
-                console.log($(target));
             });
         }
 
@@ -72,6 +70,7 @@
 
     function enableButton(){
         $("#advance-button").removeClass("disabled");
+        chooseResultsLink();
     }
 
     function selectButton(target){
@@ -96,4 +95,22 @@
         cookieString = window.quizID+"="+answersArray.toString();
         document.cookie = cookieString;
     }
+
+    function chooseResultsLink(){
+        return $.ajax({
+            url:"https://geolocation-db.com/jsonp/0f761a30-fe14-11e9-b59f-e53803842572",
+            jsonpCallback: "callback",
+            dataType: "jsonp",
+            async: false,
+            success: function( location ){
+                var country = location.country_code
+                if(country && (country == "US")){
+                    $("#results-button").attr('href', $("#survey_link").val());
+                }else{
+                    $('#results-button').attr('href', ($("#results_link").val()));
+                }
+            }
+        })
+    }
+
 })( jQuery );

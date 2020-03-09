@@ -11,11 +11,13 @@
         var $quiz = $('#quiz');
         $('.get-results').click(function(e) {
             e.preventDefault();
+            var comp = new RegExp(location.host);
             var url = $(this).attr('href');
-            var result = Math.floor(Math.random() * $quiz.data('num-results')) + 1;
-
-            url += 'quiz_id=' + $quiz.data('quiz-id') + '&';
-            url += 'result=' + result;
+            if(comp.test($(this).attr('href'))){
+                var result = Math.floor(Math.random() * $quiz.data('num-results')) + 1;
+                url += 'quiz_id=' + $quiz.data('quiz-id') + '&';
+                url += 'result=' + result;
+            }
             window.location.href = url;
         });
     }

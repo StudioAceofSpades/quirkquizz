@@ -177,25 +177,6 @@
                     "mime_types": ""
                 },
                 {
-                    "key": "field_5e221e763b21a",
-                    "label": "Question Description",
-                    "name": "question_description",
-                    "type": "wysiwyg",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "tabs": "all",
-                    "toolbar": "full",
-                    "media_upload": 1,
-                    "delay": 0
-                },
-                {
                     "key": "field_5e20c50d31847",
                     "label": "Question Type",
                     "name": "answer_type",
@@ -270,7 +251,7 @@
                 {
                     "key": "field_5e20c52d31848",
                     "label": "Image Answers",
-                    "name": "image_answers",
+                    "name": "Image Answers",
                     "type": "repeater",
                     "instructions": "",
                     "required": 0,
@@ -317,25 +298,6 @@
                             "max_height": "",
                             "max_size": "",
                             "mime_types": ""
-                        },
-                        {
-                            "key": "field_5e287e49ee0f4",
-                            "label": "Title",
-                            "name": "title",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": ""
                         }
                     ]
                 }
@@ -356,6 +318,22 @@
             },
             "placement": "left",
             "endpoint": 0
+        },
+        {
+            "key": "field_5e66882c423f0",
+            "label": "Survey Page Link",
+            "name": "survey_page_link",
+            "type": "url",
+            "instructions": "Enter the URL for the alternative results page with included survey link here",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
         },
         {
             "key": "field_5e160ed78f87a",
@@ -466,5 +444,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1579712115
+    "modified": 1583777925
 }
