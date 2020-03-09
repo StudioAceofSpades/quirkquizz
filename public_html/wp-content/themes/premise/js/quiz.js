@@ -107,7 +107,7 @@
                 if(country && (country == "US")){
                     $("#results-button").attr('href', $("#survey_link").val());
                 }else{
-                    $('#results-button').attr('href', ($("#results_link").val()));
+                    $('#results-button').attr('href', ($("#result_link").val()));
                 }
             }
         })
