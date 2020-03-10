@@ -157,7 +157,7 @@ get_header(); ?>
                             <input type="hidden" id="survey_link" value="<?php the_field('survey_page_link'); ?>" />
                             <?php endif ?>
                             <input type="hidden" id="result_link" value="<?php bloginfo('url'); ?>/your-results/?" />
-                            <a href="#" id="results-button" class="button large ib purple get-results">Get Results!</a>
+                            <a href="<?php bloginfo('url'); ?>/your-results/?" id="results-button" class="button large ib purple get-results">Get Results!</a>
                         <?php endif; ?>
                     </div>
                     <div class="ad-slot after-next-button">
