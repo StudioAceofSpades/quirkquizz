@@ -1,11 +1,24 @@
 (function($) {
 	$(document).ready(function() {
         window.quizID = "quiz-"+$('#quiz').data('quiz-id')+"-"+$("#quiz").data('curr-page');
-
+        getUserLocation();
         reloadQuizAnswers();
         bindQuizButtons();
         validateQuiz();
     });	
+
+    function getUserLocation(){
+        return $.ajax({
+            url:"https://geolocation-db.com/jsonp/0f761a30-fe14-11e9-b59f-e53803842572",
+            jsonpCallback: "callback",
+            dataType: "jsonp",
+            async: false,
+            success: function( location ){
+                window.country = location.country_code;
+                loadAds();
+            }
+        })
+    }
     
     function reloadQuizAnswers() {
         var quizCookie = getQuizCookie();
@@ -97,20 +110,27 @@
     }
 
     function chooseResultsLink(){
-        return $.ajax({
-            url:"https://geolocation-db.com/jsonp/0f761a30-fe14-11e9-b59f-e53803842572",
-            jsonpCallback: "callback",
-            dataType: "jsonp",
-            async: false,
-            success: function( location ){
-                var country = location.country_code
-                if(country && (country == "US")){
-                    $("#results-button").attr('href', $("#survey_link").val());
-                }else{
-                    $('#results-button').attr('href', ($("#result_link").val()));
-                }
+        country = window.country;
+        if(country && (country == "US")){
+            $("#results-button").attr('href', $("#survey_link").val());
+        }else{
+            $('#results-button').attr('href', $("#result_link").val());
+        }
+    }
+
+    function loadAds(){
+        country = window.country;
+        if(!country || (country != "US")){
+            var adscript = document.createElement("script");
+            adscript.type = "text/javascript";
+            adscript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+            adscript.async;
+            adscript.setAttribute('data-ad-client', 'ca-pub-4411421854869090');
+            adscript.onload = function(){
+                console.log("Ads Loaded");
             }
-        })
+            document.body.appendChild(adscript);
+        }
     }
 
 })( jQuery );

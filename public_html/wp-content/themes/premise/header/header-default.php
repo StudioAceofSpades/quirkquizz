@@ -20,10 +20,6 @@ E-Mail: jon@studioaceofspade.com
     <?php include(get_template_directory() . '/parts/head-meta.php'); ?>
 
     <?php wp_head(); ?>
-
-
-    <?php #Adsense pixel code ?>
-    <script data-ad-client="ca-pub-4411421854869090" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     
 </head>
 
