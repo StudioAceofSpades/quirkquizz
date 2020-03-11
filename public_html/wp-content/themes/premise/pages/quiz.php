@@ -92,7 +92,6 @@ get_header(); ?>
                                         <?php echo $question_description; ?>
                                     <?php endif; ?>
                                     <div class="ad-slot above-answers-ad">
-                                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                                         <!-- above_answers -->
                                         <ins class="adsbygoogle"
                                             style="display:block"
@@ -129,7 +128,6 @@ get_header(); ?>
                                     </div>
                                 </div>
                                 <div class="ad-slot after-questions">
-                                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                                     <!-- after_questions -->
                                     <ins class="adsbygoogle"
                                         style="display:block"
@@ -161,7 +159,6 @@ get_header(); ?>
                         <?php endif; ?>
                     </div>
                     <div class="ad-slot after-next-button">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- after_next_button -->
                         <ins class="adsbygoogle"
                             style="display:block"

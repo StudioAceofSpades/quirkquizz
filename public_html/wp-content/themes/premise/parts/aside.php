@@ -15,7 +15,6 @@
             cfct_excerpt();
             if($index==0){
                 echo '<div class="ad-slot after-first-related-quiz">
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                     <!-- after_first_related_quiz -->
                     <ins class="adsbygoogle"
                         style="display:block"
@@ -34,7 +33,6 @@
     endif;
     ?>
     <div class="ad-slot after-all-quizzes">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- after_all_related_quizzes -->
         <ins class="adsbygoogle"
             style="display:block"
