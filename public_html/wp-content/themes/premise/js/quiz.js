@@ -16,6 +16,7 @@
             success: function( location ){
                 window.country = location.country_code;
                 loadAds();
+                chooseResultsLink();
             }
         })
     }
