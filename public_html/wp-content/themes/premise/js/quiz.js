@@ -10,7 +10,6 @@
     function getUserLocation(_callback){
         //If we dont already have a user location, we are going to retreive and store it
         if(store("country-code") == null){
-            console.log("requesting location");
             $.ajax ({
                 async: true,
                 method: "GET",
@@ -19,12 +18,10 @@
                 dataType: "json",
                 success: function (location) {
                     store("country-code", location.country_code2);
-                    window.country = store("country-code");
-                    loadAds();
-                    chooseResultsLink();
+                    setWindowLocation();
                 },
                 error: function () {
-                    console.log("api not reached.")
+                    console.log("loc not reached")
                 }
             });
         } else {
@@ -139,7 +136,6 @@
     function loadAds(){
         country = window.country;
         if((country == null) || (country != "US")){
-            console.log("Loading Ads");
             var adscript = document.createElement("script");
             adscript.type = "text/javascript";
             adscript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
