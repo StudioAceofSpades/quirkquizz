@@ -1,10 +1,7 @@
 (function($) {
 	$(document).ready(function() {
         window.quizID = "quiz-"+$('#quiz').data('quiz-id')+"-"+$("#quiz").data('curr-page');
-        getUserLocation(function(){
-            loadAds();
-            chooseResultsLink();
-        });
+        getUserLocation();
         reloadQuizAnswers();
         bindQuizButtons();
         validateQuiz();
@@ -17,22 +14,28 @@
             $.ajax ({
                 async: true,
                 method: "GET",
-                url: "http://api.ipgeolocation.io/ipgeo?fields=country_code2",
+                url: "https://api.ipgeolocation.io/ipgeo?fields=country_code2",
                 contentType: "application/json",
                 dataType: "json",
                 success: function (location) {
                     store("country-code", location.country_code2);
+                    window.country = store("country-code");
+                    loadAds();
+                    chooseResultsLink();
                 },
                 error: function () {
                     console.log("api not reached.")
                 }
             });
-        } 
-        //Take the stored location and make available as a window variable
-        window.country = store("country-code");
-        console.log("location "+window.country);
-        //Callback function for location dependent scripts like loadads.
-        _callback();
+        } else {
+            setWindowLocation();
+        }
+
+        function setWindowLocation(){
+            window.country = store("country-code");
+            loadAds();
+            chooseResultsLink();
+        }
     }
     
     function reloadQuizAnswers() {
