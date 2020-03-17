@@ -1,24 +1,38 @@
 (function($) {
 	$(document).ready(function() {
         window.quizID = "quiz-"+$('#quiz').data('quiz-id')+"-"+$("#quiz").data('curr-page');
-        getUserLocation();
+        getUserLocation(function(){
+            loadAds();
+            chooseResultsLink();
+        });
         reloadQuizAnswers();
         bindQuizButtons();
         validateQuiz();
     });	
 
-    function getUserLocation(){
-        return $.ajax({
-            url:"https://geolocation-db.com/jsonp/0f761a30-fe14-11e9-b59f-e53803842572",
-            jsonpCallback: "callback",
-            dataType: "jsonp",
-            async: false,
-            success: function( location ){
-                window.country = location.country_code;
-                loadAds();
-                chooseResultsLink();
-            }
-        })
+    function getUserLocation(_callback){
+        //If we dont already have a user location, we are going to retreive and store it
+        if(store("country-code") == null){
+            console.log("requesting location");
+            $.ajax ({
+                async: true,
+                method: "GET",
+                url: "http://api.ipgeolocation.io/ipgeo?fields=country_code2",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (location) {
+                    store("country-code", location.country_code2);
+                },
+                error: function () {
+                    console.log("api not reached.")
+                }
+            });
+        } 
+        //Take the stored location and make available as a window variable
+        window.country = store("country-code");
+        console.log("location "+window.country);
+        //Callback function for location dependent scripts like loadads.
+        _callback();
     }
     
     function reloadQuizAnswers() {
@@ -121,7 +135,8 @@
 
     function loadAds(){
         country = window.country;
-        if(!country || (country != "US")){
+        if((country == null) || (country != "US")){
+            console.log("Loading Ads");
             var adscript = document.createElement("script");
             adscript.type = "text/javascript";
             adscript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
