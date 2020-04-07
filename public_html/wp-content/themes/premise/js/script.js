@@ -4,7 +4,8 @@
         cardLinks();
         shareResults();
         getResults();
-        saveQueryInputs(window.location.search);
+        saveQueryInputsToFooterForm();
+        storeQueryStringArray();
 	});	
 
     function getResults() {
@@ -18,21 +19,42 @@
                 url += 'quiz_id=' + $quiz.data('quiz-id') + '&';
                 url += 'result=' + result;
             }
+            //clearing stored query strings out of memory.
+            store("querystrings", null);
             window.location.href = url;
         });
     }
 
     //Takes a querystring as an input and saves all parameters as inputs in the contact form.
-    function saveQueryInputs(input) {
-        var inputs = input.replace("?", "").split('&');
+    function saveQueryInputsToFooterForm() {
+        var inputs = window.location.search.replace("?", "").split('&');
         Object.keys(inputs).forEach(function(index){
             var currentInput = decodeURIComponent(inputs[index]).split('=');
             var inputName = currentInput[0];
             var inputVal = currentInput[1];
+
             if($('form#_form_7_').length){
                 $('form#_form_7_').prepend("<input type='hidden' name='"+inputName+"' value='"+inputVal+"' type='"+inputName+"'>");
             }
         });
+    }
+
+    function storeQueryStringArray() {
+        var inputs = window.location.search.replace("?", "").split('&');
+        var queryObj = {};
+        Object.keys(inputs).forEach(function(index){
+            var currentInput = decodeURIComponent(inputs[index]).split('=');
+            var inputName = currentInput[0];
+            var inputVal = currentInput[1];
+            //Dont save page-ids. Dont save empty values.
+            if(!(inputName == "page-id") && ((inputName != "") && (inputVal != ""))){
+                queryObj[inputName] = inputVal;
+            }
+        });
+        //We only want to actually store this if we dont have a value stored, and if our query object has more than 0 items.
+        if((store('querystrings') == null) && (Object.keys(queryObj).length > 0)) {
+            store('querystrings', JSON.stringify(queryObj));
+        }
     }
 
     function headerNavigation() {
