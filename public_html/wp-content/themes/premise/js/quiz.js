@@ -128,25 +128,26 @@
         country = window.country;
         if($("#quiz").data('curr-page') == 2){
             var surveyLink = $("#survey_link").val();
-            if((country && (country == "US")) && surveyLink.length > 0){
-                var storedQueryStrings = store('querystrings');
-                queryString = ""; 
-                if(storedQueryStrings != null){
-                    Object.keys(storedQueryStrings).forEach(function(key, index){
-                        //Looping through each querystring and appending it to the URL.
-                        if(index == 0){
-                            queryString ="?"+key+"="+storedQueryStrings[key];
-                        } else {
-                            queryString = queryString+"&"+key+"="+storedQueryStrings[key];
-                        }
-                    });
+            if(surveyLink){
+                if((country && (country == "US")) && surveyLink.length > 0){
+                    var storedQueryStrings = store('querystrings');
+                    queryString = ""; 
+                    if(storedQueryStrings != null){
+                        Object.keys(storedQueryStrings).forEach(function(key, index){
+                            //Looping through each querystring and appending it to the URL.
+                            if(index == 0){
+                                queryString ="?"+key+"="+storedQueryStrings[key];
+                            } else {
+                                queryString = queryString+"&"+key+"="+storedQueryStrings[key];
+                            }
+                        });
+                    }
+                    $("#results-button").attr('href', surveyLink+queryString);
+                }else{
+                    $('#results-button').attr('href', $("#result_link").val());
                 }
-                $("#results-button").attr('href', surveyLink+queryString);
-            }else{
-                $('#results-button').attr('href', $("#result_link").val());
             }
         }
-
     }
 
     function loadAds(){
