@@ -93,11 +93,11 @@
     }
 
     function disableButton(){
-        $("#advance-button").addClass("disabled");
+        $(".next-page-btn").addClass("disabled");
     }
 
     function enableButton(){
-        $("#advance-button").removeClass("disabled");
+        $(".next-page-btn").removeClass("disabled");
         chooseResultsLink();
     }
 
