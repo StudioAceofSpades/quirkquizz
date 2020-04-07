@@ -127,8 +127,8 @@
     function chooseResultsLink(){
         country = window.country;
         if($("#quiz").data('curr-page') == 2){
-            var surveyLink = $("#survey_link").val();
-            if(surveyLink){
+            if($('#survey_link').length){
+                var surveyLink = $("#survey_link").val();
                 if((country && (country == "US")) && surveyLink.length > 0){
                     var storedQueryStrings = store('querystrings');
                     queryString = ""; 
@@ -143,9 +143,9 @@
                         });
                     }
                     $("#results-button").attr('href', surveyLink+queryString);
-                }else{
-                    $('#results-button').attr('href', $("#result_link").val());
                 }
+            } else {
+                $('#results-button').attr('href', $("#result_link").val());
             }
         }
     }
