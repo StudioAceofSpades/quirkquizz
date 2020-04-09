@@ -33,8 +33,8 @@
             var inputName = currentInput[0];
             var inputVal = currentInput[1];
 
-            if($('form#_form_7_').length){
-                $('form#_form_7_').prepend("<input type='hidden' name='"+inputName+"' value='"+inputVal+"' type='"+inputName+"'>");
+            if($('form#_form_12_').length){
+                $('form#_form_12_').prepend("<input type='hidden' name='"+inputName+"' value='"+inputVal+"' type='"+inputName+"'>");
             }
         });
     }

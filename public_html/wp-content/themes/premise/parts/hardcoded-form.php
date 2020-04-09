@@ -1,37 +1,50 @@
-<form method="POST" action="https://masstraffic.activehosted.com/proc.php" id="_form_7_" class="_form _form_7 _inline-form  _dark" novalidate>
-  <input type="hidden" name="u" value="7" />
-  <input type="hidden" name="f" value="7" />
-  <input type="hidden" name="s" />
-  <input type="hidden" name="c" value="0" />
-  <input type="hidden" name="m" value="0" />
-  <input type="hidden" name="act" value="sub" />
-  <input type="hidden" name="v" value="2" />
-  <input type="hidden" name="qq_aff_sub" value="19"/>
-  <div class="_form-content footer-newsletter">
-    <div class="_form_element _x91785565 _full_width _clear" >
-        <?php if($header = get_field('newsletter_header','options')): ?>
-            <h3 class="_form-title"><?php echo $header; ?></h3>
-        <?php endif; ?>
+
+<form method="POST" action="https://masstraffic.activehosted.com/proc.php" id="_form_12_" class="_form _form_12 _inline-form  _dark" novalidate>
+    <div class="_form-thank-you" style="display:none;">
     </div>
-    <div class="_form_element _x35702952 _full_width _clear" >
-      <div class="_html-code">
-        <?php if($subheader = get_field('newsletter_subheader','options')): ?>
-            <h4><?php echo $subheader; ?></h4>
-        <?php endif; ?>
-      </div>
+    <input type="hidden" name="u" value="12" />
+    <input type="hidden" name="f" value="12" />
+    <input type="hidden" name="s" />
+    <input type="hidden" name="c" value="0" />
+    <input type="hidden" name="m" value="0" />
+    <input type="hidden" name="act" value="sub" />
+    <input type="hidden" name="v" value="2" />
+    <input type="hidden" name="qq_aff_sub" value="19"/>
+    <div class="_form-content footer-newsletter">
+        <div class="_form_element _x91785565 _full_width _clear" >
+            <?php if($header = get_field('newsletter_header','options')): ?>
+                <h3 class="_form-title"><?php echo $header; ?></h3>
+            <?php endif; ?>
+        </div>
+        <div class="_form_element _x35702952 _full_width _clear" >
+            <div class="_html-code">
+                <?php if($subheader = get_field('newsletter_subheader','options')): ?>
+                    <h4><?php echo $subheader; ?></h4>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="_form_element _field4 _full_width " >
+            <input type="hidden" name="field[4]" value="" />
+        </div>
+        <div class="_form_element _field1 _full_width " >
+            <input type="hidden" name="field[1]" value="" />
+        </div>
+        <div class="_form_element _field5 _full_width " >
+            <input type="hidden" name="field[5]" value="" />
+        </div>
+        <div class="_form_element _field6 _full_width " >
+            <input type="hidden" name="field[6]" value="" />
+        </div>
+        <div class="newsletter form">
+            <input type="text" name="email" placeholder="Type your email" required/>
+            <button id="_form_12_submit" class="_submit button" type="submit">Sign Up</button>
+        </div>
+        <div class="_clear-element">
+        </div>
     </div>
-    <div class="newsletter form">
-        <input type="text" name="email" placeholder="Type your email" required/>
-        <button id="_form_7_submit" class="_submit button" type="submit">Sign Up</button>
-    </div>
-    <div class="_clear-element">
-    </div>
-  </div>
-  <div class="_form-thank-you" style="display:none;">
-  </div>
 </form>
 <script type="text/javascript">
-window.cfields = [];
+window.cfields = {"4":"aff_id","1":"aff_sub","5":"aff_sub2","6":"offer_id"};
 window._show_thank_you = function(id, message, trackcmp_url) {
   var form = document.getElementById('_form_' + id + '_'), thank_you = form.querySelector('._form-thank-you');
   form.querySelector('._form-content').style.display = 'none';
@@ -61,19 +74,19 @@ window._show_error = function(id, message, html) {
   }
 };
 window._load_script = function(url, callback) {
-    var head = document.querySelector('head'), script = document.createElement('script'), r = false;
-    script.type = 'text/javascript';
-    script.charset = 'utf-8';
-    script.src = url;
-    if (callback) {
-      script.onload = script.onreadystatechange = function() {
+  var head = document.querySelector('head'), script = document.createElement('script'), r = false;
+  script.type = 'text/javascript';
+  script.charset = 'utf-8';
+  script.src = url;
+  if (callback) {
+    script.onload = script.onreadystatechange = function() {
       if (!r && (!this.readyState || this.readyState == 'complete')) {
         r = true;
         callback();
-        }
-      };
-    }
-    head.appendChild(script);
+      }
+    };
+  }
+  head.appendChild(script);
 };
 (function() {
   if (window.location.search.search("excludeform") !== -1) return false;
@@ -100,7 +113,7 @@ window._load_script = function(url, callback) {
     }
   }
   var _removed = false;
-  var form_to_submit = document.getElementById('_form_7_');
+  var form_to_submit = document.getElementById('_form_12_');
   var allInputs = form_to_submit.querySelectorAll('input, select, textarea'), tooltips = [], submitted = false;
 
   var getUrlParam = function(name) {
@@ -120,9 +133,9 @@ window._load_script = function(url, callback) {
     var fieldVal = getUrlParam(allInputs[i].dataset.name);
 
     if (fieldVal) {
-            if (allInputs[i].dataset.autofill === "false") {
-                continue;
-            }
+      if (allInputs[i].dataset.autofill === "false") {
+        continue;
+      }
       if (allInputs[i].type == "radio" || allInputs[i].type == "checkbox") {
         if (allInputs[i].value == fieldVal) {
           allInputs[i].checked = true;
@@ -137,7 +150,7 @@ window._load_script = function(url, callback) {
     for (var i = 0; i < tooltips.length; i++) {
       tooltips[i].tip.parentNode.removeChild(tooltips[i].tip);
     }
-      tooltips = [];
+    tooltips = [];
   };
   var remove_tooltip = function(elem) {
     for (var i = 0; i < tooltips.length; i++) {
@@ -332,8 +345,8 @@ window._load_script = function(url, callback) {
     e.preventDefault();
     if (validate_form()) {
       // use this trick to get the submit button & disable it using plain javascript
-      document.querySelector('#_form_7_submit').disabled = true;
-            var serialized = _form_serialize(document.getElementById('_form_7_'));
+      document.querySelector('#_form_12_submit').disabled = true;
+            var serialized = _form_serialize(document.getElementById('_form_12_'));
       var err = form_to_submit.querySelector('._form_error');
       err ? err.parentNode.removeChild(err) : false;
       _load_script('https://masstraffic.activehosted.com/proc.php?' + serialized + '&jsonp=true');
