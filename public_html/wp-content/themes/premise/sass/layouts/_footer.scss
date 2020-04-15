@@ -23,6 +23,10 @@
             color: rgba(255,255,255,.5);
         }
 
+        .form-row {
+            margin-bottom: 15px;
+        }
+
         input {
             vertical-align: bottom; 
             display: inline-block;
@@ -33,9 +37,12 @@
                 padding: $space-2;
                 font-size: 18px;
                 line-height: 28px;
-                width: 60%;
+                width: 65%;
                 margin-right: 5%;
+            }
 
+            &.halfwidth {
+                width: 45%;
             }
         }
     }
@@ -149,6 +156,10 @@
             text-align: center;
 
             .form {
+                .form-row {
+                    margin-bottom: 0px;
+                }
+
                 input[type="email"], input[type="text"] {
                     width: 100%;
                     margin-right: 0px;

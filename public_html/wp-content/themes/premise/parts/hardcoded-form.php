@@ -36,6 +36,10 @@
             <input type="hidden" name="field[6]" value="" />
         </div>
         <div class="newsletter form">
+            <div class="form-row">
+                <input class="halfwidth" type="text" name="firstname" placeholder="Type your first name" />
+                <input class="halfwidth" type="text" name="lastname" placeholder="Type your last name" />
+            </div>
             <input type="text" name="email" placeholder="Type your email" required/>
             <button id="_form_12_submit" class="_submit button" type="submit">Sign Up</button>
         </div>
