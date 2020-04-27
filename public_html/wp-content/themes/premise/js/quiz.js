@@ -4,7 +4,8 @@
         getUserLocation();
         reloadQuizAnswers();
         bindQuizButtons();
-        validateQuiz();
+        //validateQuiz();
+        chooseResultsLink();
     });	
 
     function getUserLocation(_callback){
@@ -62,7 +63,7 @@
             $(this).click(function(e) {
                 e.preventDefault();
                 selectButton($(this)); 
-                validateQuiz();
+                //validateQuiz();
             });
         })
     }

@@ -149,7 +149,7 @@ get_header(); ?>
 
                     <div class="buttons center">
                         <?php if(!$is_last_page) : ?>
-                            <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib disabled purple next-page-btn">Next Page</a>
+                            <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib purple next-page-btn">Next Page</a>
                         <?php else: ?>
                             <?php if(get_field('survey_page_link')): ?>
                             <input type="hidden" id="survey_link" value="<?php the_field('survey_page_link'); ?>" />
