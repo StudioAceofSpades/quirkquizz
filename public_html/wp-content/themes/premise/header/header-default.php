@@ -21,11 +21,11 @@ E-Mail: jon@studioaceofspade.com
 
     <?php wp_head(); ?>
 
-    <?php "go2cloud script" ?>
+    <?php "go2cloud click tracking script" ?>
     <script type="text/javascript">
-    var hasoffers_domain = "http://masstraffic.go2cloud.org";
+    var hasoffers_domain = "https://masstraffic.go2cloud.org";
     </script>
-    <script type="text/javascript" src="http://media.go2app.org/assets/js/dl.js"></script>
+    <script type="text/javascript" src="https://media.go2app.org/assets/js/dl.js"></script>
     
 </head>
 
