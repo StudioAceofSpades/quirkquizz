@@ -153,7 +153,7 @@
 
     function loadAds(){
         country = window.country;
-        if((country == null) || (country != "US")){
+        if(true){
             var adscript = document.createElement("script");
             adscript.type = "text/javascript";
             adscript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
