@@ -91,18 +91,6 @@ get_header(); ?>
                                     <?php if($question_description = get_sub_field('question_description')): ?>
                                         <?php echo $question_description; ?>
                                     <?php endif; ?>
-                                    <div class="ad-slot above-answers-ad">
-                                        <!-- above_answers -->
-                                        <ins class="adsbygoogle"
-                                            style="display:block"
-                                            data-ad-client="ca-pub-4411421854869090"
-                                            data-ad-slot="9359346398"
-                                            data-ad-format="auto"
-                                            data-full-width-responsive="true"></ins>
-                                        <script>
-                                            (adsbygoogle = window.adsbygoogle || []).push({});
-                                        </script>
-                                    </div>
                                     <div class="answers">
                                         <?php if(get_sub_field('answer_type') == 'text'): ?>
                                             <?php if(have_rows('answers')): $current_answer = 1; ?>
