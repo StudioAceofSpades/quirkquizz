@@ -329,18 +329,18 @@ add_action( 'wp_ajax_nopriv_random_quiz_url_ajax', 'random_quiz_url_ajax' );
 
 
 add_filter('template_include', function($template) {
-    return createTemplateLoader('page-id=', 'confirmation-page.php', $template);
+    return createTemplateLoader('page-id=paidquizad', 'paid-quizad.php', $template);
 });
-​
+
 function createTemplateLoader($searchString, $templateName, $currTemplate) {
     global $wp;
-​
+
     $request = $wp->request;
-​​
+
     //Making sure this string is in the URL
-    $searchStringExist = strpos($request, $searchString) !== false;
+    $searchStringExist = ((strpos($request, $searchString) || strpos(strval($_SERVER['QUERY_STRING']), $searchString)) !== false);
     $parentExist = false;
-​
+    
     //we dont want to make any queries if there is not a suffix present.
     if ($searchStringExist) {
         //Getting the request URL with the suffix stripped out.
@@ -354,7 +354,7 @@ function createTemplateLoader($searchString, $templateName, $currTemplate) {
         $slug_query = new WP_Query($args);
         $parentExist = !empty($slug_query->posts);
     }
-​
+
     //If the suffix is there and the parent page exists throw us to a form-page. 
     if($searchStringExist && $parentExist) {
         //Setting the page status to 200 so we dont get a 404 error
@@ -362,10 +362,10 @@ function createTemplateLoader($searchString, $templateName, $currTemplate) {
         status_header( 200 );
         $wp_query->is_page = true;
         $wp_query->is_404 = false;
-​
-        return locate_template($templateName);
+
+        return cfct_page($templateName);
     }
-​
+    
     return $currTemplate;
 }
 
