@@ -41,6 +41,8 @@ if($current_page == count(get_field('quiz_pages','options'))) {
     $is_last_page = true;
 }
 
+$paid_quizad_enabled = get_field('page_enabled', 'options');
+
 get_header(); ?>
 
 <div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
@@ -136,7 +138,7 @@ get_header(); ?>
                     <?php endif; ?>
 
                     <div class="buttons center">
-                        <?php if($current_page == 1): ?>
+                        <?php if($current_page == 1 && $paid_quizad_enabled): ?>
                             <a href="<?php echo add_query_arg( 'page-id', 'paidquizad', $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib purple next-page-btn">Next Page</a>
                         <?php elseif(!$is_last_page) : ?>
                             <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib purple next-page-btn">Next Page</a>
