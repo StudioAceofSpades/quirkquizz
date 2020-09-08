@@ -338,9 +338,11 @@ function createTemplateLoader($searchString, $templateName, $currTemplate) {
     $request = $wp->request;
 
     //Making sure this string is in the URL
-    $searchStringExist = ((strpos($request, $searchString) || strpos(strval($_SERVER['QUERY_STRING']), $searchString)) !== false);
+    $existInQuery = (strpos(strval($_SERVER['QUERY_STRING']), $searchString) !== false);
+    $existInURL = strpos($request, $searchString);
+    $searchStringExist = (($existInQuery || $existInURL) !== false);
     $parentExist = false;
-    
+
     //we dont want to make any queries if there is not a suffix present.
     if ($searchStringExist) {
         //Getting the request URL with the suffix stripped out.
