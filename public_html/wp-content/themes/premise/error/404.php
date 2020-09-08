@@ -6,7 +6,6 @@ get_header(); ?>
 
 <section id="error" class="page feed">
     <section class="hero">
-        <?php include(get_stylesheet_directory() . "/parts/hero.php"); ?>
     </section>
 </section>
 <?php get_footer(); ?>

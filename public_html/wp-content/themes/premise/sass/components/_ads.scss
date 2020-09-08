@@ -1,15 +1,14 @@
 .ad-slot {
+    margin-top: 20px;
+    margin-bottom: 20px;
     &.above-answers-ad {
-        margin-bottom: 20px;
-    }
-    &.after-questions {
-        margin-bottom: 20px; 
-        margin-top: 20px;
+        margin-top: 0px;
     }
     &.after-next-button {
-        margin-top: 20px;
+        margin-bottom: 0px;
     }
     &.after-first-related-quiz {
         margin-bottom: 30px;
+        margin-top: 0px;
     }
 }
