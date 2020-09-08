@@ -155,6 +155,25 @@
             "endpoint": 0
         },
         {
+            "key": "field_5f57f6f94ec65",
+            "label": "Page Enabled",
+            "name": "page_enabled",
+            "type": "true_false",
+            "instructions": "Should we show a page 1.5 with the following info?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Yes",
+            "ui_off_text": "No"
+        },
+        {
             "key": "field_5f57b0a9ed630",
             "label": "Header",
             "name": "header",
@@ -263,5 +282,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1599594565
+    "modified": 1599600414
 }
