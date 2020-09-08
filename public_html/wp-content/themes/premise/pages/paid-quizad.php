@@ -10,19 +10,6 @@ get_header(); ?>
             <div class="row">
                 <div class="col-lg-8">
                     <div class="card question">
-                        <div class="ad-slot">
-                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <!-- intermediate-quiz-page-ad -->
-                            <ins class="adsbygoogle"
-                                style="display:block"
-                                data-ad-client="ca-pub-4411421854869090"
-                                data-ad-slot="2467571078"
-                                data-ad-format="auto"
-                                data-full-width-responsive="true"></ins>
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            </script>
-                        </div>
                         <h1><?php the_field('header', 'options'); ?></h1>
                         <h3><?php the_field('subheader', 'options'); ?></h3>
                         <?php the_field('text_content', 'options'); ?>
