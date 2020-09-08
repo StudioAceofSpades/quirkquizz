@@ -127,10 +127,11 @@
 
     function chooseResultsLink(){
         country = window.country;
-        if($("#quiz").data('curr-page') == 2){
+        if(($("#quiz").data('curr-page') == 2)){
             if($('#survey_link').length){
                 var surveyLink = $("#survey_link").val();
-                if((country && (country == "US")) && surveyLink.length > 0){
+                var allowedCountries = $("#allowed_countries").val().split(',');
+                if((country && (allowedCountries.indexOf(country) != -1)) && surveyLink.length > 0){
                     var storedQueryStrings = store('querystrings');
                     queryString = ""; 
                     if(storedQueryStrings != null){

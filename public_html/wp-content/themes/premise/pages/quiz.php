@@ -144,6 +144,9 @@ get_header(); ?>
                             <?php if(get_field('survey_page_link')): ?>
                             <input type="hidden" id="survey_link" value="<?php the_field('survey_page_link'); ?>" />
                             <?php endif ?>
+                            <?php if(get_field('allowed_countries', 'options')): ?>
+                            <input type="hidden" id="allowed_countries" value="<?php the_field('allowed_countries', 'options'); ?>" />
+                            <?php endif; ?>
                             <input type="hidden" id="result_link" value="<?php bloginfo('url'); ?>/your-results/?" />
                             <a href="<?php bloginfo('url'); ?>/your-results/?" id="results-button" class="button large ib purple get-results next-page-btn">Get Results!</a>
                         <?php endif; ?>
