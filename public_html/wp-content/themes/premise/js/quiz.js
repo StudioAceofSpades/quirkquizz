@@ -6,6 +6,10 @@
         bindQuizButtons();
         //validateQuiz();
         chooseResultsLink();
+        //Only run on quiz pages
+        if($("#quiz").length > 0){
+            setupCoins();
+        }
     });	
 
     function getUserLocation(_callback){
@@ -64,6 +68,7 @@
                 e.preventDefault();
                 selectButton($(this)); 
                 //validateQuiz();
+                addCoins(3, $(this));
             });
         })
     }
@@ -150,6 +155,40 @@
                 $('#results-button').attr('href', $("#result_link").val());
             }
         }
+    }
+
+    function getCoins() {
+        //See if this quiz has a coin total set
+        var coinsID = "coins-"+window.quizID;
+        var coinTotal = store(coinsID);
+        if (coinTotal == null){
+            coinTotal = 0;
+        }
+        return coinTotal;
+    }
+
+    function setCoins(total){
+        var coinsID = "coins-"+window.quizID;
+        store(coinsID, total);
+    }
+
+    function addCoins(coinVal, answer) {
+        var question = answer.parents(".question");
+        if(!question.hasClass('answered')) {
+            question.addClass('answered');
+            var currCoins = getCoins();
+            var newCoins = currCoins+coinVal;
+            setCoins(newCoins);
+        }
+    }
+
+    function setupCoins() {
+        var coinTotal = getCoins();
+        setCoinCounter(coinTotal);
+    }
+
+    function setCoinCounter(coinVal) {
+        
     }
 
     function loadAds(){

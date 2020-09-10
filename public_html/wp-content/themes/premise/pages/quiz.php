@@ -46,6 +46,7 @@ $paid_quizad_enabled = get_field('page_enabled', 'options');
 get_header(); ?>
 
 <div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
+    <div id="coin-counter"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><div id="coin-total">30</div></div>
 	<div class="content reduce-padding">
         <div class="container">
             <div class="row">
@@ -86,7 +87,7 @@ get_header(); ?>
                         <?php $current_question = 1; ?>
                         <?php while(have_rows('questions')): the_row(); ?>
                             <?php if(($question_offset < $current_question) && (($current_question <= $question_limit) || $is_last_page)): ?>
-                                <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>">
+                                <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
                                     <h2>Question <?php echo $current_question; ?></h2>
                                     <img src="<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>" alt="">
                                     <h3><?php the_sub_field('question') ?></h3>
