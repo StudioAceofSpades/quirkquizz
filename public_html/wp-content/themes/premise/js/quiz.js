@@ -170,6 +170,7 @@
     function setCoins(total){
         var coinsID = "coins-"+window.quizID;
         store(coinsID, total);
+        setCoinCounter(total);
     }
 
     function addCoins(coinVal, answer) {
@@ -188,7 +189,8 @@
     }
 
     function setCoinCounter(coinVal) {
-        
+        $("#coin-counter").addClass('active');
+        $("#coin-total").text(coinVal);
     }
 
     function loadAds(){

@@ -46,7 +46,7 @@ $paid_quizad_enabled = get_field('page_enabled', 'options');
 get_header(); ?>
 
 <div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
-    <div id="coin-counter"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><div id="coin-total">30</div></div>
+    <div id="coin-counter"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><div id="coin-total"></div></div>
 	<div class="content reduce-padding">
         <div class="container">
             <div class="row">
