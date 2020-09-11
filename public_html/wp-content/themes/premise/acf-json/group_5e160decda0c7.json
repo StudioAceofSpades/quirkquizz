@@ -340,10 +340,10 @@
         },
         {
             "key": "field_5e66882c423f0",
-            "label": "Survey Page Link",
+            "label": "Funnel URL",
             "name": "survey_page_link",
             "type": "url",
-            "instructions": "Enter the URL for the alternative results page with included survey link here",
+            "instructions": "Enter the URL for quirk quiz funnel here",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -353,6 +353,25 @@
             },
             "default_value": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_5f5bd395aa763",
+            "label": "",
+            "name": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         },
         {
             "key": "field_5e160ed78f87a",
@@ -463,5 +482,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1585147981
+    "modified": 1599853589
 }

@@ -66,9 +66,9 @@
         $('.answers').find('.button').each(function() {
             $(this).click(function(e) {
                 e.preventDefault();
+                addCoins(3, $(this));
                 selectButton($(this)); 
                 //validateQuiz();
-                addCoins(3, $(this));
             });
         })
     }
@@ -112,6 +112,7 @@
         var siblings = target.siblings();
         if(!selected.hasClass('selected')){
             selected.addClass('selected');
+            selected.parents('.question').addClass('answered');
         }
         $(siblings).each(function(){
             $(this).removeClass('selected');
@@ -175,12 +176,18 @@
 
     function addCoins(coinVal, answer) {
         var question = answer.parents(".question");
+        console.log("Adding coins")
         if(!question.hasClass('answered')) {
+            console.log("Question is frash")
             question.addClass('answered');
             var currCoins = getCoins();
             var newCoins = currCoins+coinVal;
             setCoins(newCoins);
         }
+        audioURL = $("#audiolink").val();
+        console.log(audioURL)
+        var coinsound = new Audio(audioURL);
+        coinsound.play();
     }
 
     function setupCoins() {

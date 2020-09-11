@@ -44,7 +44,7 @@ if($current_page == count(get_field('quiz_pages','options'))) {
 $paid_quizad_enabled = get_field('page_enabled', 'options');
 
 get_header(); ?>
-
+<input type="hidden" id="audiolink" value="<?php bloginfo('template_directory'); ?>/audio/coin.mp3">
 <div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
     <div id="coin-counter"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><div id="coin-total"></div></div>
 	<div class="content reduce-padding">
@@ -98,7 +98,7 @@ get_header(); ?>
                                         <?php if(get_sub_field('answer_type') == 'text'): ?>
                                             <?php if(have_rows('answers')): $current_answer = 1; ?>
                                                 <?php while(have_rows('answers')): the_row(); ?>
-                                                    <a data-answer-id="<?php echo get_sub_field_object('answer')['name']; ?>" href="#" class="button b offwhite"><?php the_sub_field('answer'); ?></a>
+                                                    <a data-answer-id="<?php echo get_sub_field_object('answer')['name']; ?>" href="#" class="button b offwhite"><?php the_sub_field('answer'); ?><div class="coins-get"><i class="far fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div></a>
                                                     <?php $current_answer++; ?>
                                                 <?php endwhile; ?>
                                             <?php endif; ?>
