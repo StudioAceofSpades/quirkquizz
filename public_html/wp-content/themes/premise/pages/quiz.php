@@ -104,8 +104,9 @@ get_header(); ?>
                                             <?php endif; ?>
                                         <?php elseif(get_sub_field('answer_type') == 'image'): ?>
                                             <?php if(have_rows('image_answers')): $current_answer = 1; ?>
-                                                <?php while(have_rows('image_answers')): the_row(); ?>                                                
+                                                <?php while(have_rows('image_answers')): the_row(); ?>
                                                     <div data-answer-id="<?php print_r(get_sub_field_object('answer')['name']); ?>" class="button ib image offwhite">
+                                                        <div class="coins-get"><i class="far fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div>
                                                         <div class="image-container" style="background-image: url(<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>);">
                                                             <?php if($title = get_sub_field('title')): ?>
                                                             <span class="title"><?php echo $title; ?></span>

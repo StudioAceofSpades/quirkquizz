@@ -1,5 +1,6 @@
 (function($) {
 	$(document).ready(function() {
+        window.quizRef = "quiz-"+$('#quiz').data('quiz-id');
         window.quizID = "quiz-"+$('#quiz').data('quiz-id')+"-"+$("#quiz").data('curr-page');
         getUserLocation();
         reloadQuizAnswers();
@@ -160,7 +161,8 @@
 
     function getCoins() {
         //See if this quiz has a coin total set
-        var coinsID = "coins-"+window.quizID;
+        var coinsID = "coins-"+window.quizRef;
+        console.log(coinsID)
         var coinTotal = store(coinsID);
         if (coinTotal == null){
             coinTotal = 0;
@@ -169,7 +171,7 @@
     }
 
     function setCoins(total){
-        var coinsID = "coins-"+window.quizID;
+        var coinsID = "coins-"+window.quizRef;
         store(coinsID, total);
         setCoinCounter(total);
     }
