@@ -120,11 +120,11 @@
             ]
         },
         {
-            "key": "field_5f57dfd572ab3",
-            "label": "Funnel - Allowed Countries",
-            "name": "allowed_countries",
-            "type": "text",
-            "instructions": "Enter a comma separated list of country codes here. If the users country is contained within this list, they will be sent to the alternate funnel.",
+            "key": "field_5f5f93907a82e",
+            "label": "Quirkquizresults funnel link",
+            "name": "funnel_url",
+            "type": "link",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -132,11 +132,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "return_format": "url"
         },
         {
             "key": "field_5f57b091ed62f",
@@ -282,5 +278,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1599600414
+    "modified": 1600099240
 }

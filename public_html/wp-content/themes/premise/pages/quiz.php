@@ -145,14 +145,7 @@ get_header(); ?>
                         <?php elseif(!$is_last_page) : ?>
                             <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib purple next-page-btn">Next Page</a>
                         <?php else: ?>
-                            <?php if(get_field('survey_page_link')): ?>
-                            <input type="hidden" id="survey_link" value="<?php the_field('survey_page_link'); ?>" />
-                            <?php endif ?>
-                            <?php if(get_field('allowed_countries', 'options')): ?>
-                            <input type="hidden" id="allowed_countries" value="<?php the_field('allowed_countries', 'options'); ?>" />
-                            <?php endif; ?>
-                            <input type="hidden" id="result_link" value="<?php bloginfo('url'); ?>/your-results/?" />
-                            <a href="<?php bloginfo('url'); ?>/your-results/?" id="results-button" class="button large ib purple get-results next-page-btn">Get Results!</a>
+                            <a href="<?php echo add_query_arg('a', base64_encode(get_field('funnel_result_text')), get_field('funnel_url', 'options')); ?>" id="funnel-button" class="button large ib purple get-results next-page-btn">Get Results!</a>
                         <?php endif; ?>
                     </div>
                     <div class="ad-slot after-next-button">

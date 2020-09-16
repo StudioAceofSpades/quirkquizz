@@ -6,7 +6,6 @@
         reloadQuizAnswers();
         bindQuizButtons();
         //validateQuiz();
-        chooseResultsLink();
         //Only run on quiz pages
         if($("#quiz").length > 0){
             setupCoins();
@@ -37,7 +36,6 @@
         function setWindowLocation(){
             window.country = store("country-code");
             loadAds();
-            chooseResultsLink();
         }
     }
     
@@ -71,7 +69,12 @@
                 selectButton($(this)); 
                 //validateQuiz();
             });
-        })
+        });
+
+        $('#funnel-button').click(function(e) {
+            e.preventDefault();
+            buildOutboundLink($(this));
+        });
     }
 
     //Really simple hacky quiz validation, assuming we are going to swap this out with something else entirely at some point
@@ -105,7 +108,6 @@
 
     function enableButton(){
         $(".next-page-btn").removeClass("disabled");
-        chooseResultsLink();
     }
 
     function selectButton(target){
@@ -130,33 +132,6 @@
         });
         cookieString = window.quizID+"="+answersArray.toString();
         document.cookie = cookieString;
-    }
-
-    function chooseResultsLink(){
-        country = window.country;
-        if(($("#quiz").data('curr-page') == 2)){
-            if($('#survey_link').length){
-                var surveyLink = $("#survey_link").val();
-                var allowedCountries = $("#allowed_countries").val().split(',');
-                if((country && (allowedCountries.indexOf(country) != -1)) && surveyLink.length > 0){
-                    var storedQueryStrings = store('querystrings');
-                    queryString = ""; 
-                    if(storedQueryStrings != null){
-                        Object.keys(storedQueryStrings).forEach(function(key, index){
-                            //Looping through each querystring and appending it to the URL.
-                            if(index == 0){
-                                queryString ="?"+key+"="+storedQueryStrings[key];
-                            } else {
-                                queryString = queryString+"&"+key+"="+storedQueryStrings[key];
-                            }
-                        });
-                    }
-                    $("#results-button").attr('href', surveyLink+queryString);
-                }
-            } else {
-                $('#results-button').attr('href', $("#result_link").val());
-            }
-        }
     }
 
     function getCoins() {
@@ -200,6 +175,14 @@
     function setCoinCounter(coinVal) {
         $("#coin-counter").addClass('active');
         $("#coin-total").text(coinVal);
+    }
+
+    function buildOutboundLink(btn) {
+        var link = btn.attr('href');
+        console.log(link)
+        var coinsVal = btoa(getCoins());
+        var newLink = link+"&c="+coinsVal
+        window.location.href = newLink;
     }
 
     function loadAds(){
