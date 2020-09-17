@@ -2,6 +2,7 @@
 	$(document).ready(function() {
         window.quizRef = "quiz-"+$('#quiz').data('quiz-id');
         window.quizID = "quiz-"+$('#quiz').data('quiz-id')+"-"+$("#quiz").data('curr-page');
+        window.passthrough_strings = store('querystrings');
         getUserLocation();
         reloadQuizAnswers();
         bindQuizButtons();
@@ -161,8 +162,7 @@
             var newCoins = currCoins+coinVal;
             setCoins(newCoins);
         }
-        audioURL = $("#audiolink").val();
-        console.log(audioURL)
+        var audioURL = $("#audiolink").val();
         var coinsound = new Audio(audioURL);
         coinsound.play();
     }
@@ -179,9 +179,16 @@
 
     function buildOutboundLink(btn) {
         var link = btn.attr('href');
-        console.log(link)
+        var possibleAnswers = window.possible_answers;
         var coinsVal = btoa(getCoins());
-        var newLink = link+"&c="+coinsVal
+        var newLink = link+"&c="+coinsVal;
+        //adding a random possible answer to link
+        var quizAnswer = possibleAnswers[Math.floor(Math.random()*possibleAnswers.length)]['result_text'];
+        newLink = newLink+"&a="+btoa(quizAnswer);
+        var passthrough_strings = window.passthrough_strings;
+        for(const querystring in passthrough_strings) {
+            newLink += `&${querystring}=${passthrough_strings[querystring]}`;
+        }
         window.location.href = newLink;
     }
 

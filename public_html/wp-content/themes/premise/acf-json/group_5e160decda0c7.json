@@ -342,6 +342,46 @@
             "key": "field_5f5f9143c72a2",
             "label": "Funnel Result Text",
             "name": "funnel_result_text",
+            "type": "repeater",
+            "instructions": "A random result will be chosen from this list.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5f625939ccb5d",
+                    "label": "Result Text",
+                    "name": "result_text",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                }
+            ]
+        },
+        {
+            "key": "field_5f625955ccb5e",
+            "label": "Funnel Final Loader Text",
+            "name": "funnel_final_loader_text",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -482,5 +522,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1600099198
+    "modified": 1600280932
 }
