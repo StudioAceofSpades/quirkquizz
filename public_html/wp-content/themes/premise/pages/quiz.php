@@ -43,9 +43,15 @@ if($current_page == count(get_field('quiz_pages','options'))) {
 
 $paid_quizad_enabled = get_field('page_enabled', 'options');
 
-get_header(); ?>
+$allanswers = get_field('funnel_result_text');
 
+get_header(); ?>
+<script>
+    <?php print("window.possible_answers = ".json_encode($allanswers)).";" ?>
+</script>
+<input type="hidden" id="audiolink" value="<?php bloginfo('template_directory'); ?>/audio/coin.mp3">
 <div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
+    <div id="coin-counter"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><div id="coin-total"></div></div>
 	<div class="content reduce-padding">
         <div class="container">
             <div class="row">
@@ -86,7 +92,7 @@ get_header(); ?>
                         <?php $current_question = 1; ?>
                         <?php while(have_rows('questions')): the_row(); ?>
                             <?php if(($question_offset < $current_question) && (($current_question <= $question_limit) || $is_last_page)): ?>
-                                <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>">
+                                <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
                                     <h2>Question <?php echo $current_question; ?></h2>
                                     <img src="<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>" alt="">
                                     <h3><?php the_sub_field('question') ?></h3>
@@ -97,14 +103,15 @@ get_header(); ?>
                                         <?php if(get_sub_field('answer_type') == 'text'): ?>
                                             <?php if(have_rows('answers')): $current_answer = 1; ?>
                                                 <?php while(have_rows('answers')): the_row(); ?>
-                                                    <a data-answer-id="<?php echo get_sub_field_object('answer')['name']; ?>" href="#" class="button b offwhite"><?php the_sub_field('answer'); ?></a>
+                                                    <a data-answer-id="<?php echo get_sub_field_object('answer')['name']; ?>" href="#" class="button b offwhite"><?php the_sub_field('answer'); ?><div class="coins-get"><i class="fas fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div></a>
                                                     <?php $current_answer++; ?>
                                                 <?php endwhile; ?>
                                             <?php endif; ?>
                                         <?php elseif(get_sub_field('answer_type') == 'image'): ?>
                                             <?php if(have_rows('image_answers')): $current_answer = 1; ?>
-                                                <?php while(have_rows('image_answers')): the_row(); ?>                                                
+                                                <?php while(have_rows('image_answers')): the_row(); ?>
                                                     <div data-answer-id="<?php print_r(get_sub_field_object('answer')['name']); ?>" class="button ib image offwhite">
+                                                        <div class="coins-get"><i class="fas fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div>
                                                         <div class="image-container" style="background-image: url(<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>);">
                                                             <?php if($title = get_sub_field('title')): ?>
                                                             <span class="title"><?php echo $title; ?></span>
@@ -143,14 +150,7 @@ get_header(); ?>
                         <?php elseif(!$is_last_page) : ?>
                             <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib purple next-page-btn">Next Page</a>
                         <?php else: ?>
-                            <?php if(get_field('survey_page_link')): ?>
-                            <input type="hidden" id="survey_link" value="<?php the_field('survey_page_link'); ?>" />
-                            <?php endif ?>
-                            <?php if(get_field('allowed_countries', 'options')): ?>
-                            <input type="hidden" id="allowed_countries" value="<?php the_field('allowed_countries', 'options'); ?>" />
-                            <?php endif; ?>
-                            <input type="hidden" id="result_link" value="<?php bloginfo('url'); ?>/your-results/?" />
-                            <a href="<?php bloginfo('url'); ?>/your-results/?" id="results-button" class="button large ib purple get-results next-page-btn">Get Results!</a>
+                            <a href="<?php echo add_query_arg(array('l' => base64_encode(get_field('funnel_final_loader_text'))), get_field('funnel_url', 'options')); ?>" id="funnel-button" class="button large ib purple get-results next-page-btn">Get Results!</a>
                         <?php endif; ?>
                     </div>
                     <div class="ad-slot after-next-button">

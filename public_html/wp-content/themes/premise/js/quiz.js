@@ -1,11 +1,16 @@
 (function($) {
 	$(document).ready(function() {
+        window.quizRef = "quiz-"+$('#quiz').data('quiz-id');
         window.quizID = "quiz-"+$('#quiz').data('quiz-id')+"-"+$("#quiz").data('curr-page');
+        window.passthrough_strings = store('querystrings');
         getUserLocation();
         reloadQuizAnswers();
         bindQuizButtons();
         //validateQuiz();
-        chooseResultsLink();
+        //Only run on quiz pages
+        if($("#quiz").length > 0){
+            setupCoins();
+        }
     });	
 
     function getUserLocation(_callback){
@@ -32,7 +37,6 @@
         function setWindowLocation(){
             window.country = store("country-code");
             loadAds();
-            chooseResultsLink();
         }
     }
     
@@ -62,10 +66,16 @@
         $('.answers').find('.button').each(function() {
             $(this).click(function(e) {
                 e.preventDefault();
+                addCoins(3, $(this));
                 selectButton($(this)); 
                 //validateQuiz();
             });
-        })
+        });
+
+        $('#funnel-button').click(function(e) {
+            e.preventDefault();
+            buildOutboundLink($(this));
+        });
     }
 
     //Really simple hacky quiz validation, assuming we are going to swap this out with something else entirely at some point
@@ -99,7 +109,6 @@
 
     function enableButton(){
         $(".next-page-btn").removeClass("disabled");
-        chooseResultsLink();
     }
 
     function selectButton(target){
@@ -107,6 +116,7 @@
         var siblings = target.siblings();
         if(!selected.hasClass('selected')){
             selected.addClass('selected');
+            selected.parents('.question').addClass('answered');
         }
         $(siblings).each(function(){
             $(this).removeClass('selected');
@@ -125,31 +135,61 @@
         document.cookie = cookieString;
     }
 
-    function chooseResultsLink(){
-        country = window.country;
-        if(($("#quiz").data('curr-page') == 2)){
-            if($('#survey_link').length){
-                var surveyLink = $("#survey_link").val();
-                var allowedCountries = $("#allowed_countries").val().split(',');
-                if((country && (allowedCountries.indexOf(country) != -1)) && surveyLink.length > 0){
-                    var storedQueryStrings = store('querystrings');
-                    queryString = ""; 
-                    if(storedQueryStrings != null){
-                        Object.keys(storedQueryStrings).forEach(function(key, index){
-                            //Looping through each querystring and appending it to the URL.
-                            if(index == 0){
-                                queryString ="?"+key+"="+storedQueryStrings[key];
-                            } else {
-                                queryString = queryString+"&"+key+"="+storedQueryStrings[key];
-                            }
-                        });
-                    }
-                    $("#results-button").attr('href', surveyLink+queryString);
-                }
-            } else {
-                $('#results-button').attr('href', $("#result_link").val());
-            }
+    function getCoins() {
+        //See if this quiz has a coin total set
+        var coinsID = "coins-"+window.quizRef;
+        console.log(coinsID)
+        var coinTotal = store(coinsID);
+        if (coinTotal == null){
+            coinTotal = 0;
         }
+        return coinTotal;
+    }
+
+    function setCoins(total){
+        var coinsID = "coins-"+window.quizRef;
+        store(coinsID, total);
+        setCoinCounter(total);
+    }
+
+    function addCoins(coinVal, answer) {
+        var question = answer.parents(".question");
+        console.log("Adding coins")
+        if(!question.hasClass('answered')) {
+            console.log("Question is frash")
+            question.addClass('answered');
+            var currCoins = getCoins();
+            var newCoins = currCoins+coinVal;
+            setCoins(newCoins);
+        }
+        var audioURL = $("#audiolink").val();
+        var coinsound = new Audio(audioURL);
+        coinsound.play();
+    }
+
+    function setupCoins() {
+        var coinTotal = getCoins();
+        setCoinCounter(coinTotal);
+    }
+
+    function setCoinCounter(coinVal) {
+        $("#coin-counter").addClass('active');
+        $("#coin-total").text(coinVal);
+    }
+
+    function buildOutboundLink(btn) {
+        var link = btn.attr('href');
+        var possibleAnswers = window.possible_answers;
+        var coinsVal = btoa(getCoins());
+        var newLink = link+"&c="+coinsVal;
+        //adding a random possible answer to link
+        var quizAnswer = possibleAnswers[Math.floor(Math.random()*possibleAnswers.length)]['result_text'];
+        newLink = newLink+"&a="+btoa(quizAnswer);
+        var passthrough_strings = window.passthrough_strings;
+        for(const querystring in passthrough_strings) {
+            newLink += `&${querystring}=${passthrough_strings[querystring]}`;
+        }
+        window.location.href = newLink;
     }
 
     function loadAds(){
