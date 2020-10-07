@@ -186,7 +186,9 @@
                     //store(storeKey, $(this).val());
                 }
             });
-            store('udata', btoa(JSON.stringify(userdata)));
+            if(!userdata.isEmptyObject(userdata)) {
+                store('udata', btoa(JSON.stringify(userdata)));
+            }
         });
     }
 
@@ -199,7 +201,9 @@
         var quizAnswer = possibleAnswers[Math.floor(Math.random()*possibleAnswers.length)]['result_text'];
         newLink = newLink+"&a="+btoa(quizAnswer);
         //adding encoded udata
-        newLink = newLink+"&ud="+store('udata');
+        if(store('udata') != null) {
+            newLink = newLink+"&ud="+store('udata');
+        }
         //adding any other passthrough params
         var passthrough_strings = window.passthrough_strings;
         for(const querystring in passthrough_strings) {
