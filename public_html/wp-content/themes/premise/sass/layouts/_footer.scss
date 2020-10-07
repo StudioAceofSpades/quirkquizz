@@ -148,6 +148,10 @@
             }
         }
     }
+
+    #capture {
+        display: none;
+    }
 }
 @include media-breakpoint-down(md) {
     .footer {
