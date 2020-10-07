@@ -150,7 +150,12 @@
     }
 
     #capture {
-        display: none;
+        display: block;
+        position: absolute;
+        opacity: 0;
+        margin-left: -99999px;
+        overflow: hidden;
+        height: 0px;
     }
 }
 @include media-breakpoint-down(md) {
