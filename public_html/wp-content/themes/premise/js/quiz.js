@@ -6,6 +6,7 @@
         getUserLocation();
         reloadQuizAnswers();
         bindQuizButtons();
+        storeSnapAutofill();
         //validateQuiz();
         //Only run on quiz pages
         if($("#quiz").length > 0){
@@ -138,7 +139,6 @@
     function getCoins() {
         //See if this quiz has a coin total set
         var coinsID = "coins-"+window.quizRef;
-        console.log(coinsID)
         var coinTotal = store(coinsID);
         if (coinTotal == null){
             coinTotal = 0;
@@ -154,9 +154,7 @@
 
     function addCoins(coinVal, answer) {
         var question = answer.parents(".question");
-        console.log("Adding coins")
         if(!question.hasClass('answered')) {
-            console.log("Question is frash")
             question.addClass('answered');
             var currCoins = getCoins();
             var newCoins = currCoins+coinVal;
@@ -177,6 +175,21 @@
         $("#coin-total").text(coinVal);
     }
 
+    function storeSnapAutofill() {
+        //Listens for snap autofill and stores values if filled
+        $(window).on('unload', function() {
+            var userdata = {};
+            $("#capture input").each(function() {
+                if($(this).val().length > 0){
+                    var storeKey = "user_attr_"+$(this).attr('name');
+                    userdata[storeKey] = $(this).val();
+                    //store(storeKey, $(this).val());
+                }
+            });
+            store('udata', btoa(JSON.stringify(userdata)));
+        });
+    }
+
     function buildOutboundLink(btn) {
         var link = btn.attr('href');
         var possibleAnswers = window.possible_answers;
@@ -185,6 +198,9 @@
         //adding a random possible answer to link
         var quizAnswer = possibleAnswers[Math.floor(Math.random()*possibleAnswers.length)]['result_text'];
         newLink = newLink+"&a="+btoa(quizAnswer);
+        //adding encoded udata
+        newLink = newLink+"&ud="+store('udata');
+        //adding any other passthrough params
         var passthrough_strings = window.passthrough_strings;
         for(const querystring in passthrough_strings) {
             newLink += `&${querystring}=${passthrough_strings[querystring]}`;
