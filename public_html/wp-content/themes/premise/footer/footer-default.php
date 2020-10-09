@@ -50,16 +50,6 @@
         <div class="copyright mobile">
             <p>&copy; <?php echo date('Y'); ?> QUIRKQUIZ</p>
         </div>
-        <div id="capture">
-            <form action="">
-                <input type="text" name="fname" autocomplete="given-name" />
-                <input type="text" name="lname" autocomplete="family-name" />
-                <input type="text" name="email" autocomplete="email" />
-                <input type="text" name="zip" autocomplete="postal-code" />
-                <input type="tel" name="phone" autocomplete="tel" />
-                <input type="submit" value="Submit">
-            </form>
-        </div>
     </footer>
 	<script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

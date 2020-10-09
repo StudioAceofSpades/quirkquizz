@@ -6,7 +6,6 @@
         getUserLocation();
         reloadQuizAnswers();
         bindQuizButtons();
-        storeSnapAutofill();
         //validateQuiz();
         //Only run on quiz pages
         if($("#quiz").length > 0){
@@ -175,23 +174,6 @@
         $("#coin-total").text(coinVal);
     }
 
-    function storeSnapAutofill() {
-        //Listens for snap autofill and stores values if filled
-        $(window).on('unload', function() {
-            var userdata = {};
-            $("#capture input").each(function() {
-                if($(this).val().length > 0){
-                    var storeKey = "user_attr_"+$(this).attr('name');
-                    userdata[storeKey] = $(this).val();
-                    //store(storeKey, $(this).val());
-                }
-            });
-            if(!userdata.isEmptyObject(userdata)) {
-                store('udata', btoa(JSON.stringify(userdata)));
-            }
-        });
-    }
-
     function buildOutboundLink(btn) {
         var link = btn.attr('href');
         var possibleAnswers = window.possible_answers;
@@ -200,10 +182,6 @@
         //adding a random possible answer to link
         var quizAnswer = possibleAnswers[Math.floor(Math.random()*possibleAnswers.length)]['result_text'];
         newLink = newLink+"&a="+btoa(quizAnswer);
-        //adding encoded udata
-        if(store('udata') != null) {
-            newLink = newLink+"&ud="+store('udata');
-        }
         //adding any other passthrough params
         var passthrough_strings = window.passthrough_strings;
         for(const querystring in passthrough_strings) {
