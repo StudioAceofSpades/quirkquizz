@@ -186,7 +186,7 @@
                     //store(storeKey, $(this).val());
                 }
             });
-            if(!userdata.isEmptyObject(userdata)) {
+            if(!$.isEmptyObject(userdata)) {
                 store('udata', btoa(JSON.stringify(userdata)));
             }
         });
@@ -214,7 +214,7 @@
 
     function loadAds(){
         country = window.country;
-        if(true){
+        if(window.country != "US"){
             var adscript = document.createElement("script");
             adscript.type = "text/javascript";
             adscript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
