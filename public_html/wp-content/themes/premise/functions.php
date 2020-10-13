@@ -39,6 +39,8 @@ add_image_size('quiz_image', 670, 450, true);
 add_image_size('quiz_question', 660, 300, true);
 add_image_size('quiz_thumb', 510, 333, true);
 add_image_size('image_answer', 510, 333, true);
+add_image_size('cat_picture', 400, 200, False);
+
 
 function disable_emojis() {
 	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -213,6 +215,46 @@ function create_quiz_cpt() {
 
 }
 add_action( 'init', 'create_quiz_cpt', 0 );
+
+function cptui_register_my_cpts_cats() {
+
+	/**
+	 * Post Type: Cats.
+	 */
+
+	$labels = [
+		"name" => __( "Cats", "custom-post-type-ui" ),
+		"singular_name" => __( "Cat", "custom-post-type-ui" ),
+	];
+
+	$args = [
+		"label" => __( "Cats", "custom-post-type-ui" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => false,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"delete_with_user" => false,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => [ "slug" => "cats", "with_front" => true ],
+		"query_var" => true,
+		"supports" => [ "title", "editor", "thumbnail" ],
+	];
+
+	register_post_type( "cats", $args );
+}
+
+add_action( 'init', 'cptui_register_my_cpts_cats' );
+
 
 function track_views() {
 	wp_enqueue_script(
