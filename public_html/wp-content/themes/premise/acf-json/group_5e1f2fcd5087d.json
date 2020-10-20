@@ -3,22 +3,6 @@
     "title": "Global Options",
     "fields": [
         {
-            "key": "field_5f57d44381c86",
-            "label": "Site Settings",
-            "name": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0
-        },
-        {
             "key": "field_5e1f300a29721",
             "label": "Social Media Accounts",
             "name": "social_media_accounts",
@@ -116,64 +100,33 @@
                     "min": 1,
                     "max": "",
                     "step": ""
+                },
+                {
+                    "key": "field_5f8db9e3f477e",
+                    "label": "Number of Questions on This Page 2",
+                    "name": "number_of_questions_2",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
                 }
             ]
         },
         {
-            "key": "field_5f5f93907a82e",
-            "label": "Quirkquizresults funnel link",
-            "name": "funnel_url",
-            "type": "link",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "url"
-        },
-        {
-            "key": "field_5f57b091ed62f",
-            "label": "Intermediate Quiz Page",
-            "name": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0
-        },
-        {
-            "key": "field_5f57f6f94ec65",
-            "label": "Page Enabled",
-            "name": "page_enabled",
-            "type": "true_false",
-            "instructions": "Should we show a page 1.5 with the following info?",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui": 1,
-            "ui_on_text": "Yes",
-            "ui_off_text": "No"
-        },
-        {
-            "key": "field_5f57b0a9ed630",
-            "label": "Header",
-            "name": "header",
-            "type": "text",
+            "key": "field_5f8ef1a5f61bc",
+            "label": "Maximum Number of Questions",
+            "name": "maximum_number_of_questions",
+            "type": "number",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -186,79 +139,9 @@
             "placeholder": "",
             "prepend": "",
             "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_5f57ca96ed631",
-            "label": "Subheader",
-            "name": "subheader",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_5f57ca9ced632",
-            "label": "Text Content",
-            "name": "text_content",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "delay": 0
-        },
-        {
-            "key": "field_5f57cabfed634",
-            "label": "More Button Link",
-            "name": "more_button_link",
-            "type": "link",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "array"
-        },
-        {
-            "key": "field_5f57cacaed635",
-            "label": "Continue Button Text",
-            "name": "continue_button_text",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "min": 1,
+            "max": "",
+            "step": ""
         }
     ],
     "location": [
@@ -278,5 +161,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1600099240
+    "modified": 1603203519
 }

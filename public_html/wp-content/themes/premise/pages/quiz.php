@@ -17,24 +17,24 @@ $next_page = $current_page+1;
 
 //creating an array, index is page, value is num of questions per page
 if(have_rows('quiz_pages','options')){
-    $counter = 1;
-    $pagemeta = array();
+    $page_number = 1;
+    $questions_per_page = array();
     while(have_rows('quiz_pages','options')){
         the_row();
-        $pagemeta[$counter] = get_sub_field('numbers_of_questions');
-        $counter++;
+        $questions_per_page[$page_number] = get_sub_field('numbers_of_questions');
+        $page_number++;
     }
 }
 
 //setting up our question offset
 $question_offset = 0;
-foreach($pagemeta as $page=>$num_questions){
+foreach($questions_per_page as $page=>$num_questions){
     if($page < $current_page){
         $question_offset += $num_questions;
     }
 }
 
-$question_limit = $pagemeta[$current_page]+$question_offset;
+$question_limit = $questions_per_page[$current_page]+$question_offset;
 
 $is_last_page = false;
 if($current_page == count(get_field('quiz_pages','options'))) {
@@ -94,6 +94,8 @@ get_header(); ?>
                             <?php if(($question_offset < $current_question) && (($current_question <= $question_limit) || $is_last_page)): ?>
                                 <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
                                     <h2>Question <?php echo $current_question; ?></h2>
+                                    <h2><?php echo get_sub_field('maximum_number_of_questions') ?></h2>
+
                                     <img src="<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>" alt="">
                                     <h3><?php the_sub_field('question') ?></h3>
                                     <?php if($question_description = get_sub_field('question_description')): ?>
