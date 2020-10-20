@@ -1,9 +1,7 @@
 <?php
 if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 if (CFCT_DEBUG) { cfct_banner(__FILE__); }
-
 global $post;
-
 //Setting up our current page and next page.
 if(isset($_GET['page-id'])) {
     $current_page = $_GET['page-id'];
@@ -14,7 +12,6 @@ if(isset($_GET['page-id'])) {
     $current_page = 1;
 }
 $next_page = $current_page+1;
-
 //creating an array, index is page, value is num of questions per page
 if(have_rows('quiz_pages','options')){
     $page_number = 1;
@@ -25,37 +22,37 @@ if(have_rows('quiz_pages','options')){
         $page_number++;
     }
 }
+
 //setting up our question offset
 $question_offset = 0;
-$max_question_count = get_field('maximum_number_of_questions', 'options');
-$questions_per_page[] = 2147483647;
-
 foreach($questions_per_page as $page => $num_questions){
     if($page < $current_page){
         $question_offset += $num_questions;
     }
 }
 
+//retrieves the 'max number of questions' field from cms
+$max_question_count = get_field('maximum_number_of_questions', 'options');
+//sets highest number of questions possible to an int
+$questions_per_page[] = 2147483647; // INT_MAX
+//adding num of questions per page and offset together; sets min amt of questions shown to max_question_count value
 $question_limit = min($questions_per_page[$current_page]+$question_offset, $max_question_count);
 $is_last_page = false;
 if($current_page > count(get_field('quiz_pages','options'))) {
     $is_last_page = true;
 }
 
-
 $paid_quizad_enabled = get_field('page_enabled', 'options');
-
 $allanswers = get_field('funnel_result_text');
-
 get_header(); ?>
+
 <script>
     <?php print("window.possible_answers = ".json_encode($allanswers)).";" ?>
 </script>
-
 <input type="hidden" id="audiolink" value="<?php bloginfo('template_directory'); ?>/audio/coin.mp3">
 <div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
     <div id="coin-counter"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><div id="coin-total"></div></div>
-	<div class="content reduce-padding">
+    <div class="content reduce-padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
@@ -66,34 +63,28 @@ get_header(); ?>
                             <?php else: ?>
                             <h1><?php the_title(); ?></h1>
                             <?php endif; ?>
-                            
                             <?php if($image = get_field('quiz_image')): ?>
                             <img class="featured-image" src="<?php echo $image['sizes']['quiz_image']; ?>" alt="">
                             <?php endif; ?>
-                            
                             <div class="quiz-meta">
-
                                 <?php if($author = get_field('quiz_author')): ?>
                                 <h3 class="quiz-author">Quiz Creator: <span><?php echo $author['display_name']; ?></span></h3>
                                 <?php endif; ?>
-                                
                                 <?php if($description = get_field('quiz_description')): ?>
                                 <div class="quiz-description">
                                     <?php echo $description; ?>
                                 </div>
                                 <?php endif; ?>
-
                             </div>
-
                             <div class="buttons center">
                                 <a href="#start-quiz" class="button large ib purple">Start Quiz</a>
                             </div>
                         </div>
                     <?php endif; ?>
-                    
                     <?php if(have_rows('questions')): ?>
                         <?php $current_question = 1; ?>
                         <?php while(have_rows('questions')): the_row(); ?>
+                            <!-- removed $is_last_page from if statement so rest of questions won't load on last page -->
                             <?php if(($question_offset < $current_question) && (($current_question <= $question_limit))): ?>                                          
                                         <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
                                             <h2>Question <?php echo $current_question; ?></h2>
@@ -155,11 +146,9 @@ get_header(); ?>
                         <?php endwhile; ?>
                         <?php
                             //If we ran out of questions before the end of the page we know its the last page. 
-                            // echo $question_limit;
                             if($current_question-1 <= $question_limit) $is_last_page = true;
                         ?>
                     <?php endif; ?>
-
                     <div class="buttons center">
                         <?php if($current_page == 1 && $paid_quizad_enabled): ?>
                             <a href="<?php echo add_query_arg( 'page-id', 'paidquizad', $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib purple next-page-btn">Next Page</a>
@@ -189,10 +178,7 @@ get_header(); ?>
                 </div>
             </div>
         </div>
-		<?php cfct_loop(); ?>
+        <?php cfct_loop(); ?>
     </div>
 </div>
-
-
-
 <?php get_footer(); ?>
