@@ -16,10 +16,6 @@ get_header();
                     <h1>Our Newest Quiz</h1>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                <a class="button large ib" href="../temp.php">Test Me</a>
-                </div>
             </div>
             <div class="row">
                 

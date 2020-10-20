@@ -17,29 +17,37 @@ $next_page = $current_page+1;
 
 //creating an array, index is page, value is num of questions per page
 if(have_rows('quiz_pages','options')){
-    $counter = 1;
-    $pagemeta = array();
+    $page_number = 1;
+    $questions_per_page = array();
     while(have_rows('quiz_pages','options')){
         the_row();
-        $pagemeta[$counter] = get_sub_field('numbers_of_questions');
-        $counter++;
+        $questions_per_page[$page_number] = get_sub_field('numbers_of_questions');
+        $page_number++;
     }
 }
 
+//7
+//3
+//5
+
 //setting up our question offset
 $question_offset = 0;
-foreach($pagemeta as $page=>$num_questions){
+$max_question_count = get_field('maximum_number_of_questions', 'options');
+$questions_per_page[] = 2147483647; // INT_MAX
+
+foreach($questions_per_page as $page => $num_questions){
     if($page < $current_page){
         $question_offset += $num_questions;
     }
 }
 
-$question_limit = $pagemeta[$current_page]+$question_offset;
-
+$question_limit = min($questions_per_page[$current_page]+$question_offset, $max_question_count);
+//print($question_limit);
 $is_last_page = false;
-if($current_page == count(get_field('quiz_pages','options'))) {
+if($current_page > count(get_field('quiz_pages','options'))) {
     $is_last_page = true;
 }
+
 
 $paid_quizad_enabled = get_field('page_enabled', 'options');
 
@@ -49,6 +57,7 @@ get_header(); ?>
 <script>
     <?php print("window.possible_answers = ".json_encode($allanswers)).";" ?>
 </script>
+
 <input type="hidden" id="audiolink" value="<?php bloginfo('template_directory'); ?>/audio/coin.mp3">
 <div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
     <div id="coin-counter"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><div id="coin-total"></div></div>
@@ -57,7 +66,7 @@ get_header(); ?>
             <div class="row">
                 <div class="col-lg-8">
                     <?php if($current_page == 1): ?>
-                        <div class="card question">
+                        <div class="card question">                                                                     
                             <?php if($title = get_field('quiz_title')): ?>
                             <h1><?php echo $title; ?></h1>
                             <?php else: ?>
@@ -91,67 +100,68 @@ get_header(); ?>
                     <?php if(have_rows('questions')): ?>
                         <?php $current_question = 1; ?>
                         <?php while(have_rows('questions')): the_row(); ?>
-                            <?php if(($question_offset < $current_question) && (($current_question <= $question_limit) || $is_last_page)): ?>
-                                <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
-                                    <h2>Question <?php echo $current_question; ?></h2>
-                                    <img src="<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>" alt="">
-                                    <h3><?php the_sub_field('question') ?></h3>
-                                    <?php if($question_description = get_sub_field('question_description')): ?>
-                                        <?php echo $question_description; ?>
-                                    <?php endif; ?>
-                                    <div class="ad-slot above-answers-ad">
-                                        <!-- above_answers -->
-                                        <ins class="adsbygoogle"
-                                            style="display:block"
-                                            data-ad-client="ca-pub-4411421854869090"
-                                            data-ad-slot="9359346398"
-                                            data-ad-format="auto"
-                                            data-full-width-responsive="true"></ins>
-                                        <script>
-                                            (adsbygoogle = window.adsbygoogle || []).push({});
-                                        </script>
-                                    </div>
-                                    <div class="answers">
-                                        <?php if(get_sub_field('answer_type') == 'text'): ?>
-                                            <?php if(have_rows('answers')): $current_answer = 1; ?>
-                                                <?php while(have_rows('answers')): the_row(); ?>
-                                                    <a data-answer-id="<?php echo get_sub_field_object('answer')['name']; ?>" href="#" class="button b offwhite"><?php the_sub_field('answer'); ?><div class="coins-get"><i class="fas fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div></a>
-                                                    <?php $current_answer++; ?>
-                                                <?php endwhile; ?>
+                            <?php if(($question_offset < $current_question) && (($current_question <= $question_limit))): ?>                                          
+                                        <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
+                                            <h2>Question <?php echo $current_question; ?></h2>
+                                            <img src="<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>" alt="">
+                                            <h3><?php the_sub_field('question') ?></h3>
+                                            <?php if($question_description = get_sub_field('question_description')): ?>
+                                                <?php echo $question_description; ?>
                                             <?php endif; ?>
-                                        <?php elseif(get_sub_field('answer_type') == 'image'): ?>
-                                            <?php if(have_rows('image_answers')): $current_answer = 1; ?>
-                                                <?php while(have_rows('image_answers')): the_row(); ?>
-                                                    <div data-answer-id="<?php print_r(get_sub_field_object('answer')['name']); ?>" class="button ib image offwhite">
-                                                        <div class="coins-get"><i class="fas fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div>
-                                                        <div class="image-container" style="background-image: url(<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>);">
-                                                            <?php if($title = get_sub_field('title')): ?>
-                                                            <span class="title"><?php echo $title; ?></span>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                    <?php $current_answer++; ?>
-                                                <?php endwhile; ?>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                                <div class="ad-slot after-questions">
-                                    <!-- after_questions -->
-                                    <ins class="adsbygoogle"
-                                        style="display:block"
-                                        data-ad-client="ca-pub-4411421854869090"
-                                        data-ad-slot="9848083946"
-                                        data-ad-format="auto"
-                                        data-full-width-responsive="true"></ins>
-                                    <script>
-                                        (adsbygoogle = window.adsbygoogle || []).push({});
-                                    </script>
-                                </div>
+                                            <div class="ad-slot above-answers-ad">
+                                                <!-- above_answers -->
+                                                <ins class="adsbygoogle"
+                                                    style="display:block"
+                                                    data-ad-client="ca-pub-4411421854869090"
+                                                    data-ad-slot="9359346398"
+                                                    data-ad-format="auto"
+                                                    data-full-width-responsive="true"></ins>
+                                                <script>
+                                                    (adsbygoogle = window.adsbygoogle || []).push({});
+                                                </script>
+                                            </div>
+                                            <div class="answers">
+                                                <?php if(get_sub_field('answer_type') == 'text'): ?>
+                                                    <?php if(have_rows('answers')): $current_answer = 1; ?>
+                                                        <?php while(have_rows('answers')): the_row(); ?>
+                                                            <a data-answer-id="<?php echo get_sub_field_object('answer')['name']; ?>" href="#" class="button b offwhite"><?php the_sub_field('answer'); ?><div class="coins-get"><i class="fas fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div></a>
+                                                            <?php $current_answer++; ?>
+                                                        <?php endwhile; ?>
+                                                    <?php endif; ?>
+                                                <?php elseif(get_sub_field('answer_type') == 'image'): ?>
+                                                    <?php if(have_rows('image_answers')): $current_answer = 1; ?>
+                                                        <?php while(have_rows('image_answers')): the_row(); ?>
+                                                            <div data-answer-id="<?php print_r(get_sub_field_object('answer')['name']); ?>" class="button ib image offwhite">
+                                                                <div class="coins-get"><i class="fas fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div>
+                                                                <div class="image-container" style="background-image: url(<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>);">
+                                                                    <?php if($title = get_sub_field('title')): ?>
+                                                                    <span class="title"><?php echo $title; ?></span>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            </div>
+                                                            <?php $current_answer++; ?>
+                                                        <?php endwhile; ?>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                        <div class="ad-slot after-questions">
+                                            <!-- after_questions -->
+                                            <ins class="adsbygoogle"
+                                                style="display:block"
+                                                data-ad-client="ca-pub-4411421854869090"
+                                                data-ad-slot="9848083946"
+                                                data-ad-format="auto"
+                                                data-full-width-responsive="true"></ins>
+                                            <script>
+                                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                            </script>
+                                        </div>
                             <?php endif; $current_question++; ?>
                         <?php endwhile; ?>
                         <?php
                             //If we ran out of questions before the end of the page we know its the last page. 
+                            // echo $question_limit;
                             if($current_question-1 <= $question_limit) $is_last_page = true;
                         ?>
                     <?php endif; ?>
