@@ -25,15 +25,10 @@ if(have_rows('quiz_pages','options')){
         $page_number++;
     }
 }
-
-//7
-//3
-//5
-
 //setting up our question offset
 $question_offset = 0;
 $max_question_count = get_field('maximum_number_of_questions', 'options');
-$questions_per_page[] = 2147483647; // INT_MAX
+$questions_per_page[] = 2147483647;
 
 foreach($questions_per_page as $page => $num_questions){
     if($page < $current_page){
@@ -42,7 +37,6 @@ foreach($questions_per_page as $page => $num_questions){
 }
 
 $question_limit = min($questions_per_page[$current_page]+$question_offset, $max_question_count);
-//print($question_limit);
 $is_last_page = false;
 if($current_page > count(get_field('quiz_pages','options'))) {
     $is_last_page = true;
