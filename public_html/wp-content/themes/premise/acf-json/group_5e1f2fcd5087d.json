@@ -123,8 +123,13 @@
             ]
         },
         {
+<<<<<<< HEAD
             "key": "field_5f8ef1a5f61bc",
             "label": "Maximum Number of Questions",
+=======
+            "key": "field_5f8e48773e4b7",
+            "label": "Maximum number of questions",
+>>>>>>> 174b8cc43883b6a9f4634594ed9da438fff1a74e
             "name": "maximum_number_of_questions",
             "type": "number",
             "instructions": "",
@@ -161,5 +166,9 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
+<<<<<<< HEAD
     "modified": 1603203519
+=======
+    "modified": 1603160207
+>>>>>>> 174b8cc43883b6a9f4634594ed9da438fff1a74e
 }

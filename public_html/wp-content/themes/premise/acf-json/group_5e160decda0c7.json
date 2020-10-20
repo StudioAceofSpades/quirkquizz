@@ -134,6 +134,27 @@
             "button_label": "Add Question",
             "sub_fields": [
                 {
+                    "key": "field_5f8dd5fafe9c0",
+                    "label": "Maximum number of Questions",
+                    "name": "maximum_number_of_questions",
+                    "type": "number",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": 1,
+                    "max": "",
+                    "step": ""
+                },
+                {
                     "key": "field_5e160e828f876",
                     "label": "Question",
                     "name": "question",

@@ -39,7 +39,6 @@ add_image_size('quiz_image', 670, 450, true);
 add_image_size('quiz_question', 660, 300, true);
 add_image_size('quiz_thumb', 510, 333, true);
 add_image_size('image_answer', 510, 333, true);
-add_image_size('cat_image', 400, 200, false);
 
 function disable_emojis() {
 	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );

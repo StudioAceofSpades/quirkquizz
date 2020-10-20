@@ -3,7 +3,8 @@ if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
 if (CFCT_DEBUG) { cfct_banner(__FILE__); }
 
 $latest = false;
-get_header(); ?>
+get_header();
+ ?>
 
 <div id="home">
     <div class="hero">
@@ -14,6 +15,7 @@ get_header(); ?>
                 <div class="col">
                     <h1>Our Newest Quiz</h1>
                 </div>
+            </div>
             </div>
             <div class="row">
                 
