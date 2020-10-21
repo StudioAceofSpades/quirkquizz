@@ -137,6 +137,7 @@ get_header();
                                                                 </div>
                                                             </div>
                                                             <?php $current_answer++; ?>
+                                                            
                                                         <?php endwhile; ?>
                                                     <?php endif; ?>
                                                 <?php endif; ?>
@@ -154,10 +155,12 @@ get_header();
                                                 (adsbygoogle = window.adsbygoogle || []).push({});
                                             </script>
                                         </div>
-                            <?php endif; $current_question++; ?>
+                            <?php endif; $current_question++; 
+                            if ($current_question - 1 == $max_question_count) {
+                            break;
+                            } ?>
                         <?php endwhile; ?>
                         <?php
-                            var_dump($current_question);
                             // If we ran out of questions before the end of the page we know its the last page. 
                             if($current_question - 1 <= $question_limit) {
                                 $is_last_page = true;
