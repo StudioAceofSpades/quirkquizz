@@ -115,6 +115,27 @@
             "endpoint": 0
         },
         {
+            "key": "field_5f904564bbc9d",
+            "label": "Max Questions",
+            "name": "max_questions",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": "",
+            "max": "",
+            "step": ""
+        },
+        {
             "key": "field_5e160e7b8f875",
             "label": "Questions",
             "name": "questions",
@@ -133,27 +154,6 @@
             "layout": "block",
             "button_label": "Add Question",
             "sub_fields": [
-                {
-                    "key": "field_5f8dd5fafe9c0",
-                    "label": "Maximum number of Questions",
-                    "name": "maximum_number_of_questions",
-                    "type": "number",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "min": 1,
-                    "max": "",
-                    "step": ""
-                },
                 {
                     "key": "field_5e160e828f876",
                     "label": "Question",
@@ -487,5 +487,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1603203436
+    "modified": 1603290531
 }

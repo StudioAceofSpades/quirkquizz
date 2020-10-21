@@ -1,8 +1,8 @@
-<?php
-if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); }
-if (CFCT_DEBUG) { cfct_banner(__FILE__); }
+<?php if (__FILE__ == $_SERVER['SCRIPT_FILENAME']) { die(); } if (CFCT_DEBUG) { cfct_banner(__FILE__); }
+
 global $post;
-//Setting up our current page and next page.
+
+// Setting up our current page and next page.
 if(isset($_GET['page-id'])) {
     $current_page = $_GET['page-id'];
     if($current_page == 0){
@@ -11,8 +11,9 @@ if(isset($_GET['page-id'])) {
 } else {
     $current_page = 1;
 }
+
 $next_page = $current_page+1;
-//creating an array, index is page, value is num of questions per page
+// Creating an array, index is page, value is num of questions per page
 if(have_rows('quiz_pages','options')){
     $page_number = 1;
     $questions_per_page = array();
@@ -33,23 +34,35 @@ foreach($questions_per_page as $page => $num_questions){
 
 //retrieves the 'max number of questions' field from cms
 $max_question_count = get_field('maximum_number_of_questions', 'options');
-//sets highest number of questions possible to an int
+
+// If we have a max number of questions on and individual quiz,
+// override the global max question count
+if($per_quiz_max = get_field('max_questions')) {
+    $max_question_count = $per_quiz_max;
+}
+
+// Sets highest number of questions possible to an int
 $questions_per_page[] = 2147483647; // INT_MAX
-//adding num of questions per page and offset together; sets min amt of questions shown to max_question_count value
-$question_limit = min($questions_per_page[$current_page]+$question_offset, $max_question_count);
-$is_last_page = false;
+
+// adding num of questions per page and offset together; sets min amt of questions shown to max_question_count value
+$question_limit = min($questions_per_page[$current_page] + $question_offset, $max_question_count);
+$is_last_page   = false;
+
 if($current_page > count(get_field('quiz_pages','options'))) {
     $is_last_page = true;
 }
 
 $paid_quizad_enabled = get_field('page_enabled', 'options');
 $allanswers = get_field('funnel_result_text');
-get_header(); ?>
+get_header(); 
+?>
 
 <script>
     <?php print("window.possible_answers = ".json_encode($allanswers)).";" ?>
 </script>
+
 <input type="hidden" id="audiolink" value="<?php bloginfo('template_directory'); ?>/audio/coin.mp3">
+
 <div id="quiz" data-quiz-id="<?php echo $post->ID; ?>" data-curr-page="<?php echo $current_page; ?>" data-num-results="<?php echo count(get_field('results')); ?>">
     <div id="coin-counter"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><div id="coin-total"></div></div>
     <div class="content reduce-padding">
@@ -84,7 +97,6 @@ get_header(); ?>
                     <?php if(have_rows('questions')): ?>
                         <?php $current_question = 1; ?>
                         <?php while(have_rows('questions')): the_row(); ?>
-                            <!-- removed $is_last_page from if statement so rest of questions won't load on last page -->
                             <?php if(($question_offset < $current_question) && (($current_question <= $question_limit))): ?>                                          
                                         <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
                                             <h2>Question <?php echo $current_question; ?></h2>
@@ -145,8 +157,11 @@ get_header(); ?>
                             <?php endif; $current_question++; ?>
                         <?php endwhile; ?>
                         <?php
-                            //If we ran out of questions before the end of the page we know its the last page. 
-                            if($current_question-1 <= $question_limit) $is_last_page = true;
+                            var_dump($current_question);
+                            // If we ran out of questions before the end of the page we know its the last page. 
+                            if($current_question - 1 <= $question_limit) {
+                                $is_last_page = true;
+                            }
                         ?>
                     <?php endif; ?>
                     <div class="buttons center">
