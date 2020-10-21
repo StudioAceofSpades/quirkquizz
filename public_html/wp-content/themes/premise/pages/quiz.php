@@ -162,7 +162,7 @@ get_header();
                             if($current_question - 1 <= $question_limit) {
                                 $is_last_page = true;
                             }
-                        ?>
+                         ?>
                     <?php endif; ?>
                     <div class="buttons center">
                         <?php if($current_page == 1 && $paid_quizad_enabled): ?>
