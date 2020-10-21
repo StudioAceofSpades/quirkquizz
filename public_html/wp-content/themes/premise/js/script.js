@@ -3,27 +3,9 @@
         headerNavigation();
         cardLinks();
         shareResults();
-        getResults();
         saveQueryInputsToFooterForm();
         storeQueryStringArray();
 	});	
-
-    function getResults() {
-        var $quiz = $('#quiz');
-        $('.get-results').click(function(e) {
-            e.preventDefault();
-            var comp = new RegExp(location.host);
-            var url = $(this).attr('href');
-            if(comp.test($(this).attr('href'))){
-                var result = Math.floor(Math.random() * $quiz.data('num-results')) + 1;
-                url += 'quiz_id=' + $quiz.data('quiz-id') + '&';
-                url += 'result=' + result;
-            }
-            //clearing stored query strings out of memory.
-            store("querystrings", null);
-            window.location.href = url;
-        });
-    }
 
     //Takes a querystring as an input and saves all parameters as inputs in the contact form.
     function saveQueryInputsToFooterForm() {
