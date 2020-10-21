@@ -154,15 +154,20 @@ get_header();
                                                 (adsbygoogle = window.adsbygoogle || []).push({});
                                             </script>
                                         </div>
-                            <?php endif; $current_question++; ?>
+                            
+                            <?php endif; $current_question++;?>
+                            <?php if ($current_question -1  == $max_question_count): ?>
+                            <?php break; ?>
+                            <?php endif; ?>
                         <?php endwhile; ?>
                         <?php
-                            var_dump($current_question);
+                            
+                            // var_dump($current_question);
                             // If we ran out of questions before the end of the page we know its the last page. 
-                            if($current_question - 1 <= $question_limit) {
+                            if(($current_question - 1 <= $question_limit)) {
                                 $is_last_page = true;
                             }
-                         ?>
+                          ?>
                     <?php endif; ?>
                     <div class="buttons center">
                         <?php if($current_page == 1 && $paid_quizad_enabled): ?>
