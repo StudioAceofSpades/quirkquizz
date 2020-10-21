@@ -123,6 +123,21 @@
             "min": 1,
             "max": "",
             "step": ""
+        },
+        {
+            "key": "field_5f908e0434446",
+            "label": "Funnel URL",
+            "name": "funnel_url",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
         }
     ],
     "location": [
@@ -142,5 +157,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1603210312
+    "modified": 1603309118
 }
