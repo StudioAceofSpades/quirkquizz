@@ -16,7 +16,6 @@ get_header();
                     <h1>Our Newest Quiz</h1>
                 </div>
             </div>
-            </div>
             <div class="row">
                 
                 <?php
