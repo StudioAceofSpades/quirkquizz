@@ -68,6 +68,26 @@ get_header(); ?>
 
 <input type="hidden" id="audiolink" value="<?php bloginfo('template_directory'); ?>/audio/coin.mp3">
 
+<?php if(have_rows('max_questions','options')): ?>
+ <div
+     id="question-count"
+      <?php while(have_rows('max_questions','options')): the_row(); ?>
+      data-country-<?php the_sub_field('country_code'); ?>="<?php the_sub_field('number_of_questions'); ?>"
+      <?php endwhile; ?>
+  ></div>
+
+ <script type="text/javascript">
+
+    window.maxQuestions = {};
+
+        <?php while(have_rows('max_questions','options')): the_row(); ?>
+        window.maxQuestions["<?php the_sub_field('country_code'); ?>"] = Number("<?php the_sub_field('number_of_questions'); ?>");
+        <?php endwhile; ?>
+        console.log(window.maxQuestions); 
+    </script>
+  <?php endif; ?>
+ 
+
 <div 
     id="quiz" 
     data-quiz-id="<?php echo $post->ID; ?>" 
