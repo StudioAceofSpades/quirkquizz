@@ -12,7 +12,7 @@
         // if the user lands on the landing page/starting page of the Quiz
         if ($('#start-quiz').length) {
             ga('send', 'event', 'Quiz', 'Loaded', 'Quiz Start');
-        };
+        }
 
         // setting up a goal if the user click on the Get Results button.
         $('#funnel-button').click(function(e){
