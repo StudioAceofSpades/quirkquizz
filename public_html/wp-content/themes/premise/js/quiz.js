@@ -74,7 +74,7 @@
                     let answers = question.answers.map(answer => {
                         return `
 
-                        <a data-answer-id="${answer.name}" class="button ib offwhite selected" href="#">
+                        <a data-answer-id="${answer.name}" class="button ib offwhite" href="#">
                         ${answer.text}
                         <div class="coins-get"><i class="fas fa-plus"></i><img src="${question.coins}"><img src="${question.coins}"><img src="${question.coins}"></div>
                         </a>`
@@ -84,7 +84,7 @@
                     let answers = question.imageAnswers.map(imganswer => {
 
                         return `
-                        <div data-answer-id="${imganswer.name}" class="button ib image offwhite selected" href="#">
+                        <div data-answer-id="${imganswer.name}" class="button ib image offwhite" href="#">
                         <div class="coins-get"><i class="fas fa-plus"></i><img src="${question.coins}"><img src="${question.coins}"><img src="${question.coins}"></div>
                         <div class="image-container" style="background-image: url(${imganswer.url});">
                         <span class="title">${imganswer.title}</span>
