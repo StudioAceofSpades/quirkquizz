@@ -4,6 +4,7 @@
         window.quizID = "quiz-" + $('#quiz').data('quiz-id') + "-" + $("#quiz").data('curr-page');
         window.passthrough_strings = store('querystrings');
         getUserLocation();
+        renderQuestions();
         reloadQuizAnswers();
         bindQuizButtons();
         //validateQuiz();
@@ -28,6 +29,8 @@
                 },
                 error: function () {
                     console.log("loc not reached")
+                    store("country-code", "US");
+                    setWindowLocation();
                 }
             });
         } else {
@@ -38,6 +41,110 @@
             window.country = store("country-code");
             loadAds();
         }
+    }
+
+    function renderQuestions() {
+        console.log('country', window.country);
+        console.log('allQuestions', window.allQuestions);
+        //storing current quiz page (starts at 1) and offset
+        var offset = 0;
+        for (var i = 0; i < Number(window.currentPage); i++) {
+            if (window.questionsByPage[i]) {
+                offset += window.questionsByPage[i];
+            }
+        }
+        console.log(offset);
+        //stores country's max question count; for example US: 10
+        console.log('jsbutton', window.nextBtn);
+        var button = window.nextBtn;
+        var maxQuestionsForCountry = window.maxQuestionsByCountry[window.country];
+        //retrieving the array of questions ex. for US: [0, 10]
+        var allQuestions = window.allQuestions.slice(0, maxQuestionsForCountry);
+        var maxQuestionsForCurrentPage = window.questionsByPage[window.currentPage] || 9999999;
+        //looping through all questions by text/image answer types and appending to questions-container
+
+
+        var countQuestions = 0;
+        allQuestions.forEach((question, index) => {
+            let answersHtml;
+            if (offset <= index && countQuestions < maxQuestionsForCurrentPage) {
+                let question = window.allQuestions[index];
+                console.log(question.answerType);
+                if (question.answerType === "text") {
+                    let answers = question.answers.map(answer => {
+                        return `
+
+                        <a data-answer-id="${answer.name}" class="button ib offwhite selected" href="#">
+                        ${answer.text}
+                        <div class="coins-get"><i class="fas fa-plus"></i><img src="${question.coins}"><img src="${question.coins}"><img src="${question.coins}"></div>
+                        </a>`
+                    });
+                    answersHtml = answers.join("");
+                } else {
+                    let answers = question.imageAnswers.map(imganswer => {
+
+                        return `
+                        <div data-answer-id="${imganswer.name}" class="button ib image offwhite selected" href="#">
+                        <div class="coins-get"><i class="fas fa-plus"></i><img src="${question.coins}"><img src="${question.coins}"><img src="${question.coins}"></div>
+                        <div class="image-container" style="background-image: url(${imganswer.url});">
+                        <span class="title">${imganswer.title}</span>
+                        </div>
+                        </div>
+    
+                        `
+                    });
+                    answersHtml = answers.join("");
+
+                }
+
+                $('.questions-container').append(`
+                        <div class="card question">
+                        <h2>Question ${index + 1} </h2>
+                        <img src=${question.image}>
+                        <h3>${question.question}</h3>
+                        <div class="ad-slot above-answers-ad">
+                            <!-- above_answers -->
+                                <ins class="adsbygoogle"
+                                style="display:block"
+                                data-ad-client="ca-pub-4411421854869090"
+                                data-ad-slot="9359346398"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                                <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>
+                                </div>
+                        <div class="answers">
+                        ${answersHtml}
+                        </div>
+                        </div>
+                        <div class="ad-slot after-questions">
+                        <!-- after_questions -->
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-4411421854869090"
+                            data-ad-slot="9848083946"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                `);
+
+
+                countQuestions += 1;
+            }
+        })
+
+
+        $('.pagination-buttons').append(
+            `<a href=${button.href} id=${button.id} ${button.class}>${button.text}</a>`
+
+
+        );
+
+
     }
 
     function reloadQuizAnswers() {
@@ -76,6 +183,9 @@
             e.preventDefault();
             buildOutboundLink($(this));
         });
+
+
+
     }
 
     //Really simple hacky quiz validation, assuming we are going to swap this out with something else entirely at some point

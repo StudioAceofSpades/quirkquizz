@@ -81,7 +81,7 @@ button.button {
         }
     }
 }
-.buttons {
+.buttons, .pagination-buttons  {
     &.center {
         text-align: center;
 
@@ -101,6 +101,10 @@ button.button {
             margin-bottom: 10px;
         }
     }
+}
+
+.pagination-buttons {
+    text-align: center;
 }
 
 @include media-breakpoint-up(md) {
