@@ -54,8 +54,6 @@
             }
         })
 
-        console.log('queryobj', queryObj);
-
         //We only want to actually store this if we dont have a value stored, and if our query object has more than 0 items.
         if ((store('querystrings') == null) && (Object.keys(queryObj).length > 0)) {
             store('querystrings', JSON.stringify(queryObj));

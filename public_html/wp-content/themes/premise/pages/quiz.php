@@ -58,12 +58,13 @@ if($current_page > count(get_field('quiz_pages','options'))) {
     $is_last_page = true;
 }
 
-$paid_quizad_enabled = get_field('page_enabled', 'options');
 $allanswers = get_field('funnel_result_text');
 get_header(); ?>
 
 <script>
     <?php print("window.possible_answers = ".json_encode($allanswers)).";" ?>
+    window.currentPage  = <?php echo $current_page; ?>;
+    window.funnelURL    = "<?php echo get_field('funnel_url','options'); ?>";
 </script>
 
 <input type="hidden" id="audiolink" value="<?php bloginfo('template_directory'); ?>/audio/coin.mp3">
@@ -157,7 +158,7 @@ get_header(); ?>
                     <?php while(have_rows('questions')): the_row(); ?>
                         var question = {};
                         question.image = "<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>";
-                        question.question = "<?php echo get_sub_field('question') ?>";
+                        question.question = "<?php echo htmlspecialchars(get_sub_field('question')); ?>";
                         question.coins = "<?php bloginfo('template_directory'); ?>/img/coin.svg";
 
                         <?php if($question_description = get_sub_field('question_description')): ?>
@@ -272,38 +273,28 @@ get_header(); ?>
                     <?php endif; ?>
 
                     <script type="text/javascript">
-                    window.currentPage = '<?php echo $current_page ?>';
-                    window.nextBtn = {};
-                     <?php if($current_page == 1 && $paid_quizad_enabled): ?>
+                    window.currentPage  = '<?php echo $current_page ?>';
+                    window.nextBtn      = {};
+                    <?php if($current_page == 1 && $paid_quizad_enabled): ?>
                         window.nextBtn.text = "Next Page";
                         window.nextBtn.class = "class='button large ib purple next-page-btn'";
                         window.nextBtn.id = "advance-button";
                         window.nextBtn.href = "<?php echo add_query_arg( 'page-id', 'paidquizad', $_SERVER['REQUEST_URI'] );?>"
-                        <?php elseif(!$is_last_page) : ?>
-                            window.nextBtn.text = "Next Page";
-                            window.nextBtn.class = "class='button large ib purple next-page-btn'";
-                            window.nextBtn.id = "advance-button";
-                            window.nextBtn.href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>"
-                        <?php else: ?>
-                            window.nextBtn.text = "Get Results!";
-                            window.nextBtn.id = "funnel-button";
-                            window.nextBtn.class= "class='button large ib purple get-results next-page-btn'";
-                            window.nextBtn.href="<?php echo add_query_arg(array('l' => base64_encode(get_field('funnel_final_loader_text'))), get_field('funnel_url', 'options')); ?>"
-                        <?php endif; ?>
-                        console.log(nextBtn);
+                    <?php elseif(!$is_last_page) : ?>
+                        window.nextBtn.text = "Next Page";
+                        window.nextBtn.class = "class='button large ib purple next-page-btn'";
+                        window.nextBtn.id = "advance-button";
+                        window.nextBtn.href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>"
+                    <?php else: ?>
+                        window.nextBtn.text = "Get Results!";
+                        window.nextBtn.id = "funnel-button";
+                        window.nextBtn.class= "class='button large ib purple get-results next-page-btn'";
+                        window.nextBtn.href="<?php echo add_query_arg(array('l' => base64_encode(get_field('funnel_final_loader_text'))), get_field('funnel_url', 'options')); ?>"
+                    <?php endif; ?>
                     </script>
                     
-
-                    <div class="buttons center">
-                        <?php if($current_page == 1 && $paid_quizad_enabled): ?>
-                            <!-- <a href="<?php echo add_query_arg( 'page-id', 'paidquizad', $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib purple next-page-btn">Next Page</a> -->
-                        <?php elseif(!$is_last_page) : ?>
-                            <!-- <a href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>" id="advance-button" class="button large ib purple next-page-btn">Next Page</a> -->
-                        <?php else: ?>
-                            <!-- <a href="<?php echo add_query_arg(array('l' => base64_encode(get_field('funnel_final_loader_text'))), get_field('funnel_url', 'options')); ?>" id="funnel-button" class="button large ib purple get-results next-page-btn">Get Results!</a> -->
-                        <?php endif; ?>
-                    </div>
                     <div class="pagination-buttons"></div>
+                    
                     <div class="ad-slot after-next-button">
                         <!-- after_next_button -->
                         <ins class="adsbygoogle"
@@ -328,9 +319,3 @@ get_header(); ?>
     </div>
 </div>
 <?php get_footer(); ?>
-
-<!-- <script type="text/javascript">
-
-    // $('.question').css('display', 'block');
-    
-</script> -->

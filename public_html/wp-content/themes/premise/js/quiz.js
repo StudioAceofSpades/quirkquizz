@@ -7,8 +7,8 @@
         renderQuestions();
         reloadQuizAnswers();
         bindQuizButtons();
-        //validateQuiz();
-        //Only run on quiz pages
+
+        // Only run on quiz pages
         if ($("#quiz").length > 0) {
             setupCoins();
         }
@@ -28,7 +28,6 @@
                     setWindowLocation();
                 },
                 error: function () {
-                    console.log("loc not reached")
                     store("country-code", "US");
                     setWindowLocation();
                 }
@@ -44,8 +43,6 @@
     }
 
     function renderQuestions() {
-        console.log('country', window.country);
-        console.log('allQuestions', window.allQuestions);
         //storing current quiz page (starts at 1) and offset
         var offset = 0;
         for (var i = 0; i < Number(window.currentPage); i++) {
@@ -53,23 +50,20 @@
                 offset += window.questionsByPage[i];
             }
         }
-        console.log(offset);
         //stores country's max question count; for example US: 10
-        console.log('jsbutton', window.nextBtn);
         var button = window.nextBtn;
         var maxQuestionsForCountry = window.maxQuestionsByCountry[window.country];
+        
         //retrieving the array of questions ex. for US: [0, 10]
         var allQuestions = window.allQuestions.slice(0, maxQuestionsForCountry);
         var maxQuestionsForCurrentPage = window.questionsByPage[window.currentPage] || 9999999;
+        
         //looping through all questions by text/image answer types and appending to questions-container
-
-
         var countQuestions = 0;
         allQuestions.forEach((question, index) => {
             let answersHtml;
             if (offset <= index && countQuestions < maxQuestionsForCurrentPage) {
                 let question = window.allQuestions[index];
-                console.log(question.answerType);
                 if (question.answerType === "text") {
                     let answers = question.answers.map(answer => {
                         return `
@@ -137,14 +131,53 @@
             }
         })
 
+        outputPagination();
+    }
 
-        $('.pagination-buttons').append(
-            `<a href=${button.href} id=${button.id} ${button.class}>${button.text}</a>`
+    function outputPagination() {
 
+        //storing current quiz page (starts at 1) and offset
+        var offset = 0;
+        for (var i = 0; i < Number(window.currentPage); i++) {
+            if (window.questionsByPage[i]) {
+                offset += window.questionsByPage[i];
+            }
+        }
 
-        );
+        // Determine the most possible questions this quiz can display
+        // based on the quiz_pages repeater set in Site Settings > Global Options.
+        var maxGlobalQuestions = 0;
+        for (var n = 1; n <= Object.keys(window.questionsByPage).length; n++) {
+            maxGlobalQuestions += window.questionsByPage[n];
+        }
 
+        var maxCountryQuestions     = window.maxQuestionsByCountry[window.country];
+        var maxCurrentPageQuestions = window.questionsByPage[window.currentPage] || 9999999;
+        var questionsDisplayed      = offset + maxCurrentPageQuestions;
+        var isLastPage              = false;
 
+        if(questionsDisplayed >= maxGlobalQuestions) {
+            isLastPage = true;
+        } else {
+            if(questionsDisplayed >= maxCountryQuestions) {
+                isLastPage = true;
+            }
+        }
+
+        var buttonClass = 'button large ib purple';
+        var buttonText  = 'Next Page';
+        var buttonLink  = window.location.href.split('?')[0] + '?page-id=' + (Number(window.currentPage) + 1);
+        var buttonID    = '';
+        var queryString = store('querystrings');
+
+        if(isLastPage) {
+            buttonID = 'funnel-button';
+            buttonText = 'Get Results!';
+            buttonLink  = window.funnelURL;
+        } 
+
+        $('.pagination-buttons')
+            .append('<a href="'+buttonLink+'" id="'+buttonID+'" class="'+buttonClass+'">'+buttonText+'</a>');
     }
 
     function reloadQuizAnswers() {
@@ -175,7 +208,6 @@
                 e.preventDefault();
                 addCoins(3, $(this));
                 selectButton($(this));
-                //validateQuiz();
             });
         });
 
@@ -183,42 +215,6 @@
             e.preventDefault();
             buildOutboundLink($(this));
         });
-
-
-
-    }
-
-    //Really simple hacky quiz validation, assuming we are going to swap this out with something else entirely at some point
-    function validateQuiz() {
-        var unansweredQ = false;
-        var selectedAnswer = false;
-        $('.question').each(function () {
-            //This is to make sure we dont try to validate any questions without answers/intro cards.
-            if ($(this).find('.answers').length > 0) {
-                selectedAnswer = false;
-                $(this).find('.answers').find('.button').each(function () {
-                    if ($(this).hasClass('selected')) {
-                        selectedAnswer = true;
-                    }
-                })
-                if (selectedAnswer != true) {
-                    unansweredQ = true;
-                }
-            }
-        });
-        if (unansweredQ == true) {
-            disableButton();
-        } else {
-            enableButton();
-        }
-    }
-
-    function disableButton() {
-        $(".next-page-btn").addClass("disabled");
-    }
-
-    function enableButton() {
-        $(".next-page-btn").removeClass("disabled");
     }
 
     function selectButton(target) {
@@ -285,20 +281,22 @@
     }
 
     function buildOutboundLink(btn) {
-        var link = btn.attr('href');
+        var link            = btn.attr('href');
         var possibleAnswers = window.possible_answers;
-        var coinsVal = btoa(getCoins());
-        var newLink = link + "&c=" + coinsVal;
+	    
+        var coinsVal        = btoa(getCoins());
+        var newLink         = link + "&c=" + coinsVal;
+
         //adding a random possible answer to link
         var quizAnswer = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)]['result_text'];
         newLink = newLink + "&a=" + btoa(quizAnswer);
+        
         //adding any other passthrough params
         var passthrough_strings = window.passthrough_strings;
         for (const querystring in passthrough_strings) {
             newLink += `&${querystring}=${passthrough_strings[querystring]}`;
         }
         window.location.href = newLink;
-        console.log('asdas', window.possible_answers);
     }
 
     function loadAds() {
