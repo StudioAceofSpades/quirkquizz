@@ -104,27 +104,6 @@
             ]
         },
         {
-            "key": "field_5f8ef1a5f61bc",
-            "label": "Maximum Number of Questions",
-            "name": "maximum_number_of_questions",
-            "type": "number",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "min": 1,
-            "max": "",
-            "step": ""
-        },
-        {
             "key": "field_5f908e0434446",
             "label": "Funnel URL",
             "name": "funnel_url",
@@ -138,6 +117,67 @@
                 "id": ""
             },
             "return_format": "url"
+        },
+        {
+            "key": "field_5f9c702f23a02",
+            "label": "Max Questions",
+            "name": "max_questions",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_5f9c70aa23c01",
+                    "label": "Country Code",
+                    "name": "country_code",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": 50
+                },
+                {
+                    "key": "field_5f9c70c623c02",
+                    "label": "Number of Questions",
+                    "name": "number_of_questions",
+                    "type": "number",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": "",
+                    "max": 50,
+                    "step": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -155,7 +195,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1603309992
+    "modified": 1604334490
 }

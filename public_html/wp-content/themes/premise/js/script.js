@@ -7,6 +7,7 @@
         storeQueryStringArray();
     });
 
+
     //Takes a querystring as an input and saves all parameters as inputs in the contact form.
     function saveQueryInputsToFooterForm() {
         var inputs = window.location.search.replace("?", "").split('&');
@@ -20,6 +21,7 @@
             }
         });
     }
+
 
     function storeQueryStringArray() {
         var inputs = window.location.search.replace("?", "").split('&');
@@ -51,8 +53,6 @@
                 queryObj[key] = defaultParams[key];
             }
         })
-
-        console.log(queryObj);
 
         //We only want to actually store this if we dont have a value stored, and if our query object has more than 0 items.
         if ((store('querystrings') == null) && (Object.keys(queryObj).length > 0)) {

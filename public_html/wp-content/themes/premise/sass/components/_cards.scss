@@ -64,7 +64,11 @@
         width: 100%;
     }
 
-    &.question {
+    &.hide {
+        display: none;
+    }
+    
+    &.question-title, &.question {
         padding: $space-6;
 
         h1,
