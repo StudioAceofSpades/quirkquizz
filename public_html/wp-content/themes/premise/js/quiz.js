@@ -279,9 +279,9 @@
     function buildOutboundLink(btn) {
         var link            = btn.attr('href');
         var possibleAnswers = window.possible_answers;
-	    
         var coinsVal        = btoa(getCoins());
-        var newLink         = link + "&c=" + coinsVal;
+        var loaderText      = btoa(window.loaderText);
+        var newLink         = link + "?l=" + loaderText + "&c=" + coinsVal;
 
         //adding a random possible answer to link
         var quizAnswer = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)]['result_text'];

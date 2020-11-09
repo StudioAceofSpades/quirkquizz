@@ -65,6 +65,7 @@ get_header(); ?>
     <?php print("window.possible_answers = ".json_encode($allanswers)).";" ?>
     window.currentPage  = <?php echo $current_page; ?>;
     window.funnelURL    = "<?php echo get_field('funnel_url','options'); ?>";
+    window.loaderText   = "<?php echo get_field('funnel_final_loader_text'); ?>";
 </script>
 
 <?php if(have_rows('max_questions','options')): ?>
