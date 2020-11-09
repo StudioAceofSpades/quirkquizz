@@ -193,7 +193,7 @@ get_header(); ?>
 
                     </script>
                         <?php while(have_rows('questions')): the_row(); ?>
-                                <div class="card question" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
+                                <div class="card question hide" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
                             
 
                                     <h2>Question <?php echo $current_question; ?></h2>

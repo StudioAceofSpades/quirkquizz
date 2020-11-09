@@ -64,9 +64,9 @@
         width: 100%;
     }
 
-    // &.question {
-    //     display: none;
-    // }
+    &.hide {
+        display: none;
+    }
     
     &.question-title, &.question {
         padding: $space-6;
