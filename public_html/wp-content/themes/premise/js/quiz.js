@@ -6,8 +6,7 @@
         getUserLocation();
         reloadQuizAnswers();
         bindQuizButtons();
-        //validateQuiz();
-        //Only run on quiz pages
+        
         if($("#quiz").length > 0){
             setupCoins();
         }
@@ -56,7 +55,7 @@
     }
 
     function getQuizCookie(){
-        //Incase it starts with an empty string
+        //In case it starts with an empty string
         var value = "; " + document.cookie;
         var parts = value.split("; " + window.quizID + "=");
         if(parts.length == 2) return parts.pop().split(";").shift();
@@ -76,39 +75,6 @@
             e.preventDefault();
             buildOutboundLink($(this));
         });
-    }
-
-    //Really simple hacky quiz validation, assuming we are going to swap this out with something else entirely at some point
-    function validateQuiz() {
-        var unansweredQ = false;
-        var selectedAnswer = false;
-        $('.question').each(function() {
-            //This is to make sure we dont try to validate any questions without answers/intro cards.
-            if($(this).find('.answers').length > 0){
-                selectedAnswer = false;
-                $(this).find('.answers').find('.button').each(function() {
-                    if($(this).hasClass('selected')){
-                        selectedAnswer = true;
-                    }
-                })
-                if(selectedAnswer != true){
-                    unansweredQ = true;
-                }
-            }
-        });
-        if(unansweredQ == true){
-            disableButton();
-        }else{
-            enableButton();
-        }
-    }
-
-    function disableButton(){
-        $(".next-page-btn").addClass("disabled");
-    }
-
-    function enableButton(){
-        $(".next-page-btn").removeClass("disabled");
     }
 
     function selectButton(target){
@@ -159,9 +125,6 @@
             var newCoins = currCoins+coinVal;
             setCoins(newCoins);
         }
-        var audioURL = $("#audiolink").val();
-        var coinsound = new Audio(audioURL);
-        coinsound.play();
     }
 
     function setupCoins() {

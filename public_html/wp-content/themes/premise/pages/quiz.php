@@ -66,8 +66,6 @@ get_header(); ?>
     <?php print("window.possible_answers = ".json_encode($allanswers)).";" ?>
 </script>
 
-<input type="hidden" id="audiolink" value="<?php bloginfo('template_directory'); ?>/audio/coin.mp3">
-
 <div 
     id="quiz" 
     data-quiz-id="<?php echo $post->ID; ?>" 
