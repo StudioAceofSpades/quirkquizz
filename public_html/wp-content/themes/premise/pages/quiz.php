@@ -69,33 +69,35 @@ get_header(); ?>
 </script>
 
 <?php if(have_rows('max_questions','options')): ?>
- <div
+<div
      id="question-count"
       <?php while(have_rows('max_questions','options')): the_row(); ?>
       data-country-<?php the_sub_field('country_code'); ?>="<?php the_sub_field('number_of_questions'); ?>"
       <?php endwhile; ?>
-  ></div>
+></div>
+<script type="text/javascript">
 
+    window.maxQuestionsByCountry    = {};
+    window.questionsByPage          = {};
+    window.default_questions        = Number(<?php the_field('default_question_count','options'); ?>);
 
- <script type="text/javascript">
-
-    window.maxQuestionsByCountry = {};
-    window.questionsByPage = {};
-
-        <?php while(have_rows('max_questions','options')): the_row(); ?>
+    <?php 
+    while(have_rows('max_questions','options')): 
+        the_row(); 
+    ?>
         window.maxQuestionsByCountry["<?php the_sub_field('country_code'); ?>"] = Number("<?php the_sub_field('number_of_questions'); ?>");
-        <?php endwhile; ?>
-        <?php endif; ?>
-        
-        
-        <?php $counter = 0; while(have_rows('quiz_pages','options')): the_row(); $counter++; ?>
+    <?php 
+    endwhile;
+    $counter = 0; 
+    while(have_rows('quiz_pages','options')): 
+        the_row(); 
+        $counter++; 
+    ?>
         window.questionsByPage['<?php echo $counter; ?>'] = Number("<?php the_sub_field('numbers_of_questions'); ?>");
-        <?php endwhile; ?>
-        console.log('maxQuestionsByCountry', window.maxQuestionsByCountry);
-        console.log('questionsByPage', window.questionsByPage);
+    <?php endwhile; ?>
+</script>
+<?php endif; ?>
 
-
-        </script>
 <div 
     id="quiz" 
     data-quiz-id="<?php echo $post->ID; ?>" 

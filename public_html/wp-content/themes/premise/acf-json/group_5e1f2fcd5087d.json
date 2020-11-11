@@ -178,6 +178,27 @@
                     "step": ""
                 }
             ]
+        },
+        {
+            "key": "field_5fac4895dc512",
+            "label": "Default Number of Questions",
+            "name": "default_question_count",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": "",
+            "max": "",
+            "step": ""
         }
     ],
     "location": [
@@ -197,5 +218,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1604334490
+    "modified": 1605126312
 }

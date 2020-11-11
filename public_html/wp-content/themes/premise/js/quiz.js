@@ -24,10 +24,12 @@
                 dataType: "json",
                 success: function (location) {
                     store("country-code", location.country_code2);
+                    store('found-location','true');
                     setWindowLocation();
                 },
                 error: function () {
                     store("country-code", "US");
+                    store('found-location', 'false');
                     setWindowLocation();
                 }
             });
@@ -42,23 +44,25 @@
     }
 
     function renderQuestions() {
-        //storing current quiz page (starts at 1) and offset
-        var offset = 0;
+        var offset                      = 0;
+        var countQuestions              = 0;
+        var button                      = window.nextBtn;
+        if(store('found-location') == 'true') {
+            var maxQuestionsForCountry  = window.maxQuestionsByCountry[window.country];
+        } else {
+            var maxQuestionsForCountry  = window.default_questions;
+        }
+        var allQuestions                = window.allQuestions.slice(0, maxQuestionsForCountry);
+        var maxQuestionsForCurrentPage  = window.questionsByPage[window.currentPage] || 9999999;
+        
+        // Calculate our offset which is the number of questions already displayed
         for (var i = 0; i < Number(window.currentPage); i++) {
             if (window.questionsByPage[i]) {
                 offset += window.questionsByPage[i];
             }
         }
-        //stores country's max question count; for example US: 10
-        var button = window.nextBtn;
-        var maxQuestionsForCountry = window.maxQuestionsByCountry[window.country];
         
-        //retrieving the array of questions ex. for US: [0, 10]
-        var allQuestions = window.allQuestions.slice(0, maxQuestionsForCountry);
-        var maxQuestionsForCurrentPage = window.questionsByPage[window.currentPage] || 9999999;
-        
-        //looping through all questions by text/image answer types and appending to questions-container
-        var countQuestions = 0;
+        // Display each question for this page
         allQuestions.forEach((question, index) => {
             let answersHtml;
             if (offset <= index && countQuestions < maxQuestionsForCurrentPage) {
@@ -66,7 +70,6 @@
                 if (question.answerType === "text") {
                     let answers = question.answers.map(answer => {
                         return `
-
                         <a data-answer-id="${answer.name}" class="button ib offwhite" href="#">
                         ${answer.text}
                         <div class="coins-get"><i class="fas fa-plus"></i><img src="${question.coins}"><img src="${question.coins}"><img src="${question.coins}"></div>
@@ -75,7 +78,6 @@
                     answersHtml = answers.join("");
                 } else {
                     let answers = question.imageAnswers.map(imganswer => {
-
                         return `
                         <div data-answer-id="${imganswer.name}" class="button ib image offwhite" href="#">
                         <div class="coins-get"><i class="fas fa-plus"></i><img src="${question.coins}"><img src="${question.coins}"><img src="${question.coins}"></div>
@@ -83,13 +85,12 @@
                         <span class="title">${imganswer.title}</span>
                         </div>
                         </div>
-    
                         `
                     });
                     answersHtml = answers.join("");
-
                 }
-
+                
+                // Insert ads and answers into all of our questions
                 $('.questions-container').append(`
                         <div class="card question">
                         <h2>Question ${index + 1} </h2>
@@ -124,11 +125,9 @@
                         </script>
                     </div>
                 `);
-
-
-                countQuestions += 1;
+                countQuestions++;
             }
-        })
+        });
 
         outputPagination();
     }
