@@ -176,6 +176,16 @@
 
         $('.pagination-buttons')
             .append('<a href="'+buttonLink+'" id="'+buttonID+'" class="'+buttonClass+'">'+buttonText+'</a>');
+
+        // setting up a goal in the Google Analytics that takes the click on the next page button on the Quiz page
+        $('#advance-button').click(function(e){
+            ga('send', 'event', 'Quiz', 'Click', 'Next Page');
+        });
+
+        // setting up a goal if the user click on the Get Results button.
+        $('#funnel-button').click(function(e){
+            ga('send', 'event', 'Quiz', 'Click', 'Get Results');
+        });
     }
 
     function reloadQuizAnswers() {

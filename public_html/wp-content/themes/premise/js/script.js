@@ -7,7 +7,6 @@
         storeQueryStringArray();
     });
 
-
     //Takes a querystring as an input and saves all parameters as inputs in the contact form.
     function saveQueryInputsToFooterForm() {
         var inputs = window.location.search.replace("?", "").split('&');
@@ -21,7 +20,6 @@
             }
         });
     }
-
 
     function storeQueryStringArray() {
         var inputs = window.location.search.replace("?", "").split('&');
