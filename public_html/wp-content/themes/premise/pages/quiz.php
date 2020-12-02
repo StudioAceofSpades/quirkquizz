@@ -317,4 +317,26 @@ get_header(); ?>
         <?php cfct_loop(); ?>
     </div>
 </div>
+
+<div class="alert-bg">
+    <div class="alert">
+        <div class="pane-one active">
+            <h3>Get your Quiz Results!</h3>
+            <p>Tap "OK" to continue.</p>
+            <div class="alert-buttons">
+                <a href="#" class="cancel">Cancel</a>
+                <a href="#" class="progress">OK</a>
+            </div>
+        </div>
+        <div class="pane-two">
+            <h3>Add Calendar Subscription</h3>
+            <p>Individual events in subscription calendars cannot be deleted. You can remove Calendar subscriptions in Calendar or Settings.</p>
+            <div class="alert-buttons">
+                <a href="#" class="cancel">Cancel</a>
+                <a data-webcal="<?php the_field('calendar_webcal_link','options'); ?>" href="https://quirkquizresults.com" class="progress">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php get_footer(); ?>

@@ -120,6 +120,71 @@
     }
 }
 
+.alert-bg {
+    position: fixed;
+    background: rgba(255,255,255,.8);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: none;
+}
+.alert {
+    width: 280px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    background: $white;
+    border: 4px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,.4);
+    text-align: center;
+
+    h3 {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        font-size: 21px;
+        margin: 0;
+    }
+    p {
+        font-size: 16px;
+        padding: 20px 10px;
+        margin: 0;
+    }
+    .alert-buttons {
+        border-top: 1px solid #ddd;
+        display: flex;
+
+        a {
+            width: 50%;
+            padding: 10px;
+
+            &.cancel {
+                color: #777;
+
+                &:hover {
+                    text-decoration: none;
+                    color: $black;
+                }
+            }
+            &.progress {
+                color: #fff;
+                background: $purple;
+                border-radius: 0 0 7px 0;
+
+                &:hover {
+                    text-decoration: none;
+                    background: $dark-blue;
+                }
+            }
+        }
+    }
+    .pane-two {
+        display: none;
+    }
+}
 @keyframes fadeCoins {
     0% {
         opacity: 0;

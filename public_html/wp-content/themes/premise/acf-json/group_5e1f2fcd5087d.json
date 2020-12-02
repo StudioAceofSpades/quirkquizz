@@ -3,6 +3,25 @@
     "title": "Global Options",
     "fields": [
         {
+            "key": "field_5fc80bdd9dfa0",
+            "label": "Calendar Webcal Link",
+            "name": "calendar_webcal_link",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_5e1f300a29721",
             "label": "Social Media Accounts",
             "name": "social_media_accounts",
@@ -218,5 +237,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1605126312
+    "modified": 1606945779
 }

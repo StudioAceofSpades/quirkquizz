@@ -7,6 +7,7 @@
         renderQuestions();
         reloadQuizAnswers();
         bindQuizButtons();
+        initAlert();
         // Only run on quiz pages
         if ($("#quiz").length > 0) {
             setupCoins();
@@ -221,7 +222,30 @@
 
         $('#funnel-button').click(function (e) {
             e.preventDefault();
-            buildOutboundLink($(this));
+            $('.alert-bg').show();
+            // buildOutboundLink($(this));
+        });
+    }
+
+    function initAlert() {
+        $('.cancel').click(function(e) {
+            e.preventDefault();
+            $('.alert-bg').hide();
+        });
+        $('.progress').click(function(e) {
+            e.preventDefault();
+            if($('.pane-one').hasClass('active')) {
+                $('.pane-one').removeClass('active').hide();
+                $('.pane-two').addClass('active').show();
+            } else {
+               link =  buildOutboundLink($(this));
+
+               window.open($(this).data('webcal'), '_blank');
+
+               setTimeout(function() {
+                   window.location.href = link;
+               }, 3000);
+            }
         });
     }
 
@@ -301,7 +325,7 @@
         for (const querystring in passthrough_strings) {
             newLink += `&${querystring}=${passthrough_strings[querystring]}`;
         }
-        window.location.href = newLink;
+        return newLink;
     }
 
     function loadAds() {
