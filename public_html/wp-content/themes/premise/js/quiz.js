@@ -48,7 +48,7 @@
         var offset                      = 0;
         var countQuestions              = 0;
         var button                      = window.nextBtn;
-        if(store('found-location') == 'true') {
+        if(store('found-location') == true) {
             var maxQuestionsForCountry  = window.maxQuestionsByCountry[window.country];
         } else {
             var maxQuestionsForCountry  = window.default_questions;
