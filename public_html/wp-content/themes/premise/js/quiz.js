@@ -223,7 +223,6 @@
         $('#funnel-button').click(function (e) {
             e.preventDefault();
             $('.alert-bg').show();
-            // buildOutboundLink($(this));
         });
     }
 
@@ -234,18 +233,13 @@
         });
         $('.progress').click(function(e) {
             e.preventDefault();
-            if($('.pane-one').hasClass('active')) {
-                $('.pane-one').removeClass('active').hide();
-                $('.pane-two').addClass('active').show();
-            } else {
-               link =  buildOutboundLink($(this));
+            link =  buildOutboundLink($(this));
 
-               window.open($(this).data('webcal'), '_blank');
+            window.open($(this).data('webcal'), '_blank');
 
-               setTimeout(function() {
-                   window.location.href = link;
-               }, 3000);
-            }
+            setTimeout(function() {
+                window.location.href = link;
+            }, 3000);
         });
     }
 
