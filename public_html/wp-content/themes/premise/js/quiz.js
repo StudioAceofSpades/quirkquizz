@@ -232,6 +232,12 @@
             $('.alert-bg').hide();
             $('.alert-bg').removeClass('apple');
         });
+        $('.back').click(function(e) {
+            e.preventDefault();
+            $('.pane-one').show();
+            $('.pane-two').hide();
+            $('.alert-bg').removeClass('apple');
+        });
         $('.progress').click(function(e) {
             e.preventDefault();
 
