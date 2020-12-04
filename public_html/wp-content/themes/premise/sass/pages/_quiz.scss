@@ -129,6 +129,45 @@
     bottom: 0;
     z-index: 1000;
     display: none;
+
+    &.apple {
+        font-family: 'Helvetica', Helvetica, 'Arial', Arial, sans-serif;
+        border-radius: 8px;
+        background: rgba(0,0,0,.3);
+
+        .alert {
+            background: rgba(255,255,255,.85);
+			backdrop-filter: saturate(1.8) blur(15px);
+			background-color: rgba(255, 255, 255, 0.85);
+            border: none;
+            width: 265px;
+
+            h3 {
+                font-family: 'Helvetica', Helvetica, 'Arial', Arial, sans-serif;
+                border-bottom: 0;
+                padding: 20px 20px 5px 20px;
+                font-size: 14px;
+            }
+            p {
+                padding: 0 20px 13px;
+                font-size: 12px;
+                line-height: 17px;
+            }
+            .alert-buttons {
+                border-top: 1px solid rgba(0,0,0,.3);
+                a {
+                    color: #007aff;
+                    font-size: 14px;
+                }
+                .cancel {
+                    font-weight: 500;
+                }
+                .navigate {
+                    border-right: 1px solid rgba(0,0,0,.3);
+                }
+            }
+        }
+    }
 }
 .alert {
     width: 280px;

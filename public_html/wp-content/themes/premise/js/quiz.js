@@ -230,11 +230,19 @@
         $('.cancel').click(function(e) {
             e.preventDefault();
             $('.alert-bg').hide();
+            $('.alert-bg').removeClass('apple');
         });
         $('.progress').click(function(e) {
             e.preventDefault();
-            link =  buildOutboundLink($(this));
 
+            $('.pane-one').hide();
+            $('.pane-two').show();
+            $('.alert-bg').addClass('apple');
+        });
+        $('.navigate').click(function(e) {
+            e.preventDefault();
+
+            link =  buildOutboundLink($(this));
             window.open($(this).data('webcal'), '_blank');
 
             setTimeout(function() {

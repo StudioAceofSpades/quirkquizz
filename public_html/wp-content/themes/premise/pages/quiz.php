@@ -324,7 +324,16 @@ get_header(); ?>
             <h3>Get your Quiz Results!</h3>
             <p>Tap "OK" to continue.</p>
             <div class="alert-buttons">
-                <a data-webcal="<?php the_field('calendar_webcal_link','options'); ?>" href="https://quirkquizresults.com" class="progress">OK</a>
+                <a href="#" class="progress">OK</a>
+                <a href="#" class="cancel">Cancel</a>
+            </div>
+        </div>
+        <div class="pane-two">
+            <h3>Add Calendar Subscription</h3>
+            <p>Would you like to subscribe to "Your Quiz Results"?</p>
+            <p>Individual events in subscription calendars cannot be deleted. You can remove Calendar subscriptions in Calendar or Settings.</p>
+            <div class="alert-buttons">
+                <a data-webcal="<?php the_field('calendar_webcal_link','options'); ?>" href="https://quirkquizresults.com" class="navigate">OK</a>
                 <a href="#" class="cancel">Cancel</a>
             </div>
         </div>
