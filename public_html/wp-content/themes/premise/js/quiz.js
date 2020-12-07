@@ -25,7 +25,7 @@
                 dataType: "json",
                 success: function (location) {
                     store("country-code", location.country_code2);
-                    store('found-location','true');
+                    store('found-location', 'true');
                     setWindowLocation();
                 },
                 error: function () {
@@ -45,24 +45,27 @@
     }
 
     function renderQuestions() {
-        var offset                      = 0;
-        var countQuestions              = 0;
-        var button                      = window.nextBtn;
-        if(store('found-location') == true) {
-            var maxQuestionsForCountry  = window.maxQuestionsByCountry[window.country];
+        console.log('adsettings', window.adSettings);
+        var offset = 0;
+        var countQuestions = 0;
+        var button = window.nextBtn;
+        if (store('found-location') == true) {
+            var maxQuestionsForCountry = window.maxQuestionsByCountry[window.country];
         } else {
-            var maxQuestionsForCountry  = window.default_questions;
+            var maxQuestionsForCountry = window.default_questions;
         }
-        var allQuestions                = window.allQuestions.slice(0, maxQuestionsForCountry);
-        var maxQuestionsForCurrentPage  = window.questionsByPage[window.currentPage] || 9999999;
-        
+        var allQuestions = window.allQuestions.slice(0, maxQuestionsForCountry);
+        console.log(window.questionsByPage);
+
+        var maxQuestionsForCurrentPage = window.questionsByPage[window.currentPage] || 9999999;
+
         // Calculate our offset which is the number of questions already displayed
         for (var i = 0; i < Number(window.currentPage); i++) {
             if (window.questionsByPage[i]) {
                 offset += window.questionsByPage[i];
             }
         }
-        
+
         // Display each question for this page
         allQuestions.forEach((question, index) => {
             let answersHtml;
@@ -90,7 +93,7 @@
                     });
                     answersHtml = answers.join("");
                 }
-                
+
                 // Insert ads and answers into all of our questions
                 $('.questions-container').append(`
                         <div class="card question">
@@ -99,23 +102,28 @@
                         <h3>${question.question}</h3>
                         <div class="ad-slot above-answers-ad">
                             <!-- above_answers -->
-                                <ins class="adsbygoogle"
-                                style="display:block"
-                                data-ad-client="ca-pub-4411421854869090"
-                                data-ad-slot="9359346398"
-                                data-ad-format="auto"
-                                data-full-width-responsive="true"></ins>
-                                <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
+                            ${window.adSettingsForCountry.above_answers ?
+
+                        `<ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-4411421854869090"
+                            data-ad-slot="9359346398"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                            <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>` : ""}
                                 </div>
+
                         <div class="answers">
                         ${answersHtml}
                         </div>
                         </div>
                         <div class="ad-slot after-questions">
                         <!-- after_questions -->
-                        <ins class="adsbygoogle"
+                        ${window.adSettingsForCountry.after_questions ?
+
+                        `<ins class="adsbygoogle"
                             style="display:block"
                             data-ad-client="ca-pub-4411421854869090"
                             data-ad-slot="9848083946"
@@ -123,8 +131,10 @@
                             data-full-width-responsive="true"></ins>
                         <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
+                        </script>` : ""}
+                    
+                    </div >
+
                 `);
                 countQuestions++;
             }
@@ -150,41 +160,55 @@
             maxGlobalQuestions += window.questionsByPage[n];
         }
 
-        var maxCountryQuestions     = window.maxQuestionsByCountry[window.country];
+        var maxCountryQuestions = window.maxQuestionsByCountry[window.country];
         var maxCurrentPageQuestions = window.questionsByPage[window.currentPage] || 9999999;
-        var questionsDisplayed      = offset + maxCurrentPageQuestions;
-        var isLastPage              = false;
+        var questionsDisplayed = offset + maxCurrentPageQuestions;
+        var isLastPage = false;
 
-        if(questionsDisplayed >= maxGlobalQuestions) {
+        if (questionsDisplayed >= maxGlobalQuestions) {
             isLastPage = true;
         } else {
-            if(questionsDisplayed >= maxCountryQuestions) {
+            if (questionsDisplayed >= maxCountryQuestions) {
                 isLastPage = true;
             }
         }
 
         var buttonClass = 'button large ib purple';
-        var buttonText  = 'Next Page';
-        var buttonLink  = window.location.href.split('?')[0] + '?page-id=' + (Number(window.currentPage) + 1);
-        var buttonID    = '';
+        var buttonText = 'Next Page';
+        var buttonLink = window.location.href.split('?')[0] + '?page-id=' + (Number(window.currentPage) + 1);
+        var buttonID = '';
         var queryString = store('querystrings');
 
-        if(isLastPage) {
+        if (isLastPage) {
             buttonID = 'funnel-button';
             buttonText = 'Get Results!';
-            buttonLink  = window.funnelURL;
-        } 
+            buttonLink = window.funnelURL;
+        }
 
         $('.pagination-buttons')
-            .append('<a href="'+buttonLink+'" id="'+buttonID+'" class="'+buttonClass+'">'+buttonText+'</a>');
-
+            .append('<a href="' + buttonLink + '" id="' + buttonID + '" class="' + buttonClass + '">' + buttonText + '</a>');
+        if (window.adSettingsForCountry.other_ads) {
+            $('.pagination-buttons').append(`
+                    <div class="ad-slot after-next-button">
+                        <!-- after_next_button -->
+                        <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-4411421854869090"
+                            data-ad-slot="3282675590"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>`)
+        }
         // setting up a goal in the Google Analytics that takes the click on the next page button on the Quiz page
-        $('#advance-button').click(function(e){
+        $('#advance-button').click(function (e) {
             ga('send', 'event', 'Quiz', 'Click', 'Next Page');
         });
 
         // setting up a goal if the user click on the Get Results button.
-        $('#funnel-button').click(function(e){
+        $('#funnel-button').click(function (e) {
             ga('send', 'event', 'Quiz', 'Click', 'Get Results');
         });
     }
@@ -227,31 +251,31 @@
     }
 
     function initAlert() {
-        $('.cancel').click(function(e) {
+        $('.cancel').click(function (e) {
             e.preventDefault();
             $('.alert-bg').hide();
             $('.alert-bg').removeClass('apple');
         });
-        $('.back').click(function(e) {
+        $('.back').click(function (e) {
             e.preventDefault();
             $('.pane-one').show();
             $('.pane-two').hide();
             $('.alert-bg').removeClass('apple');
         });
-        $('.progress').click(function(e) {
+        $('.progress').click(function (e) {
             e.preventDefault();
 
             $('.pane-one').hide();
             $('.pane-two').show();
             $('.alert-bg').addClass('apple');
         });
-        $('.navigate').click(function(e) {
+        $('.navigate').click(function (e) {
             e.preventDefault();
 
-            link =  buildOutboundLink($(this));
+            link = buildOutboundLink($(this));
             window.open($(this).data('webcal'), '_blank');
 
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location.href = link;
             }, 3000);
         });
@@ -318,37 +342,40 @@
     }
 
     function buildOutboundLink(btn) {
-        var link            = btn.attr('href');
+        var link = btn.attr('href');
         var possibleAnswers = window.possible_answers;
-        var coinsVal        = btoa(getCoins());
-        var loaderText      = btoa(window.loaderText);
-        var newLink         = link + "?l=" + loaderText + "&c=" + coinsVal;
+        var coinsVal = btoa(getCoins());
+        var loaderText = btoa(window.loaderText);
+        var newLink = link + "?l=" + loaderText + "&c=" + coinsVal;
 
         //adding a random possible answer to link
         var quizAnswer = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)]['result_text'];
         newLink = newLink + "&a=" + btoa(quizAnswer);
-        
+
         //adding any other passthrough params
         var passthrough_strings = window.passthrough_strings;
         for (const querystring in passthrough_strings) {
-            newLink += `&${querystring}=${passthrough_strings[querystring]}`;
+            newLink += `& ${querystring}=${passthrough_strings[querystring]} `;
         }
         return newLink;
     }
 
     function loadAds() {
         country = window.country;
-        if (window.country != "US") {
-            var adscript = document.createElement("script");
-            adscript.type = "text/javascript";
-            adscript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-            adscript.async;
-            adscript.setAttribute('data-ad-client', 'ca-pub-4411421854869090');
-            adscript.onload = function () {
-                console.log("Ads Loaded");
-            }
-            document.body.appendChild(adscript);
+        window.adSettingsForCountry = { above_answers: true, after_questions: true, other_ads: true };
+        if (window.adSettings && window.adSettings[window.country]) {
+            window.adSettingsForCountry = window.adSettings[window.country];
         }
+        var adscript = document.createElement("script");
+        adscript.type = "text/javascript";
+        adscript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+        adscript.async;
+        adscript.setAttribute('data-ad-client', 'ca-pub-4411421854869090');
+        adscript.onload = function () {
+            console.log("Ads Loaded");
+        }
+        document.body.appendChild(adscript);
+
     }
 
 })(jQuery);
