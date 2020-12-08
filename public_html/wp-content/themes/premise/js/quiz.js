@@ -200,7 +200,34 @@
                         <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
+                    </div>
+                    
+                    <div class="ad-slot after-all-quizzes">
+                    <!-- after_all_related_quizzes -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-4411421854869090"
+                        data-ad-slot="9591280683"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+                <div class="ad-slot after-first-related-quiz">
+                    <!-- after_first_related_quiz -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-4411421854869090"
+                        data-ad-slot="4316555663"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                     </div>`)
+
         }
         // setting up a goal in the Google Analytics that takes the click on the next page button on the Quiz page
         $('#advance-button').click(function (e) {
