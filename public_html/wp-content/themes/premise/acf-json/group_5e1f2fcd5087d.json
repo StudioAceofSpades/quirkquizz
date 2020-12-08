@@ -139,8 +139,8 @@
         },
         {
             "key": "field_5f9c702f23a02",
-            "label": "Max Questions",
-            "name": "max_questions",
+            "label": "Country Settings",
+            "name": "country_settings",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -195,6 +195,63 @@
                     "min": "",
                     "max": 50,
                     "step": ""
+                },
+                {
+                    "key": "field_5fceafc8ab754",
+                    "label": "Above Answers Ads",
+                    "name": "above_answers_ads",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_5fceafe5ab755",
+                    "label": "After Questions Ads",
+                    "name": "after_questions_ads",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_5fceb029ab756",
+                    "label": "Other Ads",
+                    "name": "other_ads",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
                 }
             ]
         },
@@ -237,5 +294,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1606945779
+    "modified": 1607381264
 }

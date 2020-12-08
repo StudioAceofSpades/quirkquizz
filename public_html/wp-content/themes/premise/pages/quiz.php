@@ -43,7 +43,7 @@ $max_question_count = get_field('maximum_number_of_questions', 'options');
 
 // If we have a max number of questions on and individual quiz,
 // override the global max question count
-if($per_quiz_max = get_field('max_questions')) {
+if($per_quiz_max = get_field('country_settings')) {
     $max_question_count = $per_quiz_max;
 }
 
@@ -68,13 +68,24 @@ get_header(); ?>
     window.loaderText   = "<?php echo get_field('funnel_final_loader_text'); ?>";
 </script>
 
-<?php if(have_rows('max_questions','options')): ?>
+<?php if(have_rows('country_settings','options')): ?>
 <div
      id="question-count"
-      <?php while(have_rows('max_questions','options')): the_row(); ?>
+      <?php while(have_rows('country_settings','options')): the_row(); ?>
       data-country-<?php the_sub_field('country_code'); ?>="<?php the_sub_field('number_of_questions'); ?>"
       <?php endwhile; ?>
 ></div>
+
+<script type="text/javascript">
+      window.adSettings = {};
+      <?php while(have_rows('country_settings','options')): the_row(); ?>
+      window.adSettings["<?php the_sub_field('country_code')?>"] = {};
+      window.adSettings["<?php the_sub_field('country_code')?>"].above_answers = Boolean(<?php the_sub_field('above_answers_ads')?>);
+      window.adSettings["<?php the_sub_field('country_code')?>"].after_questions = Boolean(<?php the_sub_field('after_questions_ads')?>);
+      window.adSettings["<?php the_sub_field('country_code')?>"].other_ads = Boolean(<?php the_sub_field('other_ads')?>);
+
+      <?php endwhile; ?>
+</script>
 <script type="text/javascript">
 
     window.maxQuestionsByCountry    = {};
@@ -82,7 +93,7 @@ get_header(); ?>
     window.default_questions        = Number(<?php the_field('default_question_count','options'); ?>);
 
     <?php 
-    while(have_rows('max_questions','options')): 
+    while(have_rows('country_settings','options')): 
         the_row(); 
     ?>
         window.maxQuestionsByCountry["<?php the_sub_field('country_code'); ?>"] = Number("<?php the_sub_field('number_of_questions'); ?>");
@@ -204,18 +215,7 @@ get_header(); ?>
                                         <?php echo $question_description; ?>
                                     <?php endif; ?>
 
-                                    <div class="ad-slot above-answers-ad">
-                                        <!-- above_answers -->
-                                        <ins class="adsbygoogle"
-                                            style="display:block"
-                                            data-ad-client="ca-pub-4411421854869090"
-                                            data-ad-slot="9359346398"
-                                            data-ad-format="auto"
-                                            data-full-width-responsive="true"></ins>
-                                        <script>
-                                            (adsbygoogle = window.adsbygoogle || []).push({});
-                                        </script>
-                                    </div>
+                                   
 
                                     <div class="answers">
                                         <?php if(get_sub_field('answer_type') == 'text'): ?>
@@ -242,18 +242,7 @@ get_header(); ?>
                                         <?php endif; ?>
                                     </div>
                                 </div>
-                                <div class="ad-slot after-questions">
-                                    <!-- after_questions -->
-                                    <ins class="adsbygoogle"
-                                        style="display:block"
-                                        data-ad-client="ca-pub-4411421854869090"
-                                        data-ad-slot="9848083946"
-                                        data-ad-format="auto"
-                                        data-full-width-responsive="true"></ins>
-                                    <script>
-                                        (adsbygoogle = window.adsbygoogle || []).push({});
-                                    </script>
-                                </div>
+                               
                                 <?php 
                               
                                 $current_question++;
@@ -294,18 +283,7 @@ get_header(); ?>
                     
                     <div class="pagination-buttons"></div>
                     
-                    <div class="ad-slot after-next-button">
-                        <!-- after_next_button -->
-                        <ins class="adsbygoogle"
-                            style="display:block"
-                            data-ad-client="ca-pub-4411421854869090"
-                            data-ad-slot="3282675590"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
+                 
                 </div>
                 <div class="col-lg-4">
                     <aside class="sidebar">
