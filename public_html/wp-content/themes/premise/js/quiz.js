@@ -228,7 +228,6 @@
                     </script>
                     </div>`)
 
->>>>>>> QQ-13
         }
         // setting up a goal in the Google Analytics that takes the click on the next page button on the Quiz page
         $('#advance-button').click(function (e) {
