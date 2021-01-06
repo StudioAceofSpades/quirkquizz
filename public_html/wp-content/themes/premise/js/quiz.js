@@ -4,7 +4,6 @@
         window.quizID = "quiz-" + $('#quiz').data('quiz-id') + "-" + $("#quiz").data('curr-page');
         window.passthrough_strings = store('querystrings');
         getUserLocation();
-        renderQuestions();
         reloadQuizAnswers();
         bindQuizButtons();
         initAlert();
@@ -39,13 +38,14 @@
         }
 
         function setWindowLocation() {
+            console.log('this has run');
             window.country = store("country-code");
             loadAds();
+            renderQuestions();
         }
     }
 
     function renderQuestions() {
-        console.log('adsettings', window.adSettings);
         var offset = 0;
         var countQuestions = 0;
         var button = window.nextBtn;
@@ -55,7 +55,6 @@
             var maxQuestionsForCountry = window.default_questions;
         }
         var allQuestions = window.allQuestions.slice(0, maxQuestionsForCountry);
-        console.log(window.questionsByPage);
 
         var maxQuestionsForCurrentPage = window.questionsByPage[window.currentPage] || 9999999;
 
