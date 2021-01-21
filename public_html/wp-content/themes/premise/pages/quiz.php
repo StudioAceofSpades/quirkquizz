@@ -2,118 +2,155 @@
 
 global $post;
 
-/*
-Check to see what page we're on. If it's zero, or not
-set, set it to one. Otherwise, set it to the page-id 
-query variable in the URL.
-*/
-if(isset($_GET['page-id'])) {
-    $current_page = $_GET['page-id'];
-    if($current_page == 0){
-        $current_page = 1;
-    }
+if($_GET['page-id']) {
+    $page_number        = $_GET['page-id'];
 } else {
-    $current_page = 1;
+    $page_number    = 1;
 }
-$next_page = $current_page + 1;
+$quizID             = $post->ID;
+$max_question_count = get_field('default_question_count','options');
+$results            = get_field('funnel_result_text');
+$funnel_url         = get_field('funnel_url','options');
+$loader_text        = get_field('funnel_final_loader_text');
+$total_pages        = count(get_field('quiz_pages','options'));
+$questions          = false;
+$ads                = false;
+$pages              = false;
+$pagination         = array();
 
-// Create an array that stores the number of questions 
-// on each page.
+// Build our page by page question count
 if(have_rows('quiz_pages','options')) {
-    $page_number        = 1;
-    $questions_per_page = array();
+    $page   = 0;
+    $pages  = array();
     while(have_rows('quiz_pages','options')) {
         the_row();
-        $questions_per_page[$page_number] = get_sub_field('numbers_of_questions');
-        $page_number++;
+        $page++;
+        $pages[$page]                   = intval(get_sub_field('numbers_of_questions'));
+        $pagination['default'][$page]   = intval(get_sub_field('numbers_of_questions'));
     }
 }
 
-// Configure question_offset, which tells us how many
-// questions have already been displayed.
-$question_offset = 0;
-foreach($questions_per_page as $page => $num_questions){
-    if($page < $current_page){
-        $question_offset += $num_questions;
+// Build our paging and ad settings on a per-country basis
+if(have_rows('country_settings','options')) {
+    $ads        = array();
+    $countries  = array();
+
+    // Build ad settings
+    while(have_rows('country_settings','options')) {
+        the_row(); 
+        $page++;
+        $ads[get_sub_field('country_code')] = array(
+            'above_answers'     => get_sub_field('above_answers_ads'),
+            'after_questions'   => get_sub_field('after_questions_ads'),
+            'other'             => get_sub_field('other_ads'),
+        );
+        $countries[get_sub_field('country_code')] = get_sub_field('number_of_questions');
+    }
+    
+    // Build pagination by country
+    foreach($countries as $country => $max) {
+        $count      = 0;
+        $previous   = 0;
+        $counter    = 0;
+        $pagination[$country] = array();
+        foreach($pages as $page) {
+            $count += $page;
+            $counter++;
+
+            if($count > $max) {
+                $pagination[$country][$counter] = intval($max - $previous);
+                break;
+            } else {
+                $pagination[$country][$counter] = intval($page);
+                $previous = $count;
+            }
+        }
+    }
+
+    $count      = 0;
+    $previous   = 0;
+    $counter    = 0;
+    // Make sure our default pagination doesn't load more questions than the max
+    foreach($pagination['default'] as $page) {
+        $count += $page;
+        $counter++;
+        if($count > $max_question_count) {
+            $pagination['default'][$counter] = intval($max_question_count - $previous);
+            array_splice($pagination['default'], -1, count($pagination['default']) - $counter);
+            break;
+        } else {
+            $previous = $count;
+        }
     }
 }
 
-// Retrieves the 'max number of questions' field from cms
-$max_question_count = get_field('maximum_number_of_questions', 'options');
+// Build our questions
+if(have_rows('questions')) {
+    $questions = array();
+    
+    $counter = 0;
+    while(have_rows('questions')) {
+        the_row();
+        $type = get_sub_field('answer_type');
+        
+        $answers = false;
+        if($type == 'text' && have_rows('answers')) {
+            $answers    = array();
+            $n          = 0;
+            while(have_rows('answers')) {
+                the_row();
+                $answers[$n] = get_sub_field('answer');
+                $n++;
+            }
+        } 
+        if($type == 'image' && have_rows('image_answers')) {
+            $answers    = array();
+            $n          = 0;
+            while(have_rows('image_answers')) {
+                the_row();
+                $answers[$n] = array(
+                    'image' => get_sub_field('answer')['sizes']['image_answer'],
+                    'title' => get_sub_field('title'),
+                );
+                $n++;
+            }
+        }
 
-// If we have a max number of questions on and individual quiz,
-// override the global max question count
-if($per_quiz_max = get_field('country_settings')) {
-    $max_question_count = $per_quiz_max;
+        $questions[$counter] = array(
+            'image'         => get_sub_field('question_image')['sizes']['quiz_image'],
+            'question'      => htmlspecialchars(get_sub_field('question')),
+            'type'          => get_sub_field('answer_type'),
+            'answers'       => $answers,
+        );
+        $counter++;
+    }
 }
 
-// Sets highest number of questions possible to an int
-$questions_per_page[] = 2147483647; // INT_MAX
-
-// adding num of questions per page and offset together; sets min amt of questions shown to max_question_count value
-$question_limit = min($questions_per_page[$current_page] + $question_offset, $max_question_count);
-$is_last_page   = false;
-
-if($current_page > count(get_field('quiz_pages','options'))) {
-    $is_last_page = true;
-}
-
-$allanswers = get_field('funnel_result_text');
 get_header(); ?>
 
 <script>
-    <?php print("window.possible_answers = ".json_encode($allanswers)).";" ?>
-    window.currentPage  = <?php echo $current_page; ?>;
-    window.funnelURL    = "<?php echo get_field('funnel_url','options'); ?>";
-    window.loaderText   = "<?php echo get_field('funnel_final_loader_text'); ?>";
-</script>
-
-<?php if(have_rows('country_settings','options')): ?>
-<div
-     id="question-count"
-      <?php while(have_rows('country_settings','options')): the_row(); ?>
-      data-country-<?php the_sub_field('country_code'); ?>="<?php the_sub_field('number_of_questions'); ?>"
-      <?php endwhile; ?>
-></div>
-
-<script type="text/javascript">
-      window.adSettings = {};
-      <?php while(have_rows('country_settings','options')): the_row(); ?>
-      window.adSettings["<?php the_sub_field('country_code')?>"] = {};
-      window.adSettings["<?php the_sub_field('country_code')?>"].above_answers = Boolean(<?php the_sub_field('above_answers_ads')?>);
-      window.adSettings["<?php the_sub_field('country_code')?>"].after_questions = Boolean(<?php the_sub_field('after_questions_ads')?>);
-      window.adSettings["<?php the_sub_field('country_code')?>"].other_ads = Boolean(<?php the_sub_field('other_ads')?>);
-
-      <?php endwhile; ?>
-</script>
-<script type="text/javascript">
-
-    window.maxQuestionsByCountry    = {};
-    window.questionsByPage          = {};
-    window.default_questions        = Number(<?php the_field('default_question_count','options'); ?>);
-
     <?php 
-    while(have_rows('country_settings','options')): 
-        the_row(); 
+    print("window.results = ".json_encode($results)).";";
+    print("window.ads = ".json_encode($ads)).";";
+    print("window.pages = ".json_encode($pagination)).";";
+    print("window.questions = ".json_encode($questions)).';';
+    if($quizID) {
+        echo 'window.quiz = '.$quizID.';';
+    }
+    if($funnel_url) {
+        echo 'window.funnelURL = "'.$funnel_url.'";';
+    }
+    if($loader_text) {
+        echo 'window.loaderText = "'.$loader_text.'";';
+    }
+    if($question_offset) {
+        echo 'window.offset = '.$question_offset.';';
+    }
     ?>
-        window.maxQuestionsByCountry["<?php the_sub_field('country_code'); ?>"] = Number("<?php the_sub_field('number_of_questions'); ?>");
-    <?php 
-    endwhile;
-    $counter = 0; 
-    while(have_rows('quiz_pages','options')): 
-        the_row(); 
-        $counter++; 
-    ?>
-        window.questionsByPage['<?php echo $counter; ?>'] = Number("<?php the_sub_field('numbers_of_questions'); ?>");
-    <?php endwhile; ?>
+    window.coin = '<?php bloginfo("template_directory"); ?>/img/coin.svg';
 </script>
-<?php endif; ?>
 
-<div 
-    id="quiz" 
-    data-quiz-id="<?php echo $post->ID; ?>" 
-    data-curr-page="<?php echo $current_page; ?>" 
-    data-num-results="<?php echo count(get_field('results')); ?>">
+<div id="quiz">
     
     <div id="coin-counter">
         <img src="<?php bloginfo('template_directory'); ?>/img/coin.svg">
@@ -125,8 +162,8 @@ get_header(); ?>
             <div class="row">
                 <div class="col-lg-8">
                     
-                    <?php if($current_page == 1): ?>
-                    <div class="card question-title">                                                                     
+                    <?php if($page_number == 1): ?>
+                    <div class="card question-title">
                         
                         <?php if($title = get_field('quiz_title')): ?>
                         <h1><?php echo $title; ?></h1>
@@ -139,7 +176,6 @@ get_header(); ?>
                         <?php endif; ?>
 
                         <div class="quiz-meta">
-                            
                             <?php if($author = get_field('quiz_author')): ?>
                             <h3 class="quiz-author">Quiz Creator: <span><?php echo $author['display_name']; ?></span></h3>
                             <?php endif; ?>
@@ -149,141 +185,20 @@ get_header(); ?>
                                 <?php echo $description; ?>
                             </div>
                             <?php endif; ?>
-
                         </div>
-
                         <div class="buttons center">
                             <a href="#start-quiz" class="button large ib purple">Start Quiz</a>
                         </div>
-
                     </div>
                     <?php endif; ?>
 
                     <div class="questions-container"></div>
+                    <div class="button-container">
+                        <div class="pagination-buttons">
+                            <div class="ad-slot after-next-button"></div>
+                        </div>
+                    </div>
 
-                    <?php if(have_rows('questions')) : $current_question = 1; ?>
-                    <script type="text/javascript">
-                    console.log('asdkalskd');
-                    window.allQuestions = [];
-                    <?php while(have_rows('questions')): the_row(); ?>
-                        var question = {};
-                        question.image = "<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>";
-                        question.question = "<?php echo htmlspecialchars(get_sub_field('question')); ?>";
-                        question.coins = "<?php bloginfo('template_directory'); ?>/img/coin.svg";
-
-                        <?php if($question_description = get_sub_field('question_description')): ?>
-                            question.description = "<?php echo $question_description; ?>";
-                        <?php endif; ?>
-
-                        question.answerType = "<?php echo get_sub_field('answer_type') ?>";
-
-                        <?php if(have_rows('answers')): $current_answer = 1; ?>
-                            question.answers = [];
-                            <?php while(have_rows('answers')): the_row(); ?>
-                                question.answers.push({
-                                  name: "<?php echo get_sub_field_object('answer')['name']; ?>",
-                                  text: `<?php echo get_sub_field('answer'); ?>`
-                                })
-                            <?php endwhile; ?>
-                        <?php endif; ?>
-
-                        <?php if(have_rows('image_answers')): $current_answer = 1; ?>
-                            question.imageAnswers = [];
-                            <?php while(have_rows('image_answers')): the_row(); ?>
-                                question.imageAnswers.push({
-                                    name: `<?php echo get_sub_field_object('answer')['name']; ?>`,
-                                    url: "<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>",
-                                    title: `<?php echo get_sub_field('title'); ?>`
-                                });
-                            <?php endwhile; ?>
-                        <?php endif; ?>
-
-                        window.allQuestions.push(question);
-
-                    <?php endwhile; ?>
-
-                    </script>
-                        <?php while(have_rows('questions')): the_row(); ?>
-                                <div class="card question hide" <?php if($current_question == 1) echo 'id="start-quiz"'; ?>>
-                            
-
-                                    <h2>Question <?php echo $current_question; ?></h2>
-                                    <img src="<?php echo get_sub_field('question_image')['sizes']['quiz_image']; ?>" alt="">
-                                    <h3><?php the_sub_field('question') ?></h3>
-
-                                    <?php if($question_description = get_sub_field('question_description')): ?>
-                                        <?php echo $question_description; ?>
-                                    <?php endif; ?>
-
-                                   
-
-                                    <div class="answers">
-                                        <?php if(get_sub_field('answer_type') == 'text'): ?>
-                                            <?php if(have_rows('answers')): $current_answer = 1; ?>
-                                                <?php while(have_rows('answers')): the_row(); ?>
-                                                    <a data-answer-id="<?php echo get_sub_field_object('answer')['name']; ?>" href="#" class="button b offwhite"><?php the_sub_field('answer'); ?><div class="coins-get"><i class="fas fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div></a>
-                                                    <?php $current_answer++; ?>
-                                                <?php endwhile; ?>
-                                            <?php endif; ?>
-                                        <?php elseif(get_sub_field('answer_type') == 'image'): ?>
-                                            <?php if(have_rows('image_answers')): $current_answer = 1; ?>
-                                                <?php while(have_rows('image_answers')): the_row(); ?>
-                                                    <div data-answer-id="<?php print_r(get_sub_field_object('answer')['name']); ?>" class="button ib image offwhite">
-                                                        <div class="coins-get"><i class="fas fa-plus"></i><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"><img src="<?php bloginfo('template_directory'); ?>/img/coin.svg"></div>
-                                                        <div class="image-container" style="background-image: url(<?php echo get_sub_field('answer')['sizes']['image_answer']; ?>);">
-                                                            <?php if($title = get_sub_field('title')): ?>
-                                                            <span class="title"><?php echo $title; ?></span>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                    </div>
-                                                    <?php $current_answer++; ?>
-                                                    <?php endwhile; ?>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                               
-                                <?php 
-                              
-                                $current_question++;
-                                
-                                // Added break so question ends at max question count set
-                                if ($current_question - 1  == $max_question_count) {
-                                    break; 
-                                }
-                            endwhile; 
-
-                            // If we ran out of questions before the end of the page we know its the last page. 
-                            if(($current_question - 1 <= $question_limit)) {
-                                $is_last_page = true;
-                            }
-                          ?>
-                    <?php endif; ?>
-
-                    <script type="text/javascript">
-                    window.currentPage  = '<?php echo $current_page ?>';
-                    window.nextBtn      = {};
-                    <?php if($current_page == 1 && $paid_quizad_enabled): ?>
-                        window.nextBtn.text = "Next Page";
-                        window.nextBtn.class = "class='button large ib purple next-page-btn'";
-                        window.nextBtn.id = "advance-button";
-                        window.nextBtn.href = "<?php echo add_query_arg( 'page-id', 'paidquizad', $_SERVER['REQUEST_URI'] );?>"
-                    <?php elseif(!$is_last_page) : ?>
-                        window.nextBtn.text = "Next Page";
-                        window.nextBtn.class = "class='button large ib purple next-page-btn'";
-                        window.nextBtn.id = "advance-button";
-                        window.nextBtn.href="<?php echo add_query_arg( 'page-id', $next_page, $_SERVER['REQUEST_URI'] );?>"
-                    <?php else: ?>
-                        window.nextBtn.text = "Get Results!";
-                        window.nextBtn.id = "funnel-button";
-                        window.nextBtn.class= "class='button large ib purple get-results next-page-btn'";
-                        window.nextBtn.href="<?php echo add_query_arg(array('l' => base64_encode(get_field('funnel_final_loader_text'))), get_field('funnel_url', 'options')); ?>"
-                    <?php endif; ?>
-                    </script>
-                    
-                    <div class="pagination-buttons"></div>
-                    
-                 
                 </div>
                 <div class="col-lg-4">
                     <aside class="sidebar">
@@ -292,7 +207,6 @@ get_header(); ?>
                 </div>
             </div>
         </div>
-        <?php cfct_loop(); ?>
     </div>
 </div>
 
