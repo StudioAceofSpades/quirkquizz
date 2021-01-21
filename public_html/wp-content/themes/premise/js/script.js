@@ -71,13 +71,13 @@
                     'page'              : page,
                     'pages'             : window.pages,
                 },
-
                 'funnel'        : {
                     'url'       : window.funnelURL,
                     'text'      : window.loaderText,
                     'results'   : window.results,
                 },
                 'ads'           : window.ads,
+                'flows'         : window.flows
             };
 
             if(typeof settings.pagination.pages[userLocation][page] == 'undefined') {
@@ -101,23 +101,185 @@
                 settings.pagination['last'] = false;
             }
         }
-
-        store('settings', settings);
         console.log(settings);
+        store('settings', settings);
         initQuiz();
     }
     
     function initQuiz() {
         initFlow();
-        initAds();
         bindTracking();
     }
 
     function initFlow() {
-        renderQuestions();
-        renderPagination();
-        initAlert();
+        var settings = store('settings');
+        var location = settings.location;
+        if(location == 'default') {
+            location = 'US';
+        }
+
+        if(settings.flows[location] == 'default') {
+            renderDefaultQuestions();
+            renderDefaultPagination();
+            initAlert();
+            initDefaultAds();
+        }
+        if(settings.flows[location] == 'scroll') {
+            lockHeader();
+            renderScrollQuestions();
+            initAlert();
+            initScrollAds();
+        }
+        if(settings.flows[location] == 'no-reload') {
+            renderNoReloadQuestions();
+            initAlert();
+            initNoReloadAds();
+        }
     }
+
+    function lockHeader() {
+        var $header = $('.header');
+        $header.css({
+            'position'  : 'relative'
+        });
+    }
+
+    function renderScrollQuestions() {
+        $('a[href="#start-quiz"]').click(function() {
+            loadQuestion(1, function() {
+                $('.question-title').fadeOut(200);
+            });
+        });
+        $('.answers .button').click(function() {
+            var settings            = store('settings');
+            var next                = settings.pagination.page;
+            var hasMoreQuestions    = true;
+            if(hasMoreQuestions) {
+                loadQuestion(next);
+            } else {
+                triggerAlert();
+            }
+        });
+    }
+
+    function loadQuestion(loadQuestion, callback) {
+        scrollToDiv($('#quiz-top'), callback);
+
+        var arena           = $('.questions-container');
+        var settings        = store('settings');
+        var index           = loadQuestion - 1;
+        var location        = settings.location;
+        var coin            = window.coin;
+        var output          = '';
+        var questionNumber  = loadQuestion;
+        var question        = settings.questions[index];
+
+        settings.pagination.page = loadQuestion + 1;
+            
+        output +=   '<div class="ad-slot before-question"></div>';
+
+        if (question.type === "text") {
+            var classes = "card question";
+            if('response' in question) {
+                classes += " answered";
+            }
+            output +=   '<div class="' + classes + '" data-question="' + questionNumber + '">' +
+                            '<h2>Question ' + questionNumber + '</h2>' +
+                            '<img src="' + question.image  + '">' +
+                            '<h3>' + question.question + '</h3>' +
+                            '<div class="ad-slot above-answers-ad">' +
+                            '</div>' +
+                            '<div class="ad-slot after-question"></div>' +
+                            '<div class="answers">';
+
+            for(i in question.answers) {
+                var answers = question.answers;
+                var classes = "button ib offwhite";
+                if('response' in question && i == question.response) {
+                    classes += " selected";
+                }
+                output += 
+                '<a class="' + classes + '" href="#">' +
+                    answers[i] +
+                    '<div class="coins-get">' +
+                        '<i class="fas fa-plus"></i>' + 
+                        '<img src="' + coin + '">' +
+                        '<img src="' + coin + '">' +
+                        '<img src="' + coin + '">' +
+                    '</div>' +
+                '</a>';
+            }
+
+            output +=       '</div>' +
+                        '</div>';
+        } 
+        else {
+            var classes = "card question";
+            if('response' in question) {
+                classes += " answered";
+            }
+            output +=   '<div class="'+classes+'" data-question="'+questionNumber+'">' +
+                            '<h2>Question ' + questionNumber + '</h2>' +
+                            '<h3>' + question.question + '</h3>' +
+                            '<div class="ad-slot above-answers-ad">' +
+                            '</div>' +
+                            '<div class="answers">';
+
+            for(x in question.answers) {
+                answers = question.answers;
+                output += 
+                '<div class="button ib image offwhite" href="#">' +
+                    '<div class="coins-get">' +
+                        '<i class="fas fa-plus"></i>' +
+                        '<img src="' + coin + '">' +
+                        '<img src="' + coin + '">' +
+                        '<img src="' + coin + '">' +
+                    '</div>' +
+                    '<div class="image-container" style="background-image: url(' + answers[x].image + ');">' +
+                        '<span class="title">' + answers[x].title + '</span>' +
+                    '</div>' +
+                '</div>';
+            }
+
+            output +=       '</div>' +
+                        '</div>' +
+                        '<div class="ad-slot after-answer"></div>';
+        }
+        $output = $(output);
+        arena.html($output);
+        $output.hide().fadeIn(1000);
+        bindScrollButtons();
+    }
+
+    function bindScrollButtons() {
+        $('.answers .button').click(function() {
+            var settings            = store('settings');
+            var next                = settings.pagination.page + 1;
+            var hasMoreQuestions    = true;
+            if(hasMoreQuestions) {
+                loadQuestion(next, function(){
+                    var settings = store('settings');
+                });
+            } else {
+                triggerAlert();
+            }
+        });
+    }
+
+    function scrollToDiv(el, callback) {
+        $('html, body').animate({
+            scrollTop: el.offset().top
+        }, 500, 'swing', function() {
+            console.log(typeof callback);
+            if(typeof callback !== 'undefined') {
+                callback();
+            }
+        });
+    }
+
+    function initScrollAds() {}
+    function renderNoReloadQuestions() {}
+    function initNoReloadAds() {}
 
     function initAlert() {
         $('.cancel').click(function (e) {
@@ -147,7 +309,7 @@
         });
     }
 
-    function renderPagination() {
+    function renderDefaultPagination() {
         var settings    = store('settings');
         var url         = window.location.href.split('?')[0];
         var button      = '<a href="' + url  + '?page-id=' + (settings.pagination.page + 1) + '" class="button large ib purple">Next Page</a>';
@@ -162,7 +324,7 @@
         });
     }
 
-    function initAds() {
+    function initDefaultAds() {
         var settings = store('settings');
         var location = settings.location;
 
@@ -202,7 +364,7 @@
         return "";
     }
 
-    function renderQuestions() {
+    function renderDefaultQuestions() {
         var arena       = $('.questions-container');
         var settings    = store('settings');
         var page        = settings.pagination.page;

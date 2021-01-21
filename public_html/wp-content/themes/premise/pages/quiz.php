@@ -34,6 +34,7 @@ if(have_rows('quiz_pages','options')) {
 if(have_rows('country_settings','options')) {
     $ads        = array();
     $countries  = array();
+    $flows      = array();
 
     // Build ad settings
     while(have_rows('country_settings','options')) {
@@ -43,8 +44,15 @@ if(have_rows('country_settings','options')) {
             'above_answers'     => get_sub_field('above_answers_ads'),
             'after_questions'   => get_sub_field('after_questions_ads'),
             'other'             => get_sub_field('other_ads'),
+            'docked_banner'     => get_sub_field('docked_banner'),
+            'before_question'   => get_sub_field('before_question'),
+            'after_question'    => get_sub_field('after_question'),
+            'after_answer'      => get_sub_field('after_answer'),
+            'top'               => get_sub_field('top'),
+            'bottom'            => get_sub_field('bottom'),
         );
-        $countries[get_sub_field('country_code')] = get_sub_field('number_of_questions');
+        $flows[get_sub_field('country_code')]       = get_sub_field('flow');
+        $countries[get_sub_field('country_code')]   = get_sub_field('number_of_questions');
     }
     
     // Build pagination by country
@@ -134,6 +142,7 @@ get_header(); ?>
     print("window.ads = ".json_encode($ads)).";";
     print("window.pages = ".json_encode($pagination)).";";
     print("window.questions = ".json_encode($questions)).';';
+    print("window.flows = ".json_encode($flows)).';';
     if($quizID) {
         echo 'window.quiz = '.$quizID.';';
     }
@@ -157,7 +166,7 @@ get_header(); ?>
         <div id="coin-total"></div>
     </div>
 
-    <div class="content reduce-padding">
+    <div class="content reduce-padding" id="quiz-top">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
