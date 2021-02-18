@@ -130,10 +130,10 @@
             initAlert();
             initScrollAds();
         }
-        if(settings.flows[location] == 'no-reload') {
+        if(settings.flows[location] == 'ajax') {
             renderNoReloadQuestions();
             initAlert();
-            initNoReloadAds();
+            refreshNoReloadAds();
         }
     }
 
@@ -150,16 +150,6 @@
                 $('.question-title').fadeOut(200);
             });
         });
-        $('.answers .button').click(function() {
-            var settings            = store('settings');
-            var next                = settings.pagination.page;
-            var hasMoreQuestions    = true;
-            if(hasMoreQuestions) {
-                loadQuestion(next);
-            } else {
-                triggerAlert();
-            }
-        });
     }
 
     function loadQuestion(loadQuestion, callback) {
@@ -173,9 +163,11 @@
         var output          = '';
         var questionNumber  = loadQuestion;
         var question        = settings.questions[index];
+        
+        settings.pagination.page = settings.pagination.page + 1;
 
-        settings.pagination.page = loadQuestion + 1;
-            
+        store('settings', settings);
+
         output +=   '<div class="ad-slot before-question"></div>';
 
         if (question.type === "text") {
@@ -211,7 +203,8 @@
             }
 
             output +=       '</div>' +
-                        '</div>';
+                        '</div>' +
+                        '<div class="ad-slot after-answer"></div>';
         } 
         else {
             var classes = "card question";
@@ -249,19 +242,27 @@
         arena.html($output);
         $output.hide().fadeIn(1000);
         bindScrollButtons();
+        initScrollAds();
     }
 
     function bindScrollButtons() {
         $('.answers .button').click(function() {
             var settings            = store('settings');
-            var next                = settings.pagination.page + 1;
-            var hasMoreQuestions    = true;
+            var next                = settings.pagination.page;
+            var hasMoreQuestions    = false;
+            var totalQuestions      = 0;
+            for(page in settings.pagination.pages[settings.location]) {
+                totalQuestions += settings.pagination.pages[settings.location][page];
+            }
+            if(next <= totalQuestions) {
+                hasMoreQuestions    = true;
+            } 
             if(hasMoreQuestions) {
                 loadQuestion(next, function(){
                     var settings = store('settings');
                 });
             } else {
-                triggerAlert();
+                $('.alert-bg').show();
             }
         });
     }
@@ -270,16 +271,139 @@
         $('html, body').animate({
             scrollTop: el.offset().top
         }, 500, 'swing', function() {
-            console.log(typeof callback);
             if(typeof callback !== 'undefined') {
                 callback();
             }
         });
     }
 
-    function initScrollAds() {}
-    function renderNoReloadQuestions() {}
-    function initNoReloadAds() {}
+    function initScrollAds() {
+        var settings = store('settings');
+        var location = settings.location;
+
+        if(location == 'default') {
+            location = 'US';
+        }
+
+        var docked          = settings.ads[location]['docked_banner'];
+        var afterQuestion   = settings.ads[location]['after_question'];
+        var beforeQuestion  = settings.ads[location]['before_question'];
+        var afterAnswer     = settings.ads[location]['after_answer'];
+
+        if(docked) {
+            $('.docked').html(getAdTag('3635852863'));
+        }
+        if(afterQuestion) {
+            $('.after-question').html(getAdTag('2322771196'));
+        }
+        if(beforeQuestion) {
+            $('.before-question').html(getAdTag('2322771196'));
+        }
+        if(afterAnswer) {
+            $('.after-answer').html(getAdTag('7862038337'));
+        }
+    }
+    function renderNoReloadQuestions() {
+        var arena       = $('.questions-container');
+        var settings    = store('settings');
+        var page        = settings.pagination.page;
+        var location    = settings.location;
+        var pages       = settings.pagination.pages[location];
+        var coin        = window.coin;
+        var output      = '';
+
+        var startQuestion   = 0;
+        if(page > 1) {
+            for(y = 0; y < page-1; y++) {
+                startQuestion += pages[y];
+            }
+        }
+        var endQuestion     = pages[page-1];
+        
+        // Display each question for this page
+        for(n in settings.questions) {
+            var questionNumber  = parseInt(parseInt(n) + 1);
+            var question        = settings.questions[n];
+            
+            if(n >= startQuestion && n < endQuestion) {
+                if (question.type === "text") {
+                    var classes = "card question hidden";
+                    output +=   '<div class="' + classes + '" data-question="' + questionNumber + '">' +
+                                    '<h2>Question ' + questionNumber + '</h2>' +
+                                    '<img src="' + question.image  + '">' +
+                                    '<h3>' + question.question + '</h3>' +
+                                    '<div class="answers">';
+
+                    for(i in question.answers) {
+                        var answers = question.answers;
+                        var classes = "button ib offwhite";
+                        if('response' in question && i == question.response) {
+                            classes += " selected";
+                        }
+                        output += 
+                        '<a class="' + classes + '" href="#">' +
+                            answers[i] +
+                            '<div class="coins-get">' +
+                                '<i class="fas fa-plus"></i>' + 
+                                '<img src="' + coin + '">' +
+                                '<img src="' + coin + '">' +
+                                '<img src="' + coin + '">' +
+                            '</div>' +
+                        '</a>';
+                    }
+
+                    output +=       '</div>' +
+                                '</div>';
+                } else {
+                    var classes = "card question hidden";
+                    output +=   '<div class="'+classes+'" data-question="'+questionNumber+'">' +
+                                    '<h2>Question ' + questionNumber + '</h2>' +
+                                    '<h3>' + question.question + '</h3>' +
+                                    '<div class="answers">';
+
+                    for(x in question.answers) {
+                        answers = question.answers;
+                        output += 
+                        '<div class="button ib image offwhite" href="#">' +
+                            '<div class="coins-get">' +
+                                '<i class="fas fa-plus"></i>' +
+                                '<img src="' + coin + '">' +
+                                '<img src="' + coin + '">' +
+                                '<img src="' + coin + '">' +
+                            '</div>' +
+                            '<div class="image-container" style="background-image: url(' + answers[x].image + ');">' +
+                                '<span class="title">' + answers[x].title + '</span>' +
+                            '</div>' +
+                        '</div>';
+                    }
+
+                    output +=       '</div>' +
+                                '</div>';
+                }
+            }
+        }
+        arena.html(output);
+        initNoReloadQuizControls();
+    }
+    function initNoReloadQuizControls() {
+        $('a[href="#start-quiz"]').click(function(e) {
+            e.preventDefault();
+            $('.question-title').hide();
+            $('[data-question="1"]').removeClass('hidden');
+        });
+        $('.answers .button').click(function(e) {
+            e.preventDefault();
+            var $question = $(this).parents('.question');
+            var $next = $question.next();
+            if($next.length) {
+                $question.hide();
+                $next.show();
+                refreshNoReloadAds();
+            } else {
+                $('.alert-bg').show();
+            }
+        });
+    }
 
     function initAlert() {
         $('.cancel').click(function (e) {

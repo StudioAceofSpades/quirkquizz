@@ -1,4 +1,23 @@
+.adsbygoogle {
+    min-height: 50px;
+    min-width: 100%;
+    background: #f00;
+}
+.docked {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: 5px 0 10px;
+}
 #quiz {
+    .col-lg-8 {
+        position: relative;
+    }
+    .question {
+        &.hidden {
+            display: none;
+        }
+    }
     .question h3 {
         margin-top: $space-4;
         margin-bottom: $space-4;

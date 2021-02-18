@@ -170,6 +170,8 @@ get_header(); ?>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+
+                    <div class="docked"></div>
                     
                     <?php if($page_number == 1): ?>
                     <div class="card question-title">
@@ -240,5 +242,6 @@ get_header(); ?>
         </div>
     </div>
 </div>
+
 
 <?php get_footer(); ?>
