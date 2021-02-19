@@ -38,7 +38,6 @@
         }
 
         function setWindowLocation() {
-            console.log('this has run');
             window.country = store("country-code");
             loadAds();
             renderQuestions();
@@ -138,7 +137,12 @@
                 countQuestions++;
             }
         });
-
+        $('[href="#start-quiz"]').click(function(e) {
+            e.preventDefault();
+            $('html,body').animate({
+                scrollTop : ($('.questions-container').offset().top - $('.header').height()),
+            }, 'fast');
+        });
         outputPagination();
     }
 
