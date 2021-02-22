@@ -4,13 +4,6 @@
         window.quizID = "quiz-" + $('#quiz').data('quiz-id') + "-" + $("#quiz").data('curr-page');
         window.passthrough_strings = store('querystrings');
         getUserLocation();
-        reloadQuizAnswers();
-        bindQuizButtons();
-        initAlert();
-        // Only run on quiz pages
-        if ($("#quiz").length > 0) {
-            setupCoins();
-        }
     });
 
     function getUserLocation(_callback) {
@@ -26,15 +19,39 @@
                     store("country-code", location.country_code2);
                     store('found-location', 'true');
                     setWindowLocation();
+
+                    reloadQuizAnswers();
+                    bindQuizButtons();
+                    initAlert();
+                    // Only run on quiz pages
+                    if ($("#quiz").length > 0) {
+                        setupCoins();
+                    }
                 },
                 error: function () {
                     store("country-code", "US");
                     store('found-location', 'false');
                     setWindowLocation();
+                    reloadQuizAnswers();
+                    bindQuizButtons();
+                    initAlert();
+                    // Only run on quiz pages
+                    if ($("#quiz").length > 0) {
+                        setupCoins();
+                    }
                 }
             });
         } else {
             setWindowLocation();
+            reloadQuizAnswers();
+            bindQuizButtons();
+            initAlert();
+            // Only run on quiz pages
+            if ($("#quiz").length > 0) {
+                setupCoins();
+            }
+
+
         }
 
         function setWindowLocation() {
