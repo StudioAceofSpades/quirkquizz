@@ -163,7 +163,6 @@ get_header(); ?>
 
                     <?php if(have_rows('questions')) : $current_question = 1; ?>
                     <script type="text/javascript">
-                    console.log('asdkalskd');
                     window.allQuestions = [];
                     <?php while(have_rows('questions')): the_row(); ?>
                         var question = {};

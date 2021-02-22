@@ -3,7 +3,9 @@
         window.quizRef = "quiz-" + $('#quiz').data('quiz-id');
         window.quizID = "quiz-" + $('#quiz').data('quiz-id') + "-" + $("#quiz").data('curr-page');
         window.passthrough_strings = store('querystrings');
-        getUserLocation();
+        if($('#quiz').length > 0) {
+            getUserLocation();
+        }
     });
 
     function getUserLocation(_callback) {
@@ -19,39 +21,25 @@
                     store("country-code", location.country_code2);
                     store('found-location', 'true');
                     setWindowLocation();
-
-                    reloadQuizAnswers();
-                    bindQuizButtons();
-                    initAlert();
-                    // Only run on quiz pages
-                    if ($("#quiz").length > 0) {
-                        setupCoins();
-                    }
+                    initQuiz();
                 },
                 error: function () {
                     store("country-code", "US");
                     store('found-location', 'false');
                     setWindowLocation();
-                    reloadQuizAnswers();
-                    bindQuizButtons();
-                    initAlert();
-                    // Only run on quiz pages
-                    if ($("#quiz").length > 0) {
-                        setupCoins();
-                    }
+                    initQuiz();
                 }
             });
         } else {
             setWindowLocation();
+            initQuiz();
+        }
+
+        function initQuiz() {
             reloadQuizAnswers();
             bindQuizButtons();
             initAlert();
-            // Only run on quiz pages
-            if ($("#quiz").length > 0) {
-                setupCoins();
-            }
-
-
+            setupCoins();
         }
 
         function setWindowLocation() {
@@ -60,6 +48,7 @@
             renderQuestions();
         }
     }
+
 
     function renderQuestions() {
         var offset = 0;
@@ -419,7 +408,6 @@
         adscript.async;
         adscript.setAttribute('data-ad-client', 'ca-pub-4411421854869090');
         adscript.onload = function () {
-            console.log("Ads Loaded");
         }
         document.body.appendChild(adscript);
 
